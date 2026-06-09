@@ -24,6 +24,7 @@ body {
   color: var(--black);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* Header Premium */
@@ -188,16 +189,16 @@ h1 span {
   position: relative;
 }
 
-/* Grid e Estrutura das Seções */
+/* Estrutura das Seções */
 section {
   padding: 120px 6%;
-  max-width: 1400px;
+  max-width: 1440px;
   margin: 0 auto;
 }
 
 .section-title {
   max-width: 650px;
-  margin: 0 auto 70px;
+  margin: 0 auto 90px;
   text-align: center;
 }
 
@@ -214,13 +215,14 @@ section {
 
 /* Modificações de Luxo nas Categorias */
 .category {
-  margin-bottom: 90px;
+  margin-bottom: 100px;
+  position: relative;
 }
 
 .category-head {
   text-align: center;
   max-width: 600px;
-  margin: 0 auto 48px;
+  margin: 0 auto 40px;
   padding-bottom: 24px;
   position: relative;
 }
@@ -250,14 +252,34 @@ section {
   font-weight: 400;
 }
 
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+/* ==========================================================================
+   ESTRUTURA DO CARROSSEL
+   ========================================================================== */
+.carousel-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-/* Cards Interativos de Serviços */
+.service-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px 4px;
+  width: 100%;
+  scrollbar-width: none; /* Esconde barra no Firefox */
+}
+
+.service-carousel::-webkit-scrollbar {
+  display: none; /* Esconde barra no Chrome/Safari */
+}
+
+/* Configuração dos Cards dentro do Carrossel */
 .service-card {
+  flex: 0 0 calc(25% - 18px); /* 4 cards por tela no PC */
+  scroll-snap-align: start;
   background: var(--gray-light);
   border: 1px solid rgba(0, 0, 0, 0.03);
   padding: 32px;
@@ -265,7 +287,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 240px;
+  min-height: 250px;
   text-decoration: none;
   color: var(--black);
   transition: var(--transition);
@@ -314,6 +336,7 @@ section {
   letter-spacing: 1px;
 }
 
+/* Efeito Hover nos Cards */
 .service-card:hover {
   background: var(--white);
   transform: translateY(-6px);
@@ -326,7 +349,46 @@ section {
   transform: translateX(0);
 }
 
-/* Painel de Horários e Localização ("Nosso Espaço") */
+/* Setas de Navegação Estilo Minimalista Boutique */
+.nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--gray-medium);
+  color: var(--black);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: var(--transition);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.nav-arrow:hover {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.nav-arrow.prev { left: -25px; }
+.nav-arrow.next { right: -25px; }
+
+/* Esconde setas se houver apenas um card (como na sobrancelha) */
+.service-carousel:only-child .nav-arrow,
+.service-card:only-child {
+  flex: 0 0 320px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Painel de Horários e Localização ("Nosso Espaço")
+   ========================================================================== */
 .info-section {
   background: var(--black);
   color: var(--white);
@@ -365,7 +427,7 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 28px;
   border-radius: 20px;
-  text-align: left; /* Mantém os cartões internos alinhados à esquerda para leitura limpa */
+  text-align: left;
 }
 
 .info-box-full {
@@ -422,11 +484,11 @@ footer p {
 }
 
 /* ==========================================================================
-   ADAPTAÇÃO TOTAL PARA CELULAR E TABLET (RESPONSIVIDADE PREMIUM)
+   RESPONSIVIDADE E ADAPTAÇÃO MOBILE (CARROSSEL ADAPTADO)
    ========================================================================== */
 
 @media (max-width: 1200px) {
-  .service-grid { grid-template-columns: repeat(3, 1fr); }
+  .service-card { flex: 0 0 calc(33.333% - 16px); } /* 3 cards por tela */
 }
 
 @media (max-width: 992px) {
@@ -452,16 +514,14 @@ footer p {
   .hero p { margin: 0 auto 32px; }
   .hero-img { height: 450px; border-radius: 40px; }
 
-  .service-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .service-card { flex: 0 0 calc(50% - 12px); } /* 2 cards por tela no Tablet */
   
-  /* Ajuste de centralização responsiva na seção "Nosso Espaço" */
   .info-section { 
     grid-template-columns: 1fr; 
     gap: 48px; 
     padding: 60px 5%; 
   }
   
-  /* Centraliza todo o bloco de textos no Mobile */
   .info-text-side {
     text-align: center;
     max-width: 580px;
@@ -477,10 +537,17 @@ footer p {
   
   .category-head h3 { font-size: 26px; }
   
-  .service-grid { grid-template-columns: 1fr; }
-  .service-card { padding: 24px; min-height: auto; }
-  .service-card p { margin-bottom: 16px; }
+  /* Ajuste Dinâmico para Celular */
+  .service-card { 
+    flex: 0 0 85%; /* Permite ver um pedaço do próximo card, convidando a arrastar */
+    padding: 24px; 
+    min-height: auto; 
+  }
   
+  /* Esconde as setas no celular, já que o usuário arrasta naturalmente com o dedo */
+  .nav-arrow { display: none; }
+  
+  .service-card p { margin-bottom: 16px; }
   .action-label { opacity: 0.8; transform: translateX(0); }
 
   .info-grid { grid-template-columns: 1fr; }
