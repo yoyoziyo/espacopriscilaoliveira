@@ -197,7 +197,7 @@ section {
 
 .section-title {
   max-width: 650px;
-  margin: 0 auto 90px;
+  margin: 0 auto 70px;
   text-align: center;
 }
 
@@ -212,7 +212,7 @@ section {
   font-style: italic;
 }
 
-/* Modificações de Luxo nas Categorias (Nomes Maiores e Centralizados) */
+/* Modificações de Luxo nas Categorias */
 .category {
   margin-bottom: 90px;
 }
@@ -225,7 +225,6 @@ section {
   position: relative;
 }
 
-/* Linha sutil decorativa sob a categoria */
 .category-head::after {
   content: '';
   position: absolute;
@@ -315,7 +314,6 @@ section {
   letter-spacing: 1px;
 }
 
-/* Efeito Hover nos Cards */
 .service-card:hover {
   background: var(--white);
   transform: translateY(-6px);
@@ -328,7 +326,7 @@ section {
   transform: translateX(0);
 }
 
-/* Painel de Horários e Localização */
+/* Painel de Horários e Localização ("Nosso Espaço") */
 .info-section {
   background: var(--black);
   color: var(--white);
@@ -338,6 +336,10 @@ section {
   grid-template-columns: 1fr 1.1fr;
   gap: 80px;
   align-items: center;
+}
+
+.info-text-side {
+  text-align: left;
 }
 
 .info-section h2 {
@@ -363,6 +365,7 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 28px;
   border-radius: 20px;
+  text-align: left; /* Mantém os cartões internos alinhados à esquerda para leitura limpa */
 }
 
 .info-box-full {
@@ -427,7 +430,7 @@ footer p {
 }
 
 @media (max-width: 992px) {
-  nav { display: none; } /* Esconde o menu de links para limpar a tela do celular */
+  nav { display: none; }
   
   header { 
     width: 92%; 
@@ -450,7 +453,20 @@ footer p {
   .hero-img { height: 450px; border-radius: 40px; }
 
   .service-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .info-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 5%; }
+  
+  /* Ajuste de centralização responsiva na seção "Nosso Espaço" */
+  .info-section { 
+    grid-template-columns: 1fr; 
+    gap: 48px; 
+    padding: 60px 5%; 
+  }
+  
+  /* Centraliza todo o bloco de textos no Mobile */
+  .info-text-side {
+    text-align: center;
+    max-width: 580px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 650px) {
@@ -461,12 +477,10 @@ footer p {
   
   .category-head h3 { font-size: 26px; }
   
-  /* Ajuste fino dos cards para telas de celulares menores */
   .service-grid { grid-template-columns: 1fr; }
   .service-card { padding: 24px; min-height: auto; }
   .service-card p { margin-bottom: 16px; }
   
-  /* Força a etiqueta "Agendar" a ficar sempre visível no celular (já que não há mouse/hover) */
   .action-label { opacity: 0.8; transform: translateX(0); }
 
   .info-grid { grid-template-columns: 1fr; }
