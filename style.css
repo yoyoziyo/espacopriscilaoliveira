@@ -2,8 +2,8 @@
 :root {
   --black: #121212;
   --gray-light: #fbf9f8;
-  --gray-medium: #f0eae7;
-  --gray-dark: #5a5451;
+  --gray-medium: #e2dad6;
+  --gray-dark: #6e6561;
   --pink-premium: #cf8096;
   --pink-soft: #fbf0f3;
   --gold-soft: #c5a880;
@@ -102,7 +102,7 @@ nav a:hover {
 /* Hero Section (Abertura) */
 .hero {
   min-height: 95vh;
-  padding: 160px 6% 80px;
+  padding: 180px 6% 80px;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
   gap: 80px;
@@ -132,7 +132,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: clamp(44px, 5.5vw, 74px);
+  font-size: clamp(40px, 5.5vw, 74px);
   line-height: 1.05;
   font-weight: 700;
   margin-bottom: 28px;
@@ -197,7 +197,7 @@ section {
 
 .section-title {
   max-width: 650px;
-  margin: 0 auto 70px;
+  margin: 0 auto 90px;
   text-align: center;
 }
 
@@ -212,27 +212,43 @@ section {
   font-style: italic;
 }
 
+/* Modificações de Luxo nas Categorias (Nomes Maiores e Centralizados) */
 .category {
-  margin-bottom: 60px;
+  margin-bottom: 90px;
 }
 
 .category-head {
-  border-bottom: 1px solid var(--gray-medium);
-  padding-bottom: 16px;
-  margin-bottom: 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  padding-bottom: 24px;
+  position: relative;
+}
+
+/* Linha sutil decorativa sob a categoria */
+.category-head::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 1px;
+  background: var(--pink-premium);
 }
 
 .category-head h3 {
-  font-size: 28px;
+  font-size: clamp(28px, 3.5vw, 36px);
   color: var(--black);
+  font-weight: 600;
+  margin-bottom: 8px;
 }
 
 .category-head span {
   color: var(--gray-dark);
-  font-size: 14px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  font-weight: 400;
 }
 
 .service-grid {
@@ -250,7 +266,7 @@ section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 230px;
+  min-height: 240px;
   text-decoration: none;
   color: var(--black);
   transition: var(--transition);
@@ -261,9 +277,6 @@ section {
   font-weight: 600;
   margin-bottom: 12px;
   font-family: "Inter", sans-serif;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .service-card p {
@@ -405,22 +418,60 @@ footer p {
   font-size: 14px;
 }
 
-/* Responsividade Adaptativa (Mobile First/Breakpoints) */
-@media (max-width: 1100px) {
-  nav { display: none; }
-  .service-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero { grid-template-columns: 1fr; gap: 50px; padding-top: 140px; }
-  .hero-img { height: 500px; border-radius: 40px; }
-  .info-section { grid-template-columns: 1fr; gap: 40px; }
+/* ==========================================================================
+   ADAPTAÇÃO TOTAL PARA CELULAR E TABLET (RESPONSIVIDADE PREMIUM)
+   ========================================================================== */
+
+@media (max-width: 1200px) {
+  .service-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 992px) {
+  nav { display: none; } /* Esconde o menu de links para limpar a tela do celular */
+  
+  header { 
+    width: 92%; 
+    height: 70px; 
+    top: 16px; 
+    padding: 0 24px; 
+  }
+  
+  .brand { font-size: 20px; }
+  .nav-btn { padding: 10px 20px; font-size: 12px; }
+
+  .hero { 
+    grid-template-columns: 1fr; 
+    gap: 40px; 
+    padding-top: 130px; 
+    text-align: center;
+  }
+  
+  .hero p { margin: 0 auto 32px; }
+  .hero-img { height: 450px; border-radius: 40px; }
+
+  .service-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .info-section { grid-template-columns: 1fr; gap: 40px; padding: 60px 5%; }
 }
 
 @media (max-width: 650px) {
-  header { width: 94%; padding: 0 24px; }
-  .nav-btn { display: none; }
+  section { padding: 80px 5%; }
+  
+  .section-title { margin-bottom: 50px; }
+  .category { margin-bottom: 60px; }
+  
+  .category-head h3 { font-size: 26px; }
+  
+  /* Ajuste fino dos cards para telas de celulares menores */
   .service-grid { grid-template-columns: 1fr; }
-  .category-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .service-card { padding: 24px; min-height: auto; }
+  .service-card p { margin-bottom: 16px; }
+  
+  /* Força a etiqueta "Agendar" a ficar sempre visível no celular (já que não há mouse/hover) */
+  .action-label { opacity: 0.8; transform: translateX(0); }
+
   .info-grid { grid-template-columns: 1fr; }
   .info-box-full { grid-column: span 1; }
   .btn-gold { grid-column: span 1; }
-  footer { flex-direction: column; text-align: center; }
+  
+  footer { flex-direction: column; text-align: center; gap: 16px; padding: 40px 5%; }
 }
