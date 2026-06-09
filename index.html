@@ -5,13 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Espaço Priscila Oliveira | Alta Estética</title>
 
+  <!-- Fontes Elegantes do Google -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Conexão com o arquivo de estilo separado -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+  <!-- Menu de Navegação Superior (Estilo Vidro Fosco) -->
   <header>
     <a href="#inicio" class="brand">Espaço <span>Priscila Oliveira</span></a>
     <nav>
@@ -19,10 +22,14 @@
       <a href="#servicos">Menu de Serviços</a>
       <a href="#sobre">Espaço & Horários</a>
     </nav>
-    <a href="#servicos" class="nav-btn">Agendar Agora</a>
+    <div class="header-buttons">
+      <a href="https://wa.me/5521982490919" class="nav-btn btn-wpp" target="_blank">WhatsApp</a>
+      <a href="#servicos" class="nav-btn">Agendar Agora</a>
+    </div>
   </header>
 
   <main>
+    <!-- Seção de Abertura (Hero - Minimalista Sem Imagem) -->
     <section class="hero" id="inicio">
       <div class="hero-content">
         <span class="tag">Beleza, Cuidado & Autoestima</span>
@@ -34,6 +41,7 @@
       </div>
     </section>
 
+    <!-- Seção Principal de Serviços -->
     <section id="servicos">
       <div class="section-title">
         <span class="tag">Nossos Serviços</span>
@@ -41,6 +49,7 @@
         <p>Deslize para o lado para ver todas as opções. Clique sobre o serviço ideal para você para reservar sua sessão.</p>
       </div>
 
+      <!-- Categoria: Unhas -->
       <div class="category">
         <div class="category-head">
           <h3>Unhas & Alongamentos</h3>
@@ -50,6 +59,7 @@
         <div class="carousel-container">
           <button class="nav-arrow prev" onclick="moveCarousel(this, -1)">❮</button>
           <div class="service-carousel">
+            <!-- Substitua o href="#" pelo link do Google Agenda de cada serviço -->
             <a href="#" class="service-card" target="_blank">
               <div class="card-body">
                 <h4>Alongamento em Acrílico</h4>
@@ -186,6 +196,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Cabelo -->
       <div class="category">
         <div class="category-head">
           <h3>Cuidados Capilares</h3>
@@ -265,6 +276,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Massoterapia -->
       <div class="category">
         <div class="category-head">
           <h3>Massoterapia</h3>
@@ -322,6 +334,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Sobrancelhas -->
       <div class="category">
         <div class="category-head">
           <h3>Olhar & Simetria</h3>
@@ -347,6 +360,7 @@
       </div>
     </section>
 
+    <!-- Seção sobre o Espaço e Localização -->
     <section id="sobre">
       <div class="info-section">
         <div class="info-text-side">
@@ -381,11 +395,13 @@
     </section>
   </main>
 
+  <!-- Rodapé Minimalista -->
   <footer>
     <div class="brand">Espaço <span>Priscila Oliveira</span></div>
     <p>© 2026 — Estética, Beleza & Sofisticação. Todos os direitos reservados.</p>
   </footer>
 
+  <!-- Lógica do Carrossel em Loop -->
   <script>
     function moveCarousel(button, direction) {
       const container = button.parentElement;
