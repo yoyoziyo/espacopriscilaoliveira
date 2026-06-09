@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espaço Priscila Oliveira | Alta Estética</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #121212;
+      --gray-light: #fbf9f8;
+      --gray-medium: #f0eae7;
+      --gray-dark: #5a5451;
+      --pink-premium: #cf8096;
+      --pink-soft: #fbf0f3;
+      --gold-soft: #c5a880;
+      --white: #ffffff;
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header Elegante */
+    header {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 1200px;
+      height: 80px;
+      padding: 0 40px;
+      border-radius: 100px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 1000;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    }
+
+    .brand {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .brand span {
+      color: var(--pink-premium);
+      font-weight: 600;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+    }
+
+    nav a {
+      color: var(--black);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+      opacity: 0.7;
+    }
+
+    nav a:hover {
+      color: var(--pink-premium);
+      opacity: 1;
+    }
+
+    .nav-btn {
+      background: var(--black);
+      color: var(--white);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+    }
+
+    .nav-btn:hover {
+      background: var(--pink-premium);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 95vh;
+      padding: 160px 6% 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 80px;
+      align-items: center;
+      background:
+        radial-gradient(circle at 85% 30%, rgba(207, 128, 150, 0.15), transparent 45%),
+        radial-gradient(circle at 15% 70%, rgba(197, 168, 128, 0.1), transparent 45%),
+        linear-gradient(180deg, #fdfbfb 0%, #f7f3f1 100%);
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--pink-soft);
+      color: var(--pink-premium);
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 28px;
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      letter-spacing: -0.5px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 5.5vw, 74px);
+      line-height: 1.05;
+      font-weight: 700;
+      margin-bottom: 28px;
+    }
+
+    h1 span {
+      color: var(--pink-premium);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .hero p {
+      color: var(--gray-dark);
+      font-size: 18px;
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 18px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: var(--transition);
+    }
+
+    .btn-black {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-black:hover {
+      background: var(--pink-premium);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(207, 128, 150, 0.3);
+    }
+
+    .hero-img {
+      height: 640px;
+      border-radius: 300px 300px 40px 40px; /* Curvatura sofisticada estilo arco */
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.15)),
+        url("https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=1200&auto=format&fit=crop");
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.07);
+      position: relative;
+    }
+
+    /* Grid de Serviços Interativo */
+    section {
+      padding: 120px 6%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      max-width: 650px;
+      margin: 0 auto 70px;
+      text-align: center;
+    }
+
+    .section-title h2 {
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .section-title h2 span {
+      color: var(--pink-premium);
+      font-style: italic;
+    }
+
+    .category {
+      margin-bottom: 60px;
+    }
+
+    .category-head {
+      border-bottom: 1px solid var(--gray-medium);
+      padding-bottom: 16px;
+      margin-bottom: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .category-head h3 {
+      font-size: 28px;
+      color: var(--black);
+    }
+
+    .category-head span {
+      color: var(--gray-dark);
+      font-size: 14px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    /* Card transformado em Link de Agendamento */
+    .service-card {
+      background: var(--gray-light);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      padding: 32px;
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 230px;
+      text-decoration: none;
+      color: var(--black);
+      transition: var(--transition);
+    }
+
+    .service-card h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-family: "Inter", sans-serif;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .service-card p {
+      color: var(--gray-dark);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+      background: var(--white);
+      padding: 8px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .action-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--pink-premium);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Efeito Hover Premium nos Cards */
+    .service-card:hover {
+      background: var(--white);
+      transform: translateY(-6px);
+      border-color: var(--pink-premium);
+      box-shadow: 0 20px 40px rgba(207, 128, 150, 0.08);
+    }
+
+    .service-card:hover .action-label {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Seção de Informações / Horários */
+    .info-section {
+      background: var(--black);
+      color: var(--white);
+      border-radius: 40px;
+      padding: 80px 6%;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .info-section h2 {
+      font-size: clamp(36px, 4.5vw, 52px);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .info-section p {
+      color: #b5afac;
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .info-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px;
+      border-radius: 20px;
+    }
+
+    .info-box-full {
+      grid-column: span 2;
+    }
+
+    .info-box strong {
+      color: var(--gold-soft);
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .info-box p {
+      color: var(--white);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .btn-gold {
+      grid-column: span 2;
+      background: transparent;
+      border: 1px solid var(--gold-soft);
+      color: var(--gold-soft);
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .btn-gold:hover {
+      background: var(--gold-soft);
+      color: var(--black);
+    }
+
+    /* Footer Clean */
+    footer {
+      padding: 60px 6% 40px;
+      border-top: 1px solid var(--gray-medium);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    footer .brand {
+      font-size: 22px;
+    }
+
+    footer p {
+      color: var(--gray-dark);
+      font-size: 14px;
+    }
+
+    /* Responsividade Fina */
+    @media (max-width: 1100px) {
+      nav { display: none; }
+      .service-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero { grid-template-columns: 1fr; gap: 50px; padding-top: 140px; }
+      .hero-img { height: 500px; border-radius: 40px; }
+      .info-section { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 650px) {
+      header { width: 94%; padding: 0 24px; }
+      .nav-btn { display: none; }
+      .service-grid { grid-template-columns: 1fr; }
+      .category-head { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .info-grid { grid-template-columns: 1fr; }
+      .info-box-full { grid-column: span 1; }
+      .btn-gold { grid-column: span 1; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <a href="#inicio" class="brand">Espaço <span>Priscila Oliveira</span></a>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#servicos">Menu de Serviços</a>
+      <a href="#sobre">Espaço & Horários</a>
+    </nav>
+    <a href="#servicos" class="nav-btn">Agendar Agora</a>
+  </header>
+
+  <main>
+    <!-- Hero Banner -->
+    <section class="hero" id="inicio">
+      <div>
+        <span class="tag">Beleza, Cuidado & Autoestima</span>
+        <h1>Um refúgio de elegância para cuidar de <span>você</span>.</h1>
+        <p>
+          Atendimento exclusivo e personalizado no Recreio dos Bandeirantes. Escolha abaixo o procedimento desejado e agende diretamente na nossa agenda oficial.
+        </p>
+        <a href="#servicos" class="btn btn-black">Explorar Serviços</a>
+      </div>
+      <div class="hero-img"></div>
+    </section>
+
+    <!-- Menu de Serviços -->
+    <section id="servicos">
+      <div class="section-title">
+        <span class="tag">Nossos Serviços</span>
+        <h2>Menu de Cuidados & <span>Estética</span></h2>
+        <p>Clique sobre o serviço ideal para você para visualizar os horários disponíveis e reservar sua sessão.</p>
+      </div>
+
+      <!-- Categoria: Unhas -->
+      <div class="category">
+        <div class="category-head">
+          <h3>💅 Unhas & Alongamentos</h3>
+          <span>Técnicas modernas e alta durabilidade</span>
+        </div>
+
+        <div class="service-grid">
+          <!-- Altere o href="#" colocando o link do Google Agenda correspondente -->
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Alongamento em Acrílico</h4>
+              <p>Acabamento impecável, alta resistência e formato ideal para suas mãos.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 200 • 3h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Alongamento em Fibra</h4>
+              <p>Resultado extremamente natural, leve e com excelente durabilidade.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 180 • 3h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Banho de Gel</h4>
+              <p>Camada protetora que garante blindagem, brilho e força para unhas naturais.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 130 • 1h30</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Esmaltação em Gel</h4>
+              <p>Unhas perfeitamente secas na hora e brilho duradouro por semanas.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 60 • 30m</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Manutenção de Fibra</h4>
+              <p>Reposição estrutural para manter a beleza e a saúde das unhas em dia.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 135</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Manutenção de Acrílico</h4>
+              <p>Nivelamento e cuidados periódicos essenciais para o acrílico.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 140</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Remoção de Alongamento</h4>
+              <p>Retirada segura e saudável do material preservando a unha natural.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 60 • 2h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Reposição de Unha</h4>
+              <p>Conserto individualizado para unhas danificadas fora da manutenção.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 10 <small>/unha</small></span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Pé e Mão Simples</h4>
+              <p>Cuidado clássico de cuticulagem e esmaltação com carinho e higiene.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 60 • 1h20</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Apenas Pé</h4>
+              <p>Cuidado e higienização focada nas unhas dos pés.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 35 • 30m</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Apenas Mão</h4>
+              <p>Cuidado, modelagem e esmaltação focada nas mãos.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 35 • 30m</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Spa dos Pés</h4>
+              <p>Protocolo relaxante de imersão, esfoliação e hidratação profunda.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 80 • 1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categoria: Cabelo -->
+      <div class="category">
+        <div class="category-head">
+          <h3>💇 Cuidados Capilares</h3>
+          <span>*Valores iniciais baseados em avaliação de volume e comprimento</span>
+        </div>
+
+        <div class="service-grid">
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Escova Premium</h4>
+              <p>Lavagem especial e finalização profissional com balanço natural.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">A partir de R$ 70 • 1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Tratamento com Ozônio</h4>
+              <p>Produtos de alta tecnologia combinados com ozonioterapia capilar.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 150 • 1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Mechas Topo e Contorno</h4>
+              <p>Iluminação estratégica dos fios. Incluso tratamento e escova.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">A partir de R$ 350 • 4h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Surf Blond</h4>
+              <p>Efeito solar, moderno e sofisticado nas mechas. Incluso tratamento.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">A partir de R$ 350 • 5h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Moreno Iluminado</h4>
+              <p>Contraste sutil e elegante para fundos escuros. Incluso tratamento.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 450 • 4h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Coloração</h4>
+              <p>Aplicação profissional acompanhada de tratamento protetor e escova.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">A partir de R$ 180 • 1h30</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categoria: Massoterapia -->
+      <div class="category">
+        <div class="category-head">
+          <h3>💆 Massoterapia</h3>
+          <span>Disponível exclusivamente às Terças e Quintas</span>
+        </div>
+
+        <div class="service-grid">
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Massagem Relaxante</h4>
+              <p>Alívio de tensões físicas e mentais com óleos selecionados.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Liberação Miofascial</h4>
+              <p>Foco terapêutico no alongamento das fáscias musculares e dores crônicas.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Ventosaterapia</h4>
+              <p>Aplicação de ventosas para ativar a circulação sanguínea e oxigenação.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Drenagem Linfática</h4>
+              <p>Manobras suaves para redução de retenção líquida e toxinas.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">1h</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categoria: Sobrancelhas -->
+      <div class="category">
+        <div class="category-head">
+          <h3>📐 Olhar & Simetria</h3>
+          <span>Design personalizado</span>
+        </div>
+
+        <div class="service-grid">
+          <a href="#" class="service-card" target="_blank">
+            <div>
+              <h4>Design de Sobrancelha</h4>
+              <p>Estudo das linhas faciais para moldar um olhar expressivo e natural.</p>
+            </div>
+            <div class="card-footer">
+              <span class="price">R$ 45</span>
+              <span class="action-label">Agendar ➔</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Localização & Horários -->
+    <section id="sobre">
+      <div class="info-section">
+        <div>
+          <span class="tag" style="background: rgba(255,255,255,0.1); color: var(--gold-soft);">Nosso Espaço</span>
+          <h2>Um ambiente acolhedor projetado para você.</h2>
+          <p>
+            Cada detalhe do Espaço Priscila Oliveira foi estruturado para trazer bem-estar, biossegurança e resultados que superam suas expectativas.
+          </p>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-box">
+            <strong>Horário de Atendimento</strong>
+            <p>Terça a Sábado<br>10h às 19h</p>
+          </div>
+
+          <div class="info-box">
+            <strong>Sugestões de Período</strong>
+            <p>Manhã: 10h às 12h<br>Tarde: 12h às 19h</p>
+          </div>
+
+          <div class="info-box info-box-full">
+            <strong>Onde Estamos</strong>
+            <p>Pç. Heitor Bastos Tigre, 16355 - Recreio dos Bandeirantes, Rio de Janeiro - RJ, 22790-550</p>
+          </div>
+
+          <a class="btn btn-gold" href="https://maps.app.goo.gl/mud9bvrWzaV2AaqMA" target="_blank">
+            Abrir Localização no GPS
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer Minimalista -->
+  <footer>
+    <div class="brand">Espaço <span>Priscila Oliveira</span></div>
+    <p>© 2026 — Estética, Beleza & Sofisticação. Todos os direitos reservados.</p>
+  </footer>
+
+</body>
+</html>
