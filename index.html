@@ -63,10 +63,11 @@
         <span class="tag">Nossos Serviços</span>
         <h2>Menu de Cuidados & <span>Estética</span></h2>
         <p>
-          Deslize para o lado para ver todas as opções. Em breve, cada serviço terá seu link direto de agendamento.
+          Deslize para o lado para ver todas as opções. Clique sobre o serviço ideal para você para realizar o agendamento.
         </p>
       </div>
 
+      <!-- Categoria: Unhas -->
       <div class="category">
         <div class="category-head">
           <h3>Unhas & Alongamentos</h3>
@@ -214,6 +215,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Cabelo -->
       <div class="category">
         <div class="category-head">
           <h3>Cuidados Capilares</h3>
@@ -295,6 +297,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Massoterapia -->
       <div class="category">
         <div class="category-head">
           <h3>Massoterapia</h3>
@@ -354,6 +357,7 @@
         </div>
       </div>
 
+      <!-- Categoria: Sobrancelhas -->
       <div class="category">
         <div class="category-head">
           <h3>Olhar & Simetria</h3>
@@ -436,11 +440,10 @@
 
       let nextPosition = carousel.scrollLeft + direction * cardWidth;
 
-      if (nextPosition > maxScroll - 10) {
+      if (direction === 1 && (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10)) {
         nextPosition = 0;
-      }
-
-      if (nextPosition < 0) {
+      } 
+      else if (direction === -1 && carousel.scrollLeft <= 10) {
         nextPosition = maxScroll;
       }
 
