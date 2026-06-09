@@ -1,3 +1,4 @@
+/* Variáveis de Cores Premium */
 :root {
   --black: #121212;
   --gray-light: #fbf9f8;
@@ -10,6 +11,7 @@
   --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Reset Padrão */
 * {
   margin: 0;
   padding: 0;
@@ -24,7 +26,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header Elegante */
+/* Header Premium */
 header {
   position: fixed;
   top: 24px;
@@ -97,7 +99,7 @@ nav a:hover {
   transform: translateY(-2px);
 }
 
-/* Hero Section */
+/* Hero Section (Abertura) */
 .hero {
   min-height: 95vh;
   padding: 160px 6% 80px;
@@ -186,7 +188,7 @@ h1 span {
   position: relative;
 }
 
-/* Grid de Serviços */
+/* Grid e Estrutura das Seções */
 section {
   padding: 120px 6%;
   max-width: 1400px;
@@ -239,6 +241,7 @@ section {
   gap: 24px;
 }
 
+/* Cards Interativos de Serviços */
 .service-card {
   background: var(--gray-light);
   border: 1px solid rgba(0, 0, 0, 0.03);
@@ -299,6 +302,7 @@ section {
   letter-spacing: 1px;
 }
 
+/* Efeito Hover nos Cards */
 .service-card:hover {
   background: var(--white);
   transform: translateY(-6px);
@@ -311,7 +315,7 @@ section {
   transform: translateX(0);
 }
 
-/* Seção de Informações / Horários */
+/* Painel de Horários e Localização */
 .info-section {
   background: var(--black);
   color: var(--white);
@@ -381,7 +385,7 @@ section {
   color: var(--black);
 }
 
-/* Footer Clean */
+/* Rodapé Minimalista */
 footer {
   padding: 60px 6% 40px;
   border-top: 1px solid var(--gray-medium);
@@ -401,7 +405,7 @@ footer p {
   font-size: 14px;
 }
 
-/* Responsividade */
+/* Responsividade Adaptativa (Mobile First/Breakpoints) */
 @media (max-width: 1100px) {
   nav { display: none; }
   .service-grid { grid-template-columns: repeat(2, 1fr); }
