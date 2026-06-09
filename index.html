@@ -5,16 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Espaço Priscila Oliveira | Alta Estética</title>
 
-  <!-- Fontes Elegantes do Google -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <!-- Conexão com o arquivo de estilo separado -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Menu de Navegação Superior (Estilo Vidro Fosco) -->
   <header>
     <a href="#inicio" class="brand">Espaço <span>Priscila Oliveira</span></a>
     <nav>
@@ -26,9 +23,8 @@
   </header>
 
   <main>
-    <!-- Seção de Abertura (Hero) -->
     <section class="hero" id="inicio">
-      <div>
+      <div class="hero-content">
         <span class="tag">Beleza, Cuidado & Autoestima</span>
         <h1>Um refúgio de elegância para cuidar de <span>você</span>.</h1>
         <p>
@@ -36,10 +32,8 @@
         </p>
         <a href="#servicos" class="btn btn-black">Explorar Serviços</a>
       </div>
-      <div class="hero-img"></div>
     </section>
 
-    <!-- Seção Principal de Serviços -->
     <section id="servicos">
       <div class="section-title">
         <span class="tag">Nossos Serviços</span>
@@ -47,7 +41,6 @@
         <p>Deslize para o lado para ver todas as opções. Clique sobre o serviço ideal para você para reservar sua sessão.</p>
       </div>
 
-      <!-- Categoria: Unhas -->
       <div class="category">
         <div class="category-head">
           <h3>Unhas & Alongamentos</h3>
@@ -57,9 +50,8 @@
         <div class="carousel-container">
           <button class="nav-arrow prev" onclick="moveCarousel(this, -1)">❮</button>
           <div class="service-carousel">
-            <!-- Substitua o href="#" pelo link do Google Agenda de cada serviço -->
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Alongamento em Acrílico</h4>
                 <p>Acabamento impecável, alta resistência e formato ideal para suas mãos.</p>
               </div>
@@ -70,7 +62,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Alongamento em Fibra</h4>
                 <p>Resultado extremamente natural, leve e com excelente durabilidade.</p>
               </div>
@@ -81,7 +73,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Banho de Gel</h4>
                 <p>Camada protetora que garante blindagem, brilho e força para unhas naturais.</p>
               </div>
@@ -92,7 +84,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Esmaltação em Gel</h4>
                 <p>Unhas perfeitamente secas na hora e brilho duradouro por semanas.</p>
               </div>
@@ -103,7 +95,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Manutenção de Fibra</h4>
                 <p>Reposição estrutural para manter a beleza e a saúde das unhas em dia.</p>
               </div>
@@ -114,7 +106,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Manutenção de Acrílico</h4>
                 <p>Nivelamento e cuidados periódicos essenciais para o acrílico.</p>
               </div>
@@ -125,7 +117,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Remoção de Alongamento</h4>
                 <p>Retirada segura e saudável do material preservando a unha natural.</p>
               </div>
@@ -136,7 +128,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Reposição de Unha</h4>
                 <p>Conserto individualizado para unhas danificadas fora da manutenção.</p>
               </div>
@@ -147,7 +139,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Pé e Mão Simples</h4>
                 <p>Cuidado clássico de cuticulagem e esmaltação com carinho e higiene.</p>
               </div>
@@ -158,7 +150,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Apenas Pé</h4>
                 <p>Cuidado e higienização focada nas unhas dos pés.</p>
               </div>
@@ -169,7 +161,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Apenas Mão</h4>
                 <p>Cuidado, modelagem e esmaltação focada nas mãos.</p>
               </div>
@@ -180,7 +172,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Spa dos Pés</h4>
                 <p>Protocolo relaxante de imersão, esfoliação e hidratação profunda.</p>
               </div>
@@ -194,7 +186,6 @@
         </div>
       </div>
 
-      <!-- Categoria: Cabelo -->
       <div class="category">
         <div class="category-head">
           <h3>Cuidados Capilares</h3>
@@ -205,7 +196,7 @@
           <button class="nav-arrow prev" onclick="moveCarousel(this, -1)">❮</button>
           <div class="service-carousel">
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Escova Premium</h4>
                 <p>Lavagem especial e finalização profissional com balanço natural.</p>
               </div>
@@ -216,7 +207,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Tratamento com Ozônio</h4>
                 <p>Produtos de alta tecnologia combinados com ozonioterapia capilar.</p>
               </div>
@@ -227,7 +218,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Mechas Topo e Contorno</h4>
                 <p>Iluminação estratégica dos fios. Incluso tratamento e escova.</p>
               </div>
@@ -238,7 +229,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Surf Blond</h4>
                 <p>Efeito solar, moderno e sofisticado nas mechas. Incluso tratamento.</p>
               </div>
@@ -249,7 +240,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Moreno Iluminado</h4>
                 <p>Contraste sutil e elegante para fundos escuros. Incluso tratamento.</p>
               </div>
@@ -260,7 +251,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Coloração</h4>
                 <p>Aplicação profissional acompanhada de tratamento protetor e escova.</p>
               </div>
@@ -274,7 +265,6 @@
         </div>
       </div>
 
-      <!-- Categoria: Massoterapia -->
       <div class="category">
         <div class="category-head">
           <h3>Massoterapia</h3>
@@ -285,7 +275,7 @@
           <button class="nav-arrow prev" onclick="moveCarousel(this, -1)">❮</button>
           <div class="service-carousel">
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Massagem Relaxante</h4>
                 <p>Alívio de tensões físicas e mentais com óleos selecionados.</p>
               </div>
@@ -296,7 +286,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Liberação Miofascial</h4>
                 <p>Foco terapêutico no maior relaxamento das fáscias musculares.</p>
               </div>
@@ -307,7 +297,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Ventosaterapia</h4>
                 <p>Aplicação de ventosas para ativar a circulação sanguínea local.</p>
               </div>
@@ -318,7 +308,7 @@
             </a>
 
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Drenagem Linfática</h4>
                 <p>Manobras suaves para redução de retenção líquida e toxinas.</p>
               </div>
@@ -332,7 +322,6 @@
         </div>
       </div>
 
-      <!-- Categoria: Sobrancelhas -->
       <div class="category">
         <div class="category-head">
           <h3>Olhar & Simetria</h3>
@@ -343,7 +332,7 @@
           <button class="nav-arrow prev" onclick="moveCarousel(this, -1)">❮</button>
           <div class="service-carousel">
             <a href="#" class="service-card" target="_blank">
-              <div>
+              <div class="card-body">
                 <h4>Design de Sobrancelha</h4>
                 <p>Estudo das linhas faciais para moldar um olhar expressivo e natural.</p>
               </div>
@@ -358,7 +347,6 @@
       </div>
     </section>
 
-    <!-- Seção sobre o Espaço e Localização -->
     <section id="sobre">
       <div class="info-section">
         <div class="info-text-side">
@@ -371,7 +359,6 @@
 
         <div class="info-grid">
           <div class="info-box">
-            options strong { color: var(--gold-soft); }
             <strong>Horário de Atendimento</strong>
             <p>Terça a Sábado<br>10h às 19h</p>
           </div>
@@ -394,13 +381,11 @@
     </section>
   </main>
 
-  <!-- Rodapé Minimalista -->
   <footer>
     <div class="brand">Espaço <span>Priscila Oliveira</span></div>
     <p>© 2026 — Estética, Beleza & Sofisticação. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Lógica Inteligente do Carrossel em Loop -->
   <script>
     function moveCarousel(button, direction) {
       const container = button.parentElement;
@@ -408,16 +393,12 @@
       const cards = carousel.querySelectorAll('.service-card');
       if (cards.length === 0) return;
       
-      const cardWidth = cards[0].offsetWidth + 24; // Largura do card + gap
-      
-      // Lógica do Loop Infinito Manual
+      const cardWidth = cards[0].offsetWidth + 24; 
       let scrollAmount = carousel.scrollLeft + (direction * cardWidth);
       
-      // Se chegar ao fim direito e avançar, volta pro começo
       if (direction === 1 && (carousel.scrollLeft + carousel.offsetWidth >= carousel.scrollWidth - 10)) {
         scrollAmount = 0;
       } 
-      // Se chegar ao começo esquerdo e voltar, vai pro fim
       else if (direction === -1 && carousel.scrollLeft <= 10) {
         scrollAmount = carousel.scrollWidth - carousel.offsetWidth;
       }
