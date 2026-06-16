@@ -1,4 +1,3 @@
-/* Configurações de Variáveis e Cores (Claro vs Escuro) */
 :root {
   --bg-gradient: radial-gradient(circle at 50% 20%, rgba(207, 128, 150, 0.15), transparent 50%), linear-gradient(180deg, #fdfbfb 0%, #f7f3f1 100%);
   --text-main: #121212;
@@ -25,7 +24,6 @@ body.dark-mode {
   --btn-theme-color: #121212;
 }
 
-/* Reset Visual */
 * {
   margin: 0;
   padding: 0;
@@ -51,7 +49,6 @@ body {
   text-align: center;
 }
 
-/* Ícone/Avatar do Topo */
 .avatar-icon {
   width: 86px;
   height: 86px;
@@ -90,7 +87,6 @@ body {
   margin: 0 auto 36px;
 }
 
-/* Lista de Links Estilo Linktree de Luxo */
 .links-list {
   display: flex;
   flex-direction: column;
@@ -116,7 +112,6 @@ body {
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Efeito Hover dos Botões */
 .link-item:hover {
   transform: translateY(-3px);
   border-color: var(--pink);
@@ -124,7 +119,6 @@ body {
   box-shadow: 0 15px 30px rgba(207, 128, 150, 0.1);
 }
 
-/* Botão de Alternar Tema (Fica flutuando no topo direito) */
 .theme-btn {
   position: absolute;
   top: 24px;
@@ -148,12 +142,11 @@ body {
   height: 20px;
 }
 
-/* Controla quais ícones aparecem dependendo do modo */
 .sun-icon { display: block; }
 .moon-icon { display: none; }
 
 body.dark-mode .sun-icon { display: none; }
-body.dark-mode .moon-icon { display: block; }
+body.dark-mode .moon-icon { block; }
 
 .links-footer p {
   font-size: 12px;
@@ -162,7 +155,6 @@ body.dark-mode .moon-icon { display: block; }
   letter-spacing: 1.5px;
 }
 
-/* Responsividade para Telas Pequenas */
 @media (max-width: 480px) {
   body { padding: 60px 16px 30px; align-items: flex-start; }
   .theme-btn { top: 16px; right: 16px; }
