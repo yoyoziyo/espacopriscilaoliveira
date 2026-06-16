@@ -160,3 +160,15 @@ body.dark-mode .moon-icon { block; }
   .theme-btn { top: 16px; right: 16px; }
   .link-item { padding: 16px 20px; font-size: 14px; }
 }
+
+/* Estilização da Nova Logo */
+.avatar-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 24px;
+  display: block;
+  border: 2px solid var(--pink);
+  box-shadow: 0 10px 25px rgba(207, 128, 150, 0.2);
+}
