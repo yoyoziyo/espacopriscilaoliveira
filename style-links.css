@@ -8,20 +8,18 @@
   --card-border: rgba(28, 25, 23, 0.06);
   --card-shadow: 0 4px 20px rgba(28, 25, 23, 0.01);
   --bg-color-solid: #fdfcfb;
-  /* Cor do Brilho no Modo Claro */
   --glow-color: rgba(207, 128, 150, 0.15);
 }
 
 body.dark-mode {
   --text-main: #f5f5f4;
   --text-sub: #a8a29e;
-  --pink: #cf8096; /* Mantendo o mesmo rosa como solicitado */
+  --pink: #cf8096;
   --pink-hover: rgba(207, 128, 150, 0.08);
   --card-bg: rgba(20, 18, 17, 0.45);
   --card-border: rgba(245, 245, 244, 0.07);
   --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   --bg-color-solid: #0c0a09;
-  /* Cor do Brilho no Modo Escuro (mais suave) */
   --glow-color: rgba(207, 128, 150, 0.06);
 }
 
@@ -29,7 +27,6 @@ body.dark-mode {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* Transições Suaves globais */
   transition: background 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
               color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
               border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
@@ -51,7 +48,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- EFEITO REFINADO: Fundo de Vidro Jateado com Névoa de Luz --- */
+/* Fundo Jateado e Névoa Flutuante Infinita */
 .glass-bg-container {
   position: fixed;
   top: 0;
@@ -69,13 +66,11 @@ body {
   height: 50vw;
   background: var(--glow-color);
   border-radius: 50%;
-  /* Efeito Crucial: Desfoque Profundo e Profissional */
   filter: blur(30px);
   opacity: 0.8;
   animation: fineNebelGlow 22s ease-in-out infinite alternate;
 }
 
-/* Posicionamento e Cores diferentes para cada esfera */
 .glow-1 {
   top: -15vh;
   left: -10vw;
@@ -91,22 +86,12 @@ body {
   animation-delay: -5s;
 }
 
-/* Animação Circular e Sutil de Alta Costura */
 @keyframes fineNebelGlow {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(5vw, 10vh) scale(1.05);
-  }
-  66% {
-    transform: translate(-4vw, 5vh) scale(0.97);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(5vw, 10vh) scale(1.05); }
+  66% { transform: translate(-4vw, 5vh) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
 }
-/* --------------------------------------------------------------- */
 
 .container {
   width: 100%;
@@ -188,7 +173,6 @@ body {
   font-weight: 400;
   letter-spacing: 1px;
   text-transform: uppercase;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .link-arrow {
@@ -213,44 +197,40 @@ body {
   transform: translateY(0);
 }
 
-/* --- ALTERAÇÃO: Botão de Tema Minimalista Rosa --- */
+/* Botão de Tema Adaptado para os Novos Ícones */
 .theme-btn {
   position: absolute;
   top: 24px;
   right: 24px;
-  width: 32px; /* Menor */
-  height: 32px; /* Menor */
-  background: transparent; /* Transparente */
-  color: var(--pink); /* Cor Rosa Premium para ambos os temas */
-  border: none; /* Sem Borda */
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  color: var(--pink); /* Mantém rosa delicado */
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  opacity: 0.7; /* Sutil por padrão */
+  opacity: 0.7;
   transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
 .theme-btn:hover {
-  opacity: 1; /* Brilha ao passar o mouse */
-  transform: scale(1.1); /* Cresce levemente */
+  opacity: 1;
+  transform: scale(1.1);
 }
 
-/* Tamanho do Ícone SVG */
 .theme-btn svg {
   width: 20px;
   height: 20px;
-  stroke-width: 1.5; /* Traço mais fino e elegante */
 }
 
 .sun-icon { display: block; }
 .moon-icon { display: none; }
 
-/* Animação rápida de troca */
 body.dark-mode .sun-icon { display: none; }
 body.dark-mode .moon-icon { display: block; }
-/* -------------------------------------------------- */
 
 .links-footer p {
   font-size: 11px;
