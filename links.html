@@ -1,170 +1,62 @@
-/* Configurações de Variáveis e Cores (Claro vs Escuro) */
-:root {
-  --bg-gradient: radial-gradient(circle at 50% 20%, rgba(207, 128, 150, 0.15), transparent 50%), linear-gradient(180deg, #fdfbfb 0%, #f7f3f1 100%);
-  --text-main: #121212;
-  --text-sub: #6e6561;
-  --pink: #cf8096;
-  --pink-hover: #fbf0f3;
-  --card-bg: rgba(255, 255, 255, 0.6);
-  --card-border: rgba(0, 0, 0, 0.04);
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-  --btn-theme-bg: #121212;
-  --btn-theme-color: #ffffff;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espaço Priscila Oliveira | Links Úteis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style-links.css">
+</head>
+<body>
 
-body.dark-mode {
-  --bg-gradient: radial-gradient(circle at 50% 20%, rgba(207, 128, 150, 0.08), transparent 50%), linear-gradient(180deg, #121212 0%, #1c1817 100%);
-  --text-main: #fbf9f8;
-  --text-sub: #a39894;
-  --pink: #cf8096;
-  --pink-hover: rgba(207, 128, 150, 0.15);
-  --card-bg: rgba(255, 255, 255, 0.03);
-  --card-border: rgba(255, 255, 255, 0.06);
-  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-  --btn-theme-bg: #ffffff;
-  --btn-theme-color: #121212;
-}
+  <button id="theme-toggle" class="theme-btn" aria-label="Alternar tema">
+    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+  </button>
 
-/* Reset Visual */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
+  <div class="container">
+    <header class="profile-header">
+      <div class="avatar-icon">PO</div>
+      <h1>Espaço <span>Priscila Oliveira</span></h1>
+      <p>Realçamos sua beleza natural e elevamos sua autoestima.</p>
+    </header>
 
-body {
-  font-family: "Inter", sans-serif;
-  background: var(--bg-gradient);
-  color: var(--text-main);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  -webkit-font-smoothing: antialiased;
-}
+    <nav class="links-list">
+      <a href="https://espacopriscilaoliveira.com/#servicos" class="link-item">
+        <span>🗓️ Agendamentos</span>
+      </a>
+      <a href="https://wa.me/5521982490919" class="link-item" target="_blank" rel="noopener noreferrer">
+        <span>💬 WhatsApp</span>
+      </a>
+      <a href="https://instagram.com/SEU_USER_AQUI" class="link-item" target="_blank" rel="noopener noreferrer">
+        <span>📸 Instagram</span>
+      </a>
+      <a href="https://maps.app.goo.gl/mud9bvrWzaV2AaqMA" class="link-item" target="_blank" rel="noopener noreferrer">
+        <span>📍 Localização e GPS</span>
+      </a>
+    </nav>
 
-.container {
-  width: 100%;
-  max-width: 480px;
-  text-align: center;
-}
+    <footer class="links-footer">
+      <p>© 2026 — Estética de Alto Padrão</p>
+    </footer>
+  </div>
 
-/* Ícone/Avatar do Topo */
-.avatar-icon {
-  width: 86px;
-  height: 86px;
-  background: linear-gradient(135deg, var(--pink), #e396ab);
-  color: #ffffff;
-  font-family: "Playfair Display", serif;
-  font-size: 28px;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  margin: 0 auto 24px;
-  box-shadow: 0 10px 25px rgba(207, 128, 150, 0.3);
-  letter-spacing: -1px;
-}
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
 
-.profile-header h1 {
-  font-family: "Playfair Display", serif;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
-}
+    if (localStorage.getItem('theme') === 'dark') {
+      body.classList.add('dark-mode');
+    }
 
-.profile-header h1 span {
-  color: var(--pink);
-  font-weight: 600;
-}
-
-.profile-header p {
-  font-size: 15px;
-  color: var(--text-sub);
-  line-height: 1.5;
-  max-width: 320px;
-  margin: 0 auto 36px;
-}
-
-/* Lista de Links Estilo Linktree de Luxo */
-.links-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 40px;
-}
-
-.link-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px 24px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  text-decoration: none;
-  color: var(--text-main);
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: 0.3px;
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-/* Efeito Hover dos Botões */
-.link-item:hover {
-  transform: translateY(-3px);
-  border-color: var(--pink);
-  background: var(--pink-hover);
-  box-shadow: 0 15px 30px rgba(207, 128, 150, 0.1);
-}
-
-/* Botão de Alternar Tema (Fica flutuando no topo direito) */
-.theme-btn {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--btn-theme-bg);
-  color: var(--btn-theme-color);
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  z-index: 10;
-}
-
-.theme-btn svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* Controla quais ícones aparecem dependendo do modo */
-.sun-icon { display: block; }
-.moon-icon { display: none; }
-
-body.dark-mode .sun-icon { display: none; }
-body.dark-mode .moon-icon { display: block; }
-
-.links-footer p {
-  font-size: 12px;
-  color: var(--text-sub);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-/* Responsividade para Telas Pequenas */
-@media (max-width: 480px) {
-  body { padding: 60px 16px 30px; align-items: flex-start; }
-  .theme-btn { top: 16px; right: 16px; }
-  .link-item { padding: 16px 20px; font-size: 14px; }
-}
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+      } else {
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>
