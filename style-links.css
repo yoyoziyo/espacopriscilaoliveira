@@ -1,37 +1,39 @@
-/* Paleta de Cores Boutique */
+/* Paleta Cromática de Luxo */
 :root {
   --text-main: #1c1917;
   --text-sub: #78716c;
   --pink: #cf8096;
-  --pink-hover: rgba(207, 128, 150, 0.05);
+  --pink-hover: rgba(207, 128, 150, 0.06);
   --card-bg: rgba(255, 255, 255, 0.45);
-  --card-border: rgba(28, 25, 23, 0.06);
-  --card-shadow: 0 4px 20px rgba(28, 25, 23, 0.01);
-  --bg-color-solid: #fdfcfb;
-  --glow-color: rgba(207, 128, 150, 0.15);
+  --card-border: rgba(207, 128, 150, 0.15);
+  --card-shadow: 0 10px 30px rgba(28, 25, 23, 0.03), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --bg-color-solid: #fefefe;
+  --glow-1: rgba(207, 128, 150, 0.25);
+  --glow-2: rgba(244, 212, 220, 0.4);
 }
 
 body.dark-mode {
   --text-main: #f5f5f4;
   --text-sub: #a8a29e;
   --pink: #cf8096;
-  --pink-hover: rgba(207, 128, 150, 0.08);
-  --card-bg: rgba(20, 18, 17, 0.45);
-  --card-border: rgba(245, 245, 244, 0.07);
-  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  --bg-color-solid: #0c0a09;
-  --glow-color: rgba(207, 128, 150, 0.06);
+  --pink-hover: rgba(207, 128, 150, 0.12);
+  --card-bg: rgba(24, 24, 27, 0.55);
+  --card-border: rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --bg-color-solid: #09090b;
+  --glow-1: rgba(207, 128, 150, 0.08);
+  --glow-2: rgba(162, 90, 110, 0.04);
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-              color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-              border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), 
-              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              color 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
@@ -48,7 +50,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Fundo Jateado e Névoa Flutuante Infinita */
+/* --- EFEITO: Cinema Glassmorphism Avançado --- */
 .glass-bg-container {
   position: fixed;
   top: 0;
@@ -60,50 +62,103 @@ body {
   overflow: hidden;
 }
 
+/* Filtro geral que unifica o desfoque do cenário de fundo */
+.glass-bg-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  z-index: 1;
+}
+
+.glow-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% -20%, var(--glow-2), transparent 70%);
+  z-index: 0;
+}
+
 .glow-sphere {
   position: absolute;
-  width: 50vw;
-  height: 50vw;
-  background: var(--glow-color);
   border-radius: 50%;
-  filter: blur(30px);
-  opacity: 0.8;
-  animation: fineNebelGlow 22s ease-in-out infinite alternate;
+  mix-blend-mode: multiply;
+  opacity: 0.85;
+  z-index: 0;
+}
+
+body.dark-mode .glow-sphere {
+  mix-blend-mode: screen;
 }
 
 .glow-1 {
-  top: -15vh;
+  top: -10vh;
   left: -10vw;
-  animation-delay: -2s;
+  width: 60vw;
+  height: 60vw;
+  background: var(--glow-1);
+  animation: organicMove1 26s ease-in-out infinite alternate;
 }
 
 .glow-2 {
-  bottom: -10vh;
-  right: -15vw;
-  width: 60vw;
-  height: 60vw;
-  animation-duration: 28s;
-  animation-delay: -5s;
+  bottom: -15vh;
+  right: -5vw;
+  width: 70vw;
+  height: 70vw;
+  background: var(--glow-2);
+  animation: organicMove2 32s ease-in-out infinite alternate;
 }
 
-@keyframes fineNebelGlow {
+.glow-3 {
+  top: 40vh;
+  left: 50vw;
+  width: 45vw;
+  height: 45vw;
+  background: var(--glow-1);
+  animation: organicMove3 22s ease-in-out infinite alternate;
+}
+
+@keyframes organicMove1 {
   0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(5vw, 10vh) scale(1.05); }
-  66% { transform: translate(-4vw, 5vh) scale(0.97); }
-  100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vw, 8vh) scale(1.1); }
+  100% { transform: translate(-2vw, 4vh) scale(0.95); }
 }
 
+@keyframes organicMove2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vw, -10vh) scale(0.9); }
+  100% { transform: translate(3vw, -4vh) scale(1.05); }
+}
+
+@keyframes organicMove3 {
+  0% { transform: translate(0, 0) scale(0.9); }
+  50% { transform: translate(-8vw, 6vh) scale(1.15); }
+  100% { transform: translate(4vw, -2vh) scale(1); }
+}
+
+/* --- ESTRUTURA E ELEMENTOS --- */
 .container {
   width: 100%;
-  max-width: 420px;
+  max-width: 410px;
   text-align: center;
+  z-index: 2;
 }
 
 .logo-wrapper {
   position: relative;
-  width: 92px;
-  height: 92px;
+  width: 94px;
+  height: 94px;
   margin: 0 auto 24px;
+}
+
+.logo-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), transparent);
+  opacity: 0.4;
+  z-index: 1;
 }
 
 .avatar-logo {
@@ -111,16 +166,18 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 1px solid var(--card-border);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 4px;
   background: var(--card-bg);
+  position: relative;
+  z-index: 2;
 }
 
 .profile-header h1 {
   font-family: "Playfair Display", serif;
-  font-size: 28px;
+  font-size: 29px;
   font-weight: 400;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
   margin-bottom: 12px;
 }
 
@@ -130,35 +187,36 @@ body {
 }
 
 .profile-header p {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 300;
   color: var(--text-sub);
   line-height: 1.6;
-  max-width: 290px;
-  margin: 0 auto 36px;
-  letter-spacing: 0.2px;
+  max-width: 280px;
+  margin: 0 auto 38px;
+  letter-spacing: 0.3px;
 }
 
 .links-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  margin-bottom: 40px;
+  margin-bottom: 44px;
 }
 
+/* --- BOTÕES PREMIUM INTERATIVOS --- */
 .link-item {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 18px 24px;
+  padding: 19px 24px;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  border-radius: 14px;
+  border-radius: 16px;
   text-decoration: none;
   color: var(--text-main);
   box-shadow: var(--card-shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .link-content {
@@ -169,61 +227,62 @@ body {
 }
 
 .link-text {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
 .link-arrow {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--pink);
   height: 0;
   opacity: 0;
-  transform: translateY(-5px);
-  transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease, margin-top 0.3s ease;
+  transform: translateY(-4px);
+  transition: opacity 0.35s ease, transform 0.35s ease, height 0.35s ease, margin-top 0.35s ease;
 }
 
+/* Comportamento de Toque e Hover Avançado */
 .link-item:hover, .link-item:active {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--pink);
   background: var(--pink-hover);
+  box-shadow: 0 12px 25px rgba(207, 128, 150, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .link-item:hover .link-arrow, .link-item:active .link-arrow {
-  height: 14px;
-  opacity: 1;
+  height: 12px;
+  opacity: 0.9;
   margin-top: 6px;
   transform: translateY(0);
 }
 
-/* Botão de Tema Adaptado para os Novos Ícones */
+/* --- BOTÃO DE TEMA MINIMALISTA ROSA --- */
 .theme-btn {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 32px;
-  height: 32px;
+  top: 26px;
+  right: 26px;
+  width: 36px;
+  height: 36px;
   background: transparent;
-  color: var(--pink); /* Mantém rosa delicado */
+  color: var(--pink);
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  opacity: 0.7;
-  transition: opacity 0.3s ease, transform 0.2s ease;
+  opacity: 0.65;
 }
 
-.theme-btn:hover {
+.theme-btn:hover, .theme-btn:active {
   opacity: 1;
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .theme-btn svg {
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
 }
 
 .sun-icon { display: block; }
@@ -233,17 +292,17 @@ body.dark-mode .sun-icon { display: none; }
 body.dark-mode .moon-icon { display: block; }
 
 .links-footer p {
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-sub);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 400;
-  opacity: 0.7;
+  opacity: 0.65;
 }
 
 @media (max-width: 480px) {
-  body { padding: 70px 16px 30px; }
-  .theme-btn { top: 16px; right: 16px; }
-  .profile-header h1 { font-size: 25px; }
-  .link-item { padding: 16px 20px; }
+  body { padding: 80px 16px 40px; }
+  .theme-btn { top: 20px; right: 20px; }
+  .profile-header h1 { font-size: 26px; }
+  .link-item { padding: 17px 20px; border-radius: 14px; }
 }
