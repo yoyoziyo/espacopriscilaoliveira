@@ -4,7 +4,7 @@
 
 .services-section {
   padding: 80px 20px;
-  background-color: #faf8f7; /* Fundo off-white boutique sutil */
+  background-color: #faf8f7; /* Off-white boutique */
   font-family: 'Inter', sans-serif;
 }
 
@@ -13,7 +13,7 @@
   margin: 0 auto;
 }
 
-/* --- Cabeçalho Central da Seção --- */
+/* Cabeçalho da Seção */
 .section-title-center {
   text-align: center;
   margin-bottom: 60px;
@@ -24,7 +24,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #cf8096; /* Rosa identidade do Espaço */
+  color: #cf8096;
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -49,7 +49,7 @@
   opacity: 0.6;
 }
 
-/* --- Blocos de Categorias --- */
+/* Estrutura de Linha de Categoria */
 .category-block {
   margin-bottom: 50px;
 }
@@ -69,11 +69,11 @@
   gap: 16px;
 }
 
-/* Wrapper redondo para a mini arte da categoria */
+/* Mini Ícone Circular de Categoria */
 .category-icon-wrapper {
   width: 54px;
   height: 54px;
-  background-color: #eae6e4; /* Cor base/placeholder */
+  background-color: #eae6e4;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -104,7 +104,7 @@
   font-weight: 300;
 }
 
-/* Botão Elegante "Ver Todos" */
+/* Botão Lateral Ver Todos */
 .btn-view-all {
   display: inline-flex;
   align-items: center;
@@ -119,7 +119,7 @@
   letter-spacing: 0.5px;
   font-weight: 500;
   background-color: transparent;
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s ease;
 }
 
 .btn-view-all:hover {
@@ -128,12 +128,7 @@
   border-color: #cf8096;
 }
 
-.btn-view-all .arrow {
-  font-size: 14px;
-  line-height: 1;
-}
-
-/* --- ESTRUTURA E TRILHA DO CARROSSEL FLUIDO --- */
+/* Trilhas do Carrossel */
 .carousel-wrapper {
   position: relative;
   display: flex;
@@ -147,29 +142,26 @@
   scroll-behavior: smooth;
   padding: 10px 4px 24px 4px;
   width: 100%;
-  -ms-overflow-style: none;  /* Oculta barra no IE/Edge */
-  scrollbar-width: none;     /* Oculta barra no Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .carousel-track::-webkit-scrollbar {
-  display: none;             /* Oculta barra no Chrome/Safari/Opera */
+  display: none;
 }
 
-/* --- CARTÃO DE SERVIÇO INDIVIDUAL (GLASS/BOUTIQUE) --- */
+/* Cartões Premium */
 .service-card {
   min-width: 270px;
   max-width: 270px;
   background-color: #ffffff;
-  border-radius: 16px; /* Bordas idênticas à imagem de referência */
+  border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(28, 25, 23, 0.015);
   border: 1px solid rgba(28, 25, 23, 0.04);
   display: flex;
   flex-direction: column;
-  transform: translate3d(0,0,0); /* Força aceleração de hardware */
-  will-change: transform, box-shadow;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
@@ -179,10 +171,9 @@
 
 .card-image {
   width: 100%;
-  height: 290px; /* Proporção ideal focada na exibição das artes */
+  height: 290px;
   overflow: hidden;
   background-color: #eae6e4;
-  position: relative;
 }
 
 .card-image img {
@@ -209,10 +200,8 @@
   font-weight: 500;
   color: #1c1917;
   margin-bottom: 6px;
-  letter-spacing: -0.1px;
 }
 
-/* Metadados: Linha de Valor e Tempo */
 .service-meta {
   font-size: 13px;
   font-weight: 500;
@@ -229,7 +218,6 @@
   flex-grow: 1;
 }
 
-/* Avisos sutis na base do card (ex: variação de comprimento/volume) */
 .card-notice {
   display: block;
   font-size: 11px;
@@ -241,7 +229,7 @@
   border-top: 1px dashed rgba(28, 25, 23, 0.07);
 }
 
-/* --- BOTÕES FLUTUANTES DO CARROSSEL (DESKTOP) --- */
+/* Botões Direcionais do Desktop */
 .carousel-btn {
   position: absolute;
   top: calc(50% - 22px);
@@ -265,61 +253,22 @@
   background-color: #cf8096;
   color: #ffffff;
   border-color: #cf8096;
-  transform: scale(1.05);
 }
 
-.carousel-btn.prev {
-  left: -22px;
-}
+.carousel-btn.prev { left: -22px; }
+.carousel-btn.next { right: -22px; }
 
-.carousel-btn.next {
-  right: -22px;
-}
-
-/* --- ADAPTAÇÕES RESPONSIVAS E TELAS MENORES --- */
+/* Responsividade Adaptada */
 @media (max-width: 1024px) {
-  .service-card {
-    min-width: 240px;
-    max-width: 240px;
-  }
-  .card-image {
-    height: 250px;
-  }
-  .profile-header h1 {
-    font-size: 32px;
-  }
+  .service-card { min-width: 240px; max-width: 240px; }
+  .card-image { height: 250px; }
 }
 
 @media (max-width: 768px) {
-  .services-section {
-    padding: 60px 16px;
-  }
-  
-  .section-title-center h2 {
-    font-size: 28px;
-  }
-
-  .category-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .btn-view-all {
-    align-self: flex-start;
-    width: 100%;
-    justify-content: center;
-    padding: 12px 20px;
-  }
-
-  /* Oculta os botões direcionais no celular, priorizando o toque livre */
-  .carousel-btn {
-    display: none;
-  }
-  
-  .carousel-track {
-    padding-left: 2px;
-    padding-right: 16px;
-    gap: 16px;
-  }
+  .services-section { padding: 60px 16px; }
+  .section-title-center h2 { font-size: 28px; }
+  .category-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .btn-view-all { align-self: flex-start; width: 100%; justify-content: center; padding: 12px 20px; }
+  .carousel-btn { display: none; }
+  .carousel-track { padding-left: 2px; padding-right: 16px; gap: 16px; }
 }
