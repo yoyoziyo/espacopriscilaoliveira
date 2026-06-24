@@ -1,458 +1,246 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- SEÇÃO DE SERVIÇOS BOUTIQUE -->
+<section id="servicos" class="services-section">
+  <div class="services-container">
+    
+    <header class="section-title-center">
+      <span class="subtitle">Nossos Serviços</span>
+      <h2>Escolha sua <span>experiência</span></h2>
+      <div class="diamond-divider">♦</div>
+    </header>
 
-  <title>Espaço Priscila Oliveira | Beleza e Estética</title>
-  <meta name="description" content="Espaço Priscila Oliveira: salão de beleza e estética no Recreio dos Bandeirantes. Unhas, cabelo, sobrancelhas, massoterapia e atendimento personalizado.">
+    <!-- CATEGORIA 1: CUIDADOS CAPILARES -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon-wrapper">
+            <!-- Ícone minimalista de cabelo -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M4 4c2 3 3 7 1 12M20 4c-2 3-3 7-1 12M12 3c-1.5 4.5-3 7.5-6 9m6-9c1.5 4.5 3 7.5 6 9M9 14c1 1.5 2 3.5 1 6m4-6c-1 1.5-2 3.5-1 6"/></svg>
+          </div>
+          <div class="category-text">
+            <h3>Cuidados Capilares</h3>
+            <p>Tratamentos e transformações para cabelos saudáveis e deslumbrantes.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/5521982490919" class="btn-view-all" target="_blank" rel="noopener noreferrer">
+          Ver Todos <span class="arrow">›</span>
+        </a>
+      </div>
 
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+      <!-- Carrossel Capilar -->
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <div class="carousel-track">
+          
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/escova-premium.jpg" alt="Escova Premium">
+            </div>
+            <div class="card-details">
+              <h4>Escova Premium</h4>
+              <p>Brilho intenso, alinhamento perfeito e movimento natural.</p>
+            </div>
+          </div>
 
-  <link rel="stylesheet" href="style.css">
-</head>
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/tratamento-de-ozonio.jpg" alt="Tratamento de Ozônio">
+            </div>
+            <div class="card-details">
+              <h4>Tratamento de Ozônio</h4>
+              <p>Hidratação profunda com oxigenação e revitalização.</p>
+            </div>
+          </div>
 
-<body>
-  <header class="site-header">
-    <a href="#inicio" class="brand" aria-label="Ir para o início">
-      Espaço <span>Priscila Oliveira</span>
-    </a>
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/surf-blond.jpg" alt="Surf Blond">
+            </div>
+            <div class="card-details">
+              <h4>Surf Blond</h4>
+              <p>Clareamento seguro com efeito natural e sofisticado.</p>
+            </div>
+          </div>
 
-    <nav class="desktop-nav" aria-label="Menu principal">
-      <a href="#inicio">Início</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#sobre">Espaço & Horários</a>
-    </nav>
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/botox-capilar.jpg" alt="Botox Capilar">
+            </div>
+            <div class="card-details">
+              <h4>Botox Capilar</h4>
+              <p>Redução de volume e reposição de massa.</p>
+            </div>
+          </div>
 
-    <div class="header-buttons">
-      <a 
-        href="https://wa.me/5521982490919" 
-        class="nav-btn btn-wpp" 
-        target="_blank" 
-        rel="noopener noreferrer"
-      >
-        WhatsApp
-      </a>
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/cronograma-capilar.jpg" alt="Cronograma Capilar">
+            </div>
+            <div class="card-details">
+              <h4>Cronograma Capilar</h4>
+              <p>Reconstrução completa para fios saudáveis.</p>
+            </div>
+          </div>
 
-      <a href="#servicos" class="nav-btn">
-        Agendar
-      </a>
+        </div>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
     </div>
-  </header>
 
-  <main>
-    <section class="hero" id="inicio">
-      <div class="hero-content">
-        <span class="tag">Beleza, Cuidado & Autoestima</span>
-
-        <h1>Um refúgio de elegância para cuidar de <span>você</span>.</h1>
-
-        <p>
-          Atendimento exclusivo e personalizado no Recreio dos Bandeirantes.
-          Escolha o procedimento desejado e agende diretamente pela nossa agenda oficial.
-        </p>
-
-        <a href="#servicos" class="btn btn-black">Explorar Serviços</a>
-      </div>
-    </section>
-
-    <section id="servicos" class="services-section">
-      <div class="section-title">
-        <span class="tag">Nossos Serviços</span>
-        <h2>Menu de Cuidados & <span>Estética</span></h2>
-        <p>
-          Deslize para o lado para ver todas as opções. Clique sobre o serviço ideal para você para realizar o agendamento.
-        </p>
-      </div>
-
-      <!-- Categoria: Unhas -->
-      <div class="category">
-        <div class="category-head">
-          <h3>Unhas & Alongamentos</h3>
-          <span>Técnicas modernas e alta durabilidade</span>
-        </div>
-
-        <div class="carousel-container">
-          <button class="nav-arrow prev" aria-label="Voltar serviços" type="button" onclick="moveCarousel(this, -1)">❮</button>
-
-          <div class="service-carousel">
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Alongamento em Acrílico</h4>
-                <p>Acabamento impecável, alta resistência e formato ideal para suas mãos.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 200 • 3h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Alongamento em Fibra</h4>
-                <p>Resultado natural, leve e com excelente durabilidade.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 180 • 3h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Banho de Gel</h4>
-                <p>Camada protetora que garante brilho, blindagem e força para unhas naturais.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 130 • 1h30</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Esmaltação em Gel</h4>
-                <p>Unhas secas na hora e brilho duradouro por semanas.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 60 • 30m</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Manutenção de Fibra</h4>
-                <p>Reposição estrutural para manter beleza e saúde das unhas.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 135</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Manutenção de Acrílico</h4>
-                <p>Nivelamento e cuidados periódicos essenciais para o acrílico.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 140</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Remoção de Alongamento</h4>
-                <p>Retirada segura preservando a unha natural.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 60 • 2h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Reposição de Unha</h4>
-                <p>Conserto individual para unhas danificadas fora da manutenção.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 10 / unha</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Pé e Mão Simples</h4>
-                <p>Cuidado clássico de cuticulagem e esmaltação.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 60 • 1h20</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Apenas Pé</h4>
-                <p>Cuidado e higienização focada nas unhas dos pés.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 35 • 30m</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Apenas Mão</h4>
-                <p>Cuidado, modelagem e esmaltação focada nas mãos.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 35 • 30m</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Spa dos Pés</h4>
-                <p>Protocolo relaxante com esfoliação e hidratação profunda.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 80 • 1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
+    <!-- CATEGORIA 2: UNHAS E ALONGAMENTOS -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon-wrapper">
+            <!-- Ícone de unha -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 3C9 6 9 11 9 15c0 3 1.5 5 3 5s3-2 3-5c0-4 0-9-3-12zM10 12c.5-1.5 1.5-2 2-2s1.5.5 2 2"/></svg>
           </div>
-
-          <button class="nav-arrow next" aria-label="Avançar serviços" type="button" onclick="moveCarousel(this, 1)">❯</button>
-        </div>
-      </div>
-
-      <!-- Categoria: Cabelo -->
-      <div class="category">
-        <div class="category-head">
-          <h3>Cuidados Capilares</h3>
-          <span>Valores iniciais baseados em avaliação de volume e comprimento</span>
-        </div>
-
-        <div class="carousel-container">
-          <button class="nav-arrow prev" aria-label="Voltar serviços" type="button" onclick="moveCarousel(this, -1)">❮</button>
-
-          <div class="service-carousel">
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Escova Premium</h4>
-                <p>Lavagem especial e finalização profissional com balanço natural.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">A partir de R$ 70 • 1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Tratamento com Ozônio</h4>
-                <p>Produtos de alta tecnologia combinados com ozonioterapia capilar.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 150 • 1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Mechas Topo e Contorno</h4>
-                <p>Iluminação estratégica dos fios com tratamento e escova inclusos.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">A partir de R$ 350 • 4h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Surf Blond</h4>
-                <p>Efeito solar moderno e sofisticado nas mechas.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">A partir de R$ 350 • 5h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Moreno Iluminado</h4>
-                <p>Contraste sutil e elegante para fundos escuros.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 450 • 4h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Coloração</h4>
-                <p>Aplicação profissional com tratamento protetor e escova.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">A partir de R$ 180 • 1h30</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-          </div>
-
-          <button class="nav-arrow next" aria-label="Avançar serviços" type="button" onclick="moveCarousel(this, 1)">❯</button>
-        </div>
-      </div>
-
-      <!-- Categoria: Massoterapia -->
-      <div class="category">
-        <div class="category-head">
-          <h3>Massoterapia</h3>
-          <span>Disponível exclusivamente às Terças e Quintas</span>
-        </div>
-
-        <div class="carousel-container">
-          <button class="nav-arrow prev" aria-label="Voltar serviços" type="button" onclick="moveCarousel(this, -1)">❮</button>
-
-          <div class="service-carousel">
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Massagem Relaxante</h4>
-                <p>Alívio de tensões físicas e mentais com óleos selecionados.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Liberação Miofascial</h4>
-                <p>Foco terapêutico no relaxamento das fáscias musculares.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Ventosaterapia</h4>
-                <p>Aplicação de ventosas para ativação da circulação local.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Drenagem Linfática</h4>
-                <p>Manobras suaves para redução de retenção líquida.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">1h</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
-          </div>
-
-          <button class="nav-arrow next" aria-label="Avançar serviços" type="button" onclick="moveCarousel(this, 1)">❯</button>
-        </div>
-      </div>
-
-      <!-- Categoria: Sobrancelhas -->
-      <div class="category">
-        <div class="category-head">
-          <h3>Olhar & Simetria</h3>
-          <span>Design personalizado</span>
-        </div>
-
-        <div class="carousel-container">
-          <div class="service-carousel single-card">
-            <a href="#" class="service-card">
-              <div class="card-body">
-                <h4>Design de Sobrancelha</h4>
-                <p>Estudo das linhas faciais para moldar um olhar expressivo e natural.</p>
-              </div>
-              <div class="card-footer">
-                <span class="price">R$ 45</span>
-                <span class="action-label">Agendar ➔</span>
-              </div>
-            </a>
+          <div class="category-text">
+            <h3>Unhas e Alongamentos</h3>
+            <p>Beleza e durabilidade para unhas impecáveis.</p>
           </div>
         </div>
+        <a href="https://wa.me/5521982490919" class="btn-view-all" target="_blank" rel="noopener noreferrer">
+          Ver Todos <span class="arrow">›</span>
+        </a>
       </div>
-    </section>
 
-    <section id="sobre" class="about-section">
-      <div class="info-section">
-        <div class="info-text-side">
-          <span class="tag tag-dark">Nosso Espaço</span>
-          <h2>Um ambiente acolhedor projetado para você.</h2>
-          <p>
-            Cada detalhe do Espaço Priscila Oliveira foi pensado para trazer bem-estar,
-            biossegurança e resultados que valorizam sua beleza.
-          </p>
+      <!-- Carrossel Unhas -->
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <div class="carousel-track">
+          
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/alongamento-em-acrilico.jpg" alt="Alongamento em Acrílico">
+            </div>
+            <div class="card-details">
+              <h4>Alongamento em Acrílico</h4>
+              <p>Resistência e acabamento impecável.</p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/alongamento-em-fibra.jpg" alt="Alongamento em Fibra">
+            </div>
+            <div class="card-details">
+              <h4>Alongamento em Fibra</h4>
+              <p>Leveza e naturalidade com durabilidade.</p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/esmaltacao-em-gel.jpg" alt="Esmaltação em Gel">
+            </div>
+            <div class="card-details">
+              <h4>Esmaltação em Gel</h4>
+              <p>Cor intensa e brilho que dura mais.</p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/blindagem.jpg" alt="Blindagem">
+            </div>
+            <div class="card-details">
+              <h4>Blindagem</h4>
+              <p>Proteção e fortalecimento para unhas naturais.</p>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/nail-art-personalizada.jpg" alt="Nail Art Personalizada">
+            </div>
+            <div class="card-details">
+              <h4>Nail Art Personalizada</h4>
+              <p>Criação exclusiva para cada estilo.</p>
+            </div>
+          </div>
+
         </div>
-
-        <div class="info-grid">
-          <div class="info-box">
-            <strong>Horário de Atendimento</strong>
-            <p>Terça a Sábado<br>10h às 19h</p>
-          </div>
-
-          <div class="info-box">
-            <strong>Sugestões de Período</strong>
-            <p>Manhã: 10h às 12h<br>Tarde: 12h às 19h</p>
-          </div>
-
-          <div class="info-box info-box-full">
-            <strong>Onde Estamos</strong>
-            <p>Pç. Heitor Bastos Tigre, 16355 - Recreio dos Bandeirantes, Rio de Janeiro - RJ, 22790-550</p>
-          </div>
-
-          <a 
-            class="btn btn-gold" 
-            href="https://maps.app.goo.gl/mud9bvrWzaV2AaqMA" 
-            target="_blank" 
-            rel="noopener noreferrer"
-          >
-            Abrir Localização no GPS
-          </a>
-        </div>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
       </div>
-    </section>
-  </main>
+    </div>
 
-  <footer>
-    <div class="brand">Espaço <span>Priscila Oliveira</span></div>
-    <p>© 2026 — Estética, Beleza & Sofisticação. Todos os direitos reservados.</p>
-  </footer>
+    <!-- CATEGORIA 3: ESTÉTICA E BEM-ESTAR -->
+    <div class="category-block">
+      <div class="category-header">
+        <div class="category-info">
+          <div class="category-icon-wrapper">
+            <!-- Ícone de rosto/estética -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="9"/><path d="M12 15c1.5 0 3-.8 3-2H9c0 1.2 1.5 2 3 2zM9 9h.01M15 9h.01"/></svg>
+          </div>
+          <div class="category-text">
+            <h3>Estética e Bem-estar</h3>
+            <p>Cuidados para realçar sua beleza e elevar sua autoestima.</p>
+          </div>
+        </div>
+        <a href="https://wa.me/5521982490919" class="btn-view-all" target="_blank" rel="noopener noreferrer">
+          Ver Todos <span class="arrow">›</span>
+        </a>
+      </div>
 
-  <script>
-    function moveCarousel(button, direction) {
-      const container = button.closest(".carousel-container");
-      const carousel = container.querySelector(".service-carousel");
-      const card = carousel.querySelector(".service-card");
+      <!-- Carrossel Estética -->
+      <div class="carousel-wrapper">
+        <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+        <div class="carousel-track">
+          
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/limpeza-de-pele.jpg" alt="Limpeza de Pele">
+            </div>
+            <div class="card-details">
+              <h4>Limpeza de Pele</h4>
+              <p>Pele renovada, limpa e com mais viço.</p>
+            </div>
+          </div>
 
-      if (!carousel || !card) return;
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/design-de-sobrancelhas.jpg" alt="Design de Sobrancelhas">
+            </div>
+            <div class="card-details">
+              <h4>Design de Sobrancelhas</h4>
+              <p>Harmonia e expressão para o seu olhar.</p>
+            </div>
+          </div>
 
-      const gap = 24;
-      const cardWidth = card.offsetWidth + gap;
-      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/melasma-e-manchas.jpg" alt="Melasma e Manchas">
+            </div>
+            <div class="card-details">
+              <h4>Melasma e Manchas</h4>
+              <p>Tratamentos avançados para uniformizar a pele.</p>
+            </div>
+          </div>
 
-      let nextPosition = carousel.scrollLeft + direction * cardWidth;
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/massagens.jpg" alt="Massagens">
+            </div>
+            <div class="card-details">
+              <h4>Massagens</h4>
+              <p>Relaxamento e bem-estar para corpo e mente.</p>
+            </div>
+          </div>
 
-      if (direction === 1 && (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10)) {
-        nextPosition = 0;
-      } 
-      else if (direction === -1 && carousel.scrollLeft <= 10) {
-        nextPosition = maxScroll;
-      }
+          <div class="service-card">
+            <div class="card-image">
+              <img src="imagens/depilacao.jpg" alt="Depilação">
+            </div>
+            <div class="card-details">
+              <h4>Depilação</h4>
+              <p>Pele lisa e cuidados com conforto.</p>
+            </div>
+          </div>
 
-      carousel.scrollTo({
-        left: nextPosition,
-        behavior: "smooth"
-      });
-    }
-  </script>
-</body>
-</html>
+        </div>
+        <button class="carousel-btn next" aria-label="Próximo">›</button>
+      </div>
+    </div>
+
+  </div>
+</section>
