@@ -1,14 +1,190 @@
-/* --- SEÇÃO DE SERVIÇOS PREMIUM (Ref: 99417.png) --- */
-.category-icon-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E RESETS (ESTILO BOUTIQUE)
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
-.services-section {
-  padding: 80px 20px;
-  background-color: #faf8f7; /* Fundo off-white sutil e sofisticado */
+
+body {
   font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #1c1917;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. MENU DE NAVEGAÇÃO SUPERIOR
+   ========================================================================== */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(28, 25, 23, 0.05);
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo-img {
+  height: 46px;
+  object-fit: contain;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #78716c;
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 15px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #cf8096;
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-nav-agendar {
+  display: inline-block;
+  padding: 10px 22px;
+  background-color: #cf8096;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-nav-agendar:hover {
+  background-color: #b3667b;
+}
+
+.btn-nav-wp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background-color: #e396ab;
+  color: #ffffff;
+  border-radius: 50%;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.btn-nav-wp:hover {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   3. SEÇÃO BANNER / HERO
+   ========================================================================== */
+.hero-section {
+  padding-top: 80px; /* Desconto do menu fixo */
+  min-height: 85vh;
+  background: radial-gradient(circle at 80% 50%, rgba(244, 212, 220, 0.4), transparent 55%), #fdfbfb;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+.hero-content {
+  max-width: 540px;
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #cf8096;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: #1c1917;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.hero-content h1 span {
+  color: #cf8096;
+  font-style: italic;
+}
+
+.hero-content p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #78716c;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.btn-hero-cta {
+  display: inline-block;
+  padding: 14px 36px;
+  background-color: #cf8096;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(207, 128, 150, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-hero-cta:hover {
+  background-color: #b3667b;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(207, 128, 150, 0.3);
+}
+
+/* ==========================================================================
+   4. SEÇÃO DE SERVIÇOS PREMIUM (Ref: 99417.png)
+   ========================================================================== */
+.services-section {
+  padding: 90px 20px;
+  background-color: #faf8f7; /* Off-white de luxo */
 }
 
 .services-container {
@@ -16,10 +192,10 @@
   margin: 0 auto;
 }
 
-/* Cabeçalho da Seção */
+/* Título Centralizado */
 .section-title-center {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 64px;
 }
 
 .section-title-center .subtitle {
@@ -27,14 +203,14 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #cf8096; /* Rosa padrão do Espaço */
+  color: #cf8096;
   font-weight: 500;
   margin-bottom: 8px;
 }
 
 .section-title-center h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 400;
   color: #1c1917;
   letter-spacing: -0.5px;
@@ -48,21 +224,21 @@
 .diamond-divider {
   color: #cf8096;
   font-size: 10px;
-  margin-top: 14px;
-  opacity: 0.6;
+  margin-top: 16px;
+  opacity: 0.5;
 }
 
-/* Blocos de Categoria */
+/* Estrutura das Categorias */
 .category-block {
-  margin-bottom: 50px;
+  margin-bottom: 56px;
 }
 
 .category-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  padding-bottom: 12px;
+  margin-bottom: 26px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(28, 25, 23, 0.05);
 }
 
@@ -73,47 +249,51 @@
 }
 
 .category-icon-wrapper {
-  width: 52px;
-  height: 52px;
+  width: 56px;
+  height: 56px;
   background-color: #f6eded;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #cf8096;
+  overflow: hidden; /* Garante o corte perfeito da imagem */
   flex-shrink: 0;
+  border: 1px solid rgba(207, 128, 150, 0.15);
 }
 
-.category-icon-wrapper svg {
-  width: 26px;
-  height: 26px;
+/* Nova Regra: Adaptação para imagem da categoria */
+.category-icon-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .category-text h3 {
   font-family: 'Playfair Display', serif;
-  font-size: 22px;
+  font-size: 23px;
   font-weight: 400;
   color: #1c1917;
   margin-bottom: 4px;
 }
 
 .category-text p {
-  font-size: 13px;
+  font-size: 13.5px;
   color: #78716c;
   font-weight: 300;
 }
 
-/* Botão "Ver Todos" Lateral */
+/* Botão "Ver Todos" */
 .btn-view-all {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: 1px solid rgba(207, 128, 150, 0.3);
   border-radius: 30px;
   text-decoration: none;
   color: #cf8096;
-  font-size: 12px;
+  font-size: 11.5px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 500;
@@ -127,12 +307,7 @@
   border-color: #cf8096;
 }
 
-.btn-view-all .arrow {
-  font-size: 14px;
-  line-height: 1;
-}
-
-/* --- ESTRUTURA DO CARROSSEL FLUIDO --- */
+/* Trilhas e Wrappers do Carrossel */
 .carousel-wrapper {
   position: relative;
   display: flex;
@@ -144,49 +319,47 @@
   gap: 20px;
   overflow-x: auto;
   scroll-behavior: smooth;
-  padding: 10px 4px 20px 4px;
+  padding: 10px 4px 24px 4px;
   width: 100%;
-  /* Oculta a barra de rolagem no IE, Edge e Firefox */
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Oculta a barra de rolagem no Chrome, Safari e Opera */
 .carousel-track::-webkit-scrollbar {
   display: none;
 }
 
-/* Cartão do Serviço Individual */
+/* Cartões Individuais dos Serviços */
 .service-card {
-  min-width: 260px;
-  max-width: 260px;
+  min-width: 265px;
+  max-width: 265px;
   background-color: #ffffff;
-  border-radius: 16px; /* Cantos arredondados finos como os da foto */
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(28, 25, 23, 0.02);
+  box-shadow: 0 4px 20px rgba(28, 25, 23, 0.015);
   border: 1px solid rgba(28, 25, 23, 0.03);
   display: flex;
   flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(207, 128, 150, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(207, 128, 150, 0.08);
 }
 
 .card-image {
   width: 100%;
-  height: 280px; /* Altura ideal focada nos detalhes visuais */
+  height: 290px;
   overflow: hidden;
-  background-color: #eae6e4; /* Cor de placeholder enquanto as fotos não sobem */
+  background-color: #eae6e4; /* Placeholder visual sutil */
 }
 
 .card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover .card-image img {
@@ -194,13 +367,13 @@
 }
 
 .card-details {
-  padding: 20px;
+  padding: 22px 20px;
   text-align: left;
   flex-grow: 1;
 }
 
 .card-details h4 {
-  font-size: 15px;
+  font-size: 15.5px;
   font-weight: 500;
   color: #1c1917;
   margin-bottom: 8px;
@@ -210,28 +383,28 @@
 .card-details p {
   font-size: 13px;
   color: #78716c;
-  line-height: 1.5;
+  line-height: 1.55;
   font-weight: 300;
 }
 
-/* Botões de Navegação do Carrossel (Visíveis no Desktop) */
+/* Botões do Carrossel Flutuante */
 .carousel-btn {
   position: absolute;
-  top: calc(50% - 20px);
-  width: 40px;
-  height: 40px;
+  top: calc(50% - 22px);
+  width: 44px;
+  height: 44px;
   background-color: #ffffff;
   border: 1px solid rgba(28, 25, 23, 0.08);
   border-radius: 50%;
   color: #1c1917;
-  font-size: 18px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   z-index: 5;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transition: all 0.25s ease;
 }
 
 .carousel-btn:hover {
@@ -240,33 +413,41 @@
   border-color: #cf8096;
 }
 
-.carousel-btn.prev {
-  left: -20px;
+.carousel-btn.prev { left: -22px; }
+.carousel-btn.next { right: -22px; }
+
+/* ==========================================================================
+   5. SEÇÕES COMPLEMENTARES E RODAPÉ (ESTRUTURA BASE)
+   ========================================================================== */
+.about-section {
+  padding: 80px 20px;
+  background-color: #ffffff;
 }
 
-.carousel-btn.next {
-  right: -20px;
+.main-footer {
+  padding: 60px 20px;
+  background-color: #1c1917;
+  color: #fafafa;
 }
 
-/* --- RESPONSIVIDADE ADAPTADA --- */
+/* ==========================================================================
+   6. RESPONSIVIDADE ADAPTATIVA (MOBILE E TABLETS)
+   ========================================================================== */
 @media (max-width: 1024px) {
-  .service-card {
-    min-width: 230px;
-    max-width: 230px;
-  }
-  .card-image {
-    height: 240px;
-  }
+  .hero-content h1 { font-size: 40px; }
+  .service-card { min-width: 235px; max-width: 235px; }
+  .card-image { height: 250px; }
 }
 
 @media (max-width: 768px) {
-  .services-section {
-    padding: 60px 16px;
-  }
+  .main-nav { height: 70px; }
+  .nav-links { display: none; } /* Menu hamburguer ou links ocultos em telas pequenas */
   
-  .section-title-center h2 {
-    font-size: 28px;
-  }
+  .hero-section { padding-top: 70px; min-height: auto; padding-bottom: 60px; }
+  .hero-content h1 { font-size: 32px; }
+  
+  .services-section { padding: 60px 16px; }
+  .section-title-center h2 { font-size: 28px; }
 
   .category-header {
     flex-direction: column;
@@ -278,15 +459,17 @@
     align-self: flex-start;
     width: 100%;
     justify-content: center;
+    padding: 12px;
   }
 
-  /* Esconde os botões flutuantes no celular, pois o deslize por toque é melhor */
+  /* Oculta as setas no mobile para usar o gesto natural de arrastar com o polegar */
   .carousel-btn {
     display: none;
   }
   
   .carousel-track {
-    padding-left: 4px;
-    padding-right: 16px;
+    padding-left: 2px;
+    padding-right: 20px;
+    gap: 16px;
   }
 }
