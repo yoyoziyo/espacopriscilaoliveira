@@ -1,7 +1,9 @@
-// --- LÓGICA DOS CARROSSÉIS INDEPENDENTES (Ref: 99417.png) ---
+// ==========================================================================
+// INTERAÇÃO DOS CARROSSÉIS PREMIUM (Ref: 99417.png)
+// ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Seleciona todos os blocos de categorias que possuem carrossel
+  // Captura todos os blocos de categorias estruturados no HTML
   const categoryBlocks = document.querySelectorAll(".category-block");
 
   categoryBlocks.forEach((block) => {
@@ -9,20 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
     const prevBtn = block.querySelector(".carousel-btn.prev");
     const nextBtn = block.querySelector(".carousel-btn.next");
 
-    // Verifica se os elementos existem no bloco atual antes de configurar
+    // Validação de segurança: ignora o bloco se algum elemento estiver faltando
     if (!track || !prevBtn || !nextBtn) return;
 
-    // Define a largura do clique com base no tamanho de um card + o espaçamento (gap)
-    // Isso garante que o carrossel pule de card em card perfeitamente
+    /**
+     * Calcula dinamicamente o espaço exato de rolagem.
+     * Pega a largura atual de um card de serviço e soma o espaçamento (gap) de 20px.
+     */
     const getScrollAmount = () => {
       const card = track.querySelector(".service-card");
       if (card) {
-        return card.getBoundingClientRect().width + 20; // largura do card + 20px de gap
+        return card.getBoundingClientRect().width + 20; 
       }
-      return 280; // Valor padrão de segurança
+      return 285; // Fallback de segurança caso o card não seja detectado imediatamente
     };
 
-    // Evento para o botão de Avançar (Direita)
+    // Evento de clique para avançar (Direita)
     nextBtn.addEventListener("click", () => {
       track.scrollBy({
         left: getScrollAmount(),
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Evento para o botão de Voltar (Esquerda)
+    // Evento de clique para voltar (Esquerda)
     prevBtn.addEventListener("click", () => {
       track.scrollBy({
         left: -getScrollAmount(),
@@ -38,24 +42,26 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // CONTROLE VISUAL OPCEONAL: Esconde as setas se o carrossel chegar ao limite
-    // Dá um toque extra de refinamento de interface
-    const toggleButtons = () => {
+    /**
+     * Controla a visibilidade e interatividade das setas de navegação.
+     * Esconde ou suaviza as setas quando o usuário atinge os limites de rolagem.
+     */
+    const updateButtonStates = () => {
       const scrollLeft = track.scrollLeft;
       const maxScrollLeft = track.scrollWidth - track.clientWidth;
 
-      // Se estiver no início, esconde o botão de voltar (opacidade menor ou invisível)
-      if (scrollLeft <= 5) {
-        prevBtn.style.opacity = "0.3";
+      // Gerenciamento da Seta Esquerda (Voltar)
+      if (scrollLeft <= 4) {
+        prevBtn.style.opacity = "0.2";
         prevBtn.style.pointerEvents = "none";
       } else {
         prevBtn.style.opacity = "1";
         prevBtn.style.pointerEvents = "auto";
       }
 
-      // Se chegar ao fim, esconde o botão de avançar
-      if (scrollLeft >= maxScrollLeft - 5) {
-        nextBtn.style.opacity = "0.3";
+      // Gerenciamento da Seta Direita (Avançar)
+      if (scrollLeft >= maxScrollLeft - 4) {
+        nextBtn.style.opacity = "0.2";
         nextBtn.style.pointerEvents = "none";
       } else {
         nextBtn.style.opacity = "1";
@@ -63,11 +69,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     };
 
-    // Dispara a checagem das setas sempre que houver rolagem e no carregamento inicial
-    track.addEventListener("scroll", toggleButtons);
-    window.addEventListener("resize", toggleButtons);
+    // Ouvintes de eventos para monitorar a rolagem em tempo real e redimensionamentos de tela
+    track.addEventListener("scroll", updateButtonStates);
+    window.addEventListener("resize", updateButtonStates);
     
-    // Executa uma vez no início para ajustar os estados iniciais das setas
-    setTimeout(toggleButtons, 300);
+    // Execução inicial com um pequeno delay para garantir a renderização completa do layout
+    setTimeout(updateButtonStates, 300);
   });
 });
