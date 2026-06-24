@@ -1,10 +1,10 @@
 /* ==========================================================================
-   SEÇÃO DE SERVIÇOS PREMIUM (Ref: 99417.png) - ATUALIZADO 2026
+   SEÇÃO DE SERVIÇOS PREMIUM (Ref: 99417.png / image_dd0b5f.jpg)
    ========================================================================== */
 
 .services-section {
   padding: 80px 20px;
-  background-color: #faf8f7; /* Off-white boutique */
+  background-color: #faf8f7;
   font-family: 'Inter', sans-serif;
 }
 
@@ -13,7 +13,7 @@
   margin: 0 auto;
 }
 
-/* Cabeçalho da Seção */
+/* Cabeçalho */
 .section-title-center {
   text-align: center;
   margin-bottom: 60px;
@@ -49,7 +49,7 @@
   opacity: 0.6;
 }
 
-/* Estrutura de Linha de Categoria */
+/* Blocos de Categoria */
 .category-block {
   margin-bottom: 50px;
 }
@@ -69,7 +69,6 @@
   gap: 16px;
 }
 
-/* Mini Ícone Circular de Categoria */
 .category-icon-wrapper {
   width: 54px;
   height: 54px;
@@ -104,30 +103,6 @@
   font-weight: 300;
 }
 
-/* Botão Lateral Ver Todos */
-.btn-view-all {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: 1px solid rgba(207, 128, 150, 0.3);
-  border-radius: 30px;
-  text-decoration: none;
-  color: #cf8096;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-  background-color: transparent;
-  transition: all 0.3s ease;
-}
-
-.btn-view-all:hover {
-  background-color: #cf8096;
-  color: #ffffff;
-  border-color: #cf8096;
-}
-
 /* Trilhas do Carrossel */
 .carousel-wrapper {
   position: relative;
@@ -150,7 +125,7 @@
   display: none;
 }
 
-/* Cartões Premium */
+/* --- CARTÃO DE SERVIÇO INDIVIDUAL PREMIUM --- */
 .service-card {
   min-width: 270px;
   max-width: 270px;
@@ -161,7 +136,10 @@
   border: 1px solid rgba(28, 25, 23, 0.04);
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0,0,0);
+  will-change: transform, box-shadow;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
@@ -174,19 +152,51 @@
   height: 290px;
   overflow: hidden;
   background-color: #eae6e4;
+  position: relative;
 }
 
-.card-image img {
+.card-image img:not(.category-icon-img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card:hover .card-image img {
-  transform: scale(1.03);
+.service-card:hover .card-image img:not(.category-icon-img) {
+  transform: scale(1.04);
 }
 
+/* --- NOVO: Selo do Ícone Especial (Ref: image_dd0b5f.jpg) --- */
+.special-icon-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: 28px;
+  height: 28px;
+  background: rgba(207, 128, 150, 0.85); /* Tom rosa translúcido de alta fidelidade */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.special-icon-badge img {
+  width: 16px !important;
+  height: 16px !important;
+  object-fit: contain !important;
+}
+
+.service-card:hover .special-icon-badge {
+  transform: scale(1.08);
+}
+
+/* Detalhes internos do card */
 .card-details {
   padding: 22px;
   text-align: left;
@@ -229,7 +239,7 @@
   border-top: 1px dashed rgba(28, 25, 23, 0.07);
 }
 
-/* Botões Direcionais do Desktop */
+/* Botões do Carrossel */
 .carousel-btn {
   position: absolute;
   top: calc(50% - 22px);
@@ -246,7 +256,7 @@
   cursor: pointer;
   z-index: 5;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s ease;
 }
 
 .carousel-btn:hover {
@@ -258,7 +268,6 @@
 .carousel-btn.prev { left: -22px; }
 .carousel-btn.next { right: -22px; }
 
-/* Responsividade Adaptada */
 @media (max-width: 1024px) {
   .service-card { min-width: 240px; max-width: 240px; }
   .card-image { height: 250px; }
@@ -267,8 +276,7 @@
 @media (max-width: 768px) {
   .services-section { padding: 60px 16px; }
   .section-title-center h2 { font-size: 28px; }
-  .category-header { flex-direction: column; align-items: flex-start; gap: 14px; }
-  .btn-view-all { align-self: flex-start; width: 100%; justify-content: center; padding: 12px 20px; }
+  .category-header { margin-bottom: 20px; }
   .carousel-btn { display: none; }
   .carousel-track { padding-left: 2px; padding-right: 16px; gap: 16px; }
 }
