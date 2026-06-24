@@ -1,11 +1,211 @@
 /* ==========================================================================
-   SEÇÃO DE SERVIÇOS PREMIUM (Ref: 99417.png / image_dd0b5f.jpg)
+   ESTILO GLOBAL E VARIÁVEIS BOUTIQUE
    ========================================================================== */
+:root {
+  --pink: #cf8096;
+  --pink-light: #fbf0f3;
+  --pink-hover: rgba(207, 128, 150, 0.05);
+  --text-main: #1c1917;
+  --text-sub: #78716c;
+  --bg-light: #faf8f7;
+  --white: #ffffff;
+  --border-sutil: rgba(28, 25, 23, 0.04);
+  --shadow-premium: 0 4px 20px rgba(28, 25, 23, 0.015);
+}
 
-.services-section {
-  padding: 80px 20px;
-  background-color: #faf8f7;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   font-family: 'Inter', sans-serif;
+  background-color: var(--white);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   MENU DE NAVEGAÇÃO SUPERIOR
+   ========================================================================== */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(28, 25, 23, 0.05);
+  z-index: 100;
+  padding: 14px 20px;
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-logo {
+  height: 40px;
+}
+
+.nav-logo-img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 13.5px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.nav-links a:hover {
+  color: var(--pink);
+}
+
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-nav-agendar {
+  text-decoration: none;
+  background-color: var(--text-main);
+  color: var(--white);
+  padding: 9px 20px;
+  border-radius: 30px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.btn-nav-agendar:hover {
+  background-color: var(--pink);
+}
+
+.btn-nav-wp {
+  color: #25d366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-nav-wp:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   SEÇÃO HERO / BANNER PRINCIPAL (Rosa e Branco)
+   ========================================================================== */
+.hero-section {
+  padding: 160px 20px 100px;
+  background: linear-gradient(135deg, var(--white) 50%, #fbf5f6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(207, 128, 150, 0.08) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-content {
+  max-width: 600px;
+  text-align: left;
+}
+
+.hero-subtitle {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--pink);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.hero-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text-main);
+  margin-bottom: 18px;
+  letter-spacing: -1px;
+}
+
+.hero-content h1 span {
+  color: var(--pink);
+  font-style: italic;
+}
+
+.hero-content p {
+  font-size: 15px;
+  color: var(--text-sub);
+  line-height: 1.6;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.btn-hero-cta {
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--pink);
+  color: var(--white);
+  padding: 14px 36px;
+  border-radius: 30px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(207, 128, 150, 0.2);
+}
+
+.btn-hero-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(207, 128, 150, 0.3);
+}
+
+/* ==========================================================================
+   SEÇÃO DE SERVIÇOS BOUTIQUE (Ref: 99417.png / image_dd0b5f.jpg)
+   ========================================================================== */
+.services-section {
+  padding: 90px 20px;
+  background-color: var(--bg-light);
 }
 
 .services-container {
@@ -13,10 +213,10 @@
   margin: 0 auto;
 }
 
-/* Cabeçalho */
+/* Título Centralizado */
 .section-title-center {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 64px;
 }
 
 .section-title-center .subtitle {
@@ -24,7 +224,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: #cf8096;
+  color: var(--pink);
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -33,17 +233,17 @@
   font-family: 'Playfair Display', serif;
   font-size: 36px;
   font-weight: 400;
-  color: #1c1917;
+  color: var(--text-main);
   letter-spacing: -0.5px;
 }
 
 .section-title-center h2 span {
-  color: #cf8096;
+  color: var(--pink);
   font-style: italic;
 }
 
 .diamond-divider {
-  color: #cf8096;
+  color: var(--pink);
   font-size: 10px;
   margin-top: 14px;
   opacity: 0.6;
@@ -51,15 +251,14 @@
 
 /* Blocos de Categoria */
 .category-block {
-  margin-bottom: 50px;
+  margin-bottom: 54px;
 }
 
 .category-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 24px;
-  padding-bottom: 12px;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(28, 25, 23, 0.05);
 }
 
@@ -93,17 +292,17 @@
   font-family: 'Playfair Display', serif;
   font-size: 22px;
   font-weight: 400;
-  color: #1c1917;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
 .category-text p {
   font-size: 13px;
-  color: #78716c;
+  color: var(--text-sub);
   font-weight: 300;
 }
 
-/* Trilhas do Carrossel */
+/* Trilhas e Área do Carrossel */
 .carousel-wrapper {
   position: relative;
   display: flex;
@@ -125,21 +324,19 @@
   display: none;
 }
 
-/* --- CARTÃO DE SERVIÇO INDIVIDUAL PREMIUM --- */
+/* --- DESIGN PREMIUM DO SERVICE CARD --- */
 .service-card {
   min-width: 270px;
   max-width: 270px;
-  background-color: #ffffff;
+  background-color: var(--white);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(28, 25, 23, 0.015);
-  border: 1px solid rgba(28, 25, 23, 0.04);
+  box-shadow: var(--shadow-premium);
+  border: 1px solid var(--border-sutil);
   display: flex;
   flex-direction: column;
   transform: translate3d(0,0,0);
   will-change: transform, box-shadow;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .service-card:hover {
@@ -166,14 +363,14 @@
   transform: scale(1.04);
 }
 
-/* --- NOVO: Selo do Ícone Especial (Ref: image_dd0b5f.jpg) --- */
+/* --- NOVO: Selo Flutuante (Ref: image_dd0b5f.jpg) --- */
 .special-icon-badge {
   position: absolute;
   bottom: 12px;
   left: 12px;
   width: 28px;
   height: 28px;
-  background: rgba(207, 128, 150, 0.85); /* Tom rosa translúcido de alta fidelidade */
+  background: rgba(207, 128, 150, 0.85);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   border-radius: 6px;
@@ -183,7 +380,6 @@
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease;
 }
 
 .special-icon-badge img {
@@ -192,11 +388,7 @@
   object-fit: contain !important;
 }
 
-.service-card:hover .special-icon-badge {
-  transform: scale(1.08);
-}
-
-/* Detalhes internos do card */
+/* Detalhes de Informação dos Cards */
 .card-details {
   padding: 22px;
   text-align: left;
@@ -208,21 +400,21 @@
 .card-details h4 {
   font-size: 15.5px;
   font-weight: 500;
-  color: #1c1917;
+  color: var(--text-main);
   margin-bottom: 6px;
 }
 
 .service-meta {
   font-size: 13px;
   font-weight: 500;
-  color: #cf8096;
+  color: var(--pink);
   margin-bottom: 10px;
   letter-spacing: 0.3px;
 }
 
 .card-details p:not(.service-meta) {
   font-size: 13px;
-  color: #78716c;
+  color: var(--text-sub);
   line-height: 1.55;
   font-weight: 300;
   flex-grow: 1;
@@ -239,16 +431,16 @@
   border-top: 1px dashed rgba(28, 25, 23, 0.07);
 }
 
-/* Botões do Carrossel */
+/* Setas Direcionais do Desktop */
 .carousel-btn {
   position: absolute;
   top: calc(50% - 22px);
   width: 44px;
   height: 44px;
-  background-color: #ffffff;
+  background-color: var(--white);
   border: 1px solid rgba(28, 25, 23, 0.08);
   border-radius: 50%;
-  color: #1c1917;
+  color: var(--text-main);
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -256,27 +448,130 @@
   cursor: pointer;
   z-index: 5;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
 }
 
 .carousel-btn:hover {
-  background-color: #cf8096;
-  color: #ffffff;
-  border-color: #cf8096;
+  background-color: var(--pink);
+  color: var(--white);
+  border-color: var(--pink);
 }
 
 .carousel-btn.prev { left: -22px; }
 .carousel-btn.next { right: -22px; }
 
+/* ==========================================================================
+   SEÇÃO O ESPAÇO E DESIGN DO RODAPÉ (Endereço, Horário e GPS)
+   ========================================================================== */
+.about-section {
+  padding: 80px 20px;
+  text-align: center;
+  background-color: var(--white);
+}
+
+.about-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.about-container h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.about-container p {
+  font-size: 14.5px;
+  color: var(--text-sub);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.main-footer {
+  padding: 60px 20px 20px;
+  background-color: #1c1917;
+  color: #f5f5f4;
+  text-align: center;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.footer-info-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.footer-info-block p {
+  font-size: 14px;
+  color: #a8a29e;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Botão do Link do GPS */
+.btn-gps-link {
+  display: inline-block;
+  margin-top: 16px;
+  text-decoration: none;
+  color: var(--white);
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-gps-link:hover {
+  background-color: var(--pink);
+  border-color: var(--pink);
+}
+
+.footer-bottom-bar {
+  width: 100%;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-bottom-bar p {
+  font-size: 11px;
+  color: #78716c;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* ==========================================================================
+   DESIGN RESPONSIVO ADAPTADO
+   ========================================================================== */
 @media (max-width: 1024px) {
   .service-card { min-width: 240px; max-width: 240px; }
   .card-image { height: 250px; }
+  .hero-content h1 { font-size: 38px; }
 }
 
 @media (max-width: 768px) {
+  .main-nav { padding: 12px 16px; }
+  .nav-links { display: none; } /* Esconde links comuns em telas mobile */
+  
+  .hero-section { padding: 130px 16px 60px; text-align: center; }
+  .hero-content { max-width: 100%; }
+  .hero-content h1 { font-size: 32px; }
+  
   .services-section { padding: 60px 16px; }
   .section-title-center h2 { font-size: 28px; }
   .category-header { margin-bottom: 20px; }
-  .carousel-btn { display: none; }
+  
+  .carousel-btn { display: none; } /* Mobile usa scroll por toque nativo */
   .carousel-track { padding-left: 2px; padding-right: 16px; gap: 16px; }
+  
+  .footer-container { gap: 30px; }
 }
