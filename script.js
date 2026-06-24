@@ -1,4 +1,4 @@
-// --- LÓGICA DOS CARROSSÉIS INDEPENDENTES (Ref: 99417.png) ---
+// --- LÓGICA DOS CARROSSÉIS INDEPENDENTES ---
 
 document.addEventListener("DOMContentLoaded", () => {
   const categoryBlocks = document.querySelectorAll(".category-block");
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!track || !prevBtn || !nextBtn) return;
 
-    // Calcula o deslocamento com base no tamanho real do card + o gap
     const getScrollAmount = () => {
       const card = track.querySelector(".service-card");
       if (card) {
@@ -33,10 +32,19 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Controla opacidade das setas nas extremidades
     const toggleButtons = () => {
       const scrollLeft = track.scrollLeft;
       const maxScrollLeft = track.scrollWidth - track.clientWidth;
+
+      // Se a lista não tiver rolagem (ex: poucos cards), esconde as duas setas no desktop
+      if (maxScrollLeft <= 10) {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+        return;
+      } else if (window.innerWidth > 768) {
+        prevBtn.style.display = "flex";
+        nextBtn.style.display = "flex";
+      }
 
       if (scrollLeft <= 5) {
         prevBtn.style.opacity = "0.3";
