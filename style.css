@@ -106,7 +106,7 @@ body {
    3. SEÇÃO BANNER / HERO
    ========================================================================== */
 .hero-section {
-  padding-top: 80px; /* Desconto do menu fixo */
+  padding-top: 80px;
   min-height: 85vh;
   background: radial-gradient(circle at 80% 50%, rgba(244, 212, 220, 0.4), transparent 55%), #fdfbfb;
   display: flex;
@@ -184,7 +184,7 @@ body {
    ========================================================================== */
 .services-section {
   padding: 90px 20px;
-  background-color: #faf8f7; /* Off-white de luxo */
+  background-color: #faf8f7;
 }
 
 .services-container {
@@ -192,7 +192,6 @@ body {
   margin: 0 auto;
 }
 
-/* Título Centralizado */
 .section-title-center {
   text-align: center;
   margin-bottom: 64px;
@@ -228,7 +227,6 @@ body {
   opacity: 0.5;
 }
 
-/* Estrutura das Categorias */
 .category-block {
   margin-bottom: 56px;
 }
@@ -256,12 +254,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden; /* Garante o corte perfeito da imagem */
+  overflow: hidden;
   flex-shrink: 0;
   border: 1px solid rgba(207, 128, 150, 0.15);
 }
 
-/* Nova Regra: Adaptação para imagem da categoria */
 .category-icon-img {
   width: 100%;
   height: 100%;
@@ -283,7 +280,6 @@ body {
   font-weight: 300;
 }
 
-/* Botão "Ver Todos" */
 .btn-view-all {
   display: inline-flex;
   align-items: center;
@@ -307,7 +303,6 @@ body {
   border-color: #cf8096;
 }
 
-/* Trilhas e Wrappers do Carrossel */
 .carousel-wrapper {
   position: relative;
   display: flex;
@@ -329,7 +324,6 @@ body {
   display: none;
 }
 
-/* Cartões Individuais dos Serviços */
 .service-card {
   min-width: 265px;
   max-width: 265px;
@@ -352,7 +346,7 @@ body {
   width: 100%;
   height: 290px;
   overflow: hidden;
-  background-color: #eae6e4; /* Placeholder visual sutil */
+  background-color: #eae6e4;
 }
 
 .card-image img {
@@ -387,7 +381,6 @@ body {
   font-weight: 300;
 }
 
-/* Botões do Carrossel Flutuante */
 .carousel-btn {
   position: absolute;
   top: calc(50% - 22px);
@@ -417,31 +410,199 @@ body {
 .carousel-btn.next { right: -22px; }
 
 /* ==========================================================================
-   5. SEÇÕES COMPLEMENTARES E RODAPÉ (ESTRUTURA BASE)
+   5. SEÇÃO: O ESPAÇO (ATUALIZADA)
    ========================================================================== */
 .about-section {
-  padding: 80px 20px;
+  padding: 100px 20px;
   background-color: #ffffff;
 }
 
-.main-footer {
-  padding: 60px 20px;
-  background-color: #1c1917;
-  color: #fafafa;
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.about-content .subtitle {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #cf8096;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.about-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: #1c1917;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.about-content h2 span {
+  color: #cf8096;
+  font-style: italic;
+}
+
+.about-content p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #78716c;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.about-content .highlight {
+  font-size: 16px;
+  color: #1c1917;
+  font-weight: 400;
+  border-left: 2px solid #cf8096;
+  padding-left: 20px;
+  margin-top: 28px;
+  font-style: italic;
+}
+
+.about-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(28, 25, 23, 0.04);
+}
+
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ==========================================================================
-   6. RESPONSIVIDADE ADAPTATIVA (MOBILE E TABLETS)
+   6. SEÇÃO: HORÁRIO / RODAPÉ (ATUALIZADA)
+   ========================================================================== */
+.main-footer {
+  padding: 80px 20px 30px;
+  background-color: #1c1917; /* Grafite escuro luxuoso */
+  color: #f5f5f4;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  border-bottom: 1px solid rgba(245, 245, 244, 0.08);
+  padding-bottom: 60px;
+}
+
+.footer-block h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #ffffff;
+  margin-bottom: 28px;
+  letter-spacing: 0.5px;
+}
+
+/* Lista de Horários */
+.schedule-list {
+  list-style: none;
+}
+
+.schedule-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(245, 245, 244, 0.05);
+  font-size: 14px;
+  font-weight: 300;
+  color: #a8a29e;
+}
+
+.schedule-list li span:last-child {
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.schedule-list li span.closed {
+  color: #cf8096;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* Detalhes de Endereço e Botão */
+.address {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #a8a29e;
+  font-weight: 300;
+  margin-bottom: 32px;
+}
+
+.btn-maps {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 28px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-maps:hover {
+  background-color: #ffffff;
+  color: #1c1917;
+  border-color: #ffffff;
+}
+
+.footer-bottom {
+  padding-top: 30px;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 12px;
+  color: #78716c;
+  font-weight: 300;
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE ADAPTATIVA (MOBILE E TABLETS)
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-content h1 { font-size: 40px; }
   .service-card { min-width: 235px; max-width: 235px; }
   .card-image { height: 250px; }
+  .about-grid { gap: 40px; }
+  .about-image-wrapper { height: 380px; }
+  .footer-grid { gap: 40px; }
 }
 
 @media (max-width: 768px) {
   .main-nav { height: 70px; }
-  .nav-links { display: none; } /* Menu hamburguer ou links ocultos em telas pequenas */
+  .nav-links { display: none; }
   
   .hero-section { padding-top: 70px; min-height: auto; padding-bottom: 60px; }
   .hero-content h1 { font-size: 32px; }
@@ -462,14 +623,17 @@ body {
     padding: 12px;
   }
 
-  /* Oculta as setas no mobile para usar o gesto natural de arrastar com o polegar */
-  .carousel-btn {
-    display: none;
-  }
-  
-  .carousel-track {
-    padding-left: 2px;
-    padding-right: 20px;
-    gap: 16px;
-  }
+  .carousel-btn { display: none; }
+  .carousel-track { padding-left: 2px; padding-right: 20px; gap: 16px; }
+
+  /* Ajustes Mobile para O Espaço e Rodapé */
+  .about-section { padding: 60px 16px; }
+  .about-grid { grid-template-columns: 1fr; gap: 36px; }
+  .about-content h2 { font-size: 28px; }
+  .about-image-wrapper { height: 320px; }
+
+  .main-footer { padding: 60px 16px 30px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 44px; padding-bottom: 40px; }
+  .footer-block h4 { margin-bottom: 20px; }
+  .btn-maps { width: 100%; justify-content: center; padding: 14px; }
 }
