@@ -352,7 +352,7 @@ body {
 
 .card-image {
   width: 100%;
-  height: 290px;
+  height: 270px;
   overflow: visible; /* MÁGICA 1: Permite que o ícone ultrapasse a borda da foto e apareça na parte branca */
   background-color: #eae6e4;
   position: relative;
