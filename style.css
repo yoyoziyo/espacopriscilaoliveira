@@ -367,7 +367,7 @@ body {
   transform: scale(1.04);
 }
 
-/* Selo Flutuante de Ícone Especial */
+/* --- ATUALIZAÇÃO DO SELO DO ÍCONE ESPECIAL --- */
 .special-icon-badge {
   position: absolute;
   bottom: 12px;
@@ -384,12 +384,14 @@ body {
   z-index: 3;
   border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden; /* Garante que a imagem não morda as bordas arredondadas do selo */
 }
 
+/* Aqui está a mágica: mudamos de 16px e contain para 100% e cover */
 .special-icon-badge img {
-  width: 16px !important;
-  height: 16px !important;
-  object-fit: contain !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important; 
 }
 
 /* Detalhes de Informação dos Cards */
