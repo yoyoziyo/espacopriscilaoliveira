@@ -366,6 +366,11 @@ body {
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  /* --- CAMADA DE PROTEÇÃO ANTICÓPIA --- */
+  user-select: none;           /* Impede de selecionar a imagem */
+  -webkit-user-drag: none;     /* Impede de arrastar a imagem para fora do navegador */
+  pointer-events: none;        /* Faz o navegador ignorar cliques diretos nela (o clique "vaza" para o fundo) */
 }
 
 .special-icon-badge {
