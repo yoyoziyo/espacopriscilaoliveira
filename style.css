@@ -367,31 +367,29 @@ body {
   transform: scale(1.04);
 }
 
-/* --- ATUALIZAÇÃO DO SELO DO ÍCONE ESPECIAL --- */
+/* --- CORREÇÃO CIRÚRGICA DO ÍCONE ESPECIAL (Ref: image_f1c30b.png) --- */
 .special-icon-badge {
   position: absolute;
   bottom: 12px;
   left: 12px;
   width: 28px;
   height: 28px;
-  background: rgba(207, 128, 150, 0.85);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 3;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-  overflow: hidden; /* Garante que a imagem não morda as bordas arredondadas do selo */
+  overflow: hidden;
+  
+  /* Remove absolutamente tudo o que criava a borda e o fundo duplo */
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
-/* Aqui está a mágica: mudamos de 16px e contain para 100% e cover */
+/* Garante que a sua imagem preencha o tamanho exato determinado acima */
 .special-icon-badge img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important; 
+  object-fit: cover !important;
 }
 
 /* Detalhes de Informação dos Cards */
