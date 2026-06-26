@@ -84,3 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(toggleButtons, 300);
   });
 });
+
+// ==========================================================================
+// BLOQUEIO ANTI-DOWNLOAD DE IMAGENS (Botão Direito e Toque Prolongado)
+// ==========================================================================
+document.addEventListener("contextmenu", (e) => {
+  // Se o usuário clicar com o botão direito em uma tag de imagem (IMG), o menu é bloqueado
+  if (e.target.tagName === "IMG") {
+    e.preventDefault();
+  }
+}, false);
