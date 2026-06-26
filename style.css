@@ -348,36 +348,36 @@ body {
   box-shadow: 0 16px 35px rgba(207, 128, 150, 0.08);
 }
 
+/* --- POSICIONAMENTO MEIO A MEIO DO ÍCONE (Ref: image_f31482.png) --- */
+
 .card-image {
   width: 100%;
   height: 290px;
-  overflow: hidden;
+  overflow: visible; /* MÁGICA 1: Permite que o ícone ultrapasse a borda da foto e apareça na parte branca */
   background-color: #eae6e4;
   position: relative;
 }
 
+/* Forçamos os cantos arredondados do topo direto na imagem para não vazar, já que tiramos o hidden do pai */
 .card-image img:not(.category-icon-img) {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.service-card:hover .card-image img:not(.category-icon-img) {
-  transform: scale(1.04);
-}
-
-/* --- CORREÇÃO CIRÚRGICA DO ÍCONE ESPECIAL (Ref: image_f1c30b.png) --- */
 .special-icon-badge {
   position: absolute;
-  bottom: 12px;
-  left: 12px;
+  left: 16px; /* Alinhamento sutil com a margem do texto */
+  bottom: -14px; /* MÁGICA 2: Metade da altura de 28px para ficar perfeitamente centralizado na linha de divisão */
   width: 28px;
   height: 28px;
-  z-index: 3;
+  z-index: 10; /* Garante que ele fique por cima da parte branca sem sumir */
   overflow: hidden;
   
-  /* Remove absolutamente tudo o que criava a borda e o fundo duplo */
+  /* Limpeza total mantida */
   background: transparent !important;
   border: none !important;
   backdrop-filter: none !important;
@@ -385,13 +385,11 @@ body {
   box-shadow: none !important;
 }
 
-/* Garante que a sua imagem preencha o tamanho exato determinado acima */
 .special-icon-badge img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
 }
-
 /* Detalhes de Informação dos Cards */
 .card-details {
   padding: 22px;
