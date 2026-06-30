@@ -348,11 +348,11 @@ body {
   box-shadow: 0 16px 35px rgba(207, 128, 150, 0.08);
 }
 
-/* --- PROPORÇÃO QUADRADA 1:1 MANTIDA --- */
+/* --- PROPORÇÃO QUADRADA 1:1 --- */
 .card-image {
   width: 100%;
-  height: 270px; /* Mantido em 270px para o formato quadrado 1:1 perfeito */
-  overflow: visible; /* Garante que o ícone ultrapasse a borda sem cortar */
+  height: 270px;
+  overflow: visible;
   background-color: #eae6e4;
   position: relative;
 }
@@ -365,7 +365,6 @@ body {
   border-top-right-radius: 16px;
   transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   
-  /* Proteção Anticópia ativa */
   user-select: none;
   -webkit-user-drag: none;
   pointer-events: none;
@@ -379,13 +378,11 @@ body {
 .special-icon-badge {
   position: absolute;
   left: 16px;
-  bottom: -14px; /* Metade da altura de 28px para alinhar de forma cirúrgica */
+  bottom: -14px;
   width: 28px;
   height: 28px;
   z-index: 10;
   overflow: hidden;
-  
-  /* Limpeza absoluta de bordas duplicadas e fundos cinzas */
   background: transparent !important;
   border: none !important;
   backdrop-filter: none !important;
@@ -397,29 +394,6 @@ body {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-}
-
-/* Aviso Mega Hair: Canto inferior direito, totalmente contido DENTRO da foto */
-.except-hair-badge {
-  position: absolute;
-  right: 12px;  /* Afastamento da lateral direita interna */
-  bottom: 12px; /* Afastamento da base inferior interna (totalmente dentro) */
-  width: 32px;  /* Tamanho menor e sutil conforme o seu esquema */
-  height: 32px;
-  z-index: 10;
-  overflow: hidden;
-  
-  background: transparent !important;
-  border: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: none !important;
-}
-
-.except-hair-badge img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: contain !important;
 }
 
 /* Detalhes de Informação dos Cards */
@@ -446,9 +420,8 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* NOVO: Ajuste de fonte reduzida para listar preços P, M, G na mesma linha */
 .sizes-meta {
-  font-size: 11.5px; /* Ligeiramente menor para caber elegantemente */
+  font-size: 11.5px;
   color: var(--pink);
 }
 
@@ -458,6 +431,12 @@ body {
   line-height: 1.55;
   font-weight: 300;
   flex-grow: 1;
+}
+
+/* Estilo para destacar o texto (Exceto Mega Hair) */
+.text-destaque-aviso {
+  font-weight: 600;
+  color: var(--pink);
 }
 
 /* Botão de Guia de Medidas (P, M, G) */
