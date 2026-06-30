@@ -399,17 +399,16 @@ body {
   object-fit: cover !important;
 }
 
-/* NOVO: Aviso flutuante "Exceto Mega Hair" (Selo no canto superior direito) */
+/* Aviso Mega Hair: Canto inferior direito, totalmente contido DENTRO da foto */
 .except-hair-badge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 45px; /* Tamanho bem pequeno e sutil */
-  height: 45px;
+  right: 12px;  /* Afastamento da lateral direita interna */
+  bottom: 12px; /* Afastamento da base inferior interna (totalmente dentro) */
+  width: 32px;  /* Tamanho menor e sutil conforme o seu esquema */
+  height: 32px;
   z-index: 10;
   overflow: hidden;
   
-  /* Limpeza mantida */
   background: transparent !important;
   border: none !important;
   backdrop-filter: none !important;
@@ -420,7 +419,7 @@ body {
 .except-hair-badge img {
   width: 100% !important;
   height: 100% !important;
-  object-fit: contain !important; /* contain para centralizar o selo na ponta */
+  object-fit: contain !important;
 }
 
 /* Detalhes de Informação dos Cards */
