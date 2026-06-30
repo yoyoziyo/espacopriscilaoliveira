@@ -1,30 +1,77 @@
-// ==========================================================================
-// LÓGICA INTELEGENTE DOS CARROSSÉIS INDEPENDENTES (Ref: image_dd0b5f.jpg)
-// ==========================================================================
-
 document.addEventListener("DOMContentLoaded", () => {
-  // Captura todos os blocos de categorias estruturados no HTML
-  const categoryBlocks = document.querySelectorAll(".category-block");
+  
+  /* ==========================================================================
+     1. LÓGICA DO WINDOW POPUP MODAL (Guia de Medidas de Cabelo P, M, G)
+     ========================================================================== */
+  const modal = document.getElementById("modalMedidas");
+  const openButtons = document.querySelectorAll(".btn-trigger-modal");
+  const closeButton = document.querySelector(".btn-close-modal");
 
-  categoryBlocks.forEach((block) => {
+  // Função para abrir o Modal
+  const openModal = () => {
+    if (modal) {
+      modal.classList.add("modal-active");
+      document.body.style.overflow = "hidden"; // Trava o scroll do fundo
+    }
+  };
+
+  // Função para fechar o Modal
+  const closeModal = () => {
+    if (modal) {
+      modal.classList.remove("modal-active");
+      document.body.style.overflow = ""; // Libera o scroll do fundo
+    }
+  };
+
+  // Atribui evento de abertura para todos os botões "Ver Guia de Tamanhos"
+  openButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Evento para fechar no botão de "X"
+  if (closeButton) {
+    closeButton.addEventListener("click", closeModal);
+  }
+
+  // Evento para fechar se clicar na cortina escura de fundo
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  }
+
+  // Evento para fechar se pressionar a tecla ESC no teclado
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal && modal.classList.contains("modal-active")) {
+      closeModal();
+    }
+  });
+
+
+  /* ==========================================================================
+     2. LÓGICA DOS CARROSSÉIS DE SERVIÇOS (Rolagem via Botões)
+     ========================================================================== */
+  const carousels = document.querySelectorAll(".category-block");
+
+  carousels.forEach(block => {
     const track = block.querySelector(".carousel-track");
     const prevBtn = block.querySelector(".carousel-btn.prev");
     const nextBtn = block.querySelector(".carousel-btn.next");
 
-    // Segurança: se o bloco não tiver a estrutura do carrossel, ignora
     if (!track || !prevBtn || !nextBtn) return;
 
-    // Calcula dinamicamente a largura do card atual + o espaçamento (gap de 20px)
-    // Isso garante que o carrossel pule exatamente de card em card no PC
+    // Calcula a largura de rolagem baseada no tamanho de um card
     const getScrollAmount = () => {
       const card = track.querySelector(".service-card");
-      if (card) {
-        return card.getBoundingClientRect().width + 20; 
-      }
-      return 290; // Medida padrão de segurança
+      return card ? card.offsetWidth + 24 : 324; // 24px é o gap definido no CSS
     };
 
-    // Clique para avançar (Direita)
+    // Botão Avançar
     nextBtn.addEventListener("click", () => {
       track.scrollBy({
         left: getScrollAmount(),
@@ -32,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Clique para voltar (Esquerda)
+    // Botão Voltar
     prevBtn.addEventListener("click", () => {
       track.scrollBy({
         left: -getScrollAmount(),
@@ -40,57 +87,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Gerenciador visual inteligente das setas flutuantes
+    // Opcional: Oculta botões se o conteúdo não transbordar (computadores grandes)
     const toggleButtons = () => {
-      const scrollLeft = track.scrollLeft;
-      const maxScrollLeft = track.scrollWidth - track.clientWidth;
-
-      // REFINAMENTO: Se a categoria não tiver itens suficientes para rolar,
-      // esconde as duas setas completamente para o layout ficar limpo
-      if (maxScrollLeft <= 10) {
+      if (track.scrollWidth <= track.clientWidth) {
         prevBtn.style.display = "none";
         nextBtn.style.display = "none";
-        return;
-      } else if (window.innerWidth > 768) {
-        // Exibe em formato flex se voltar para o desktop e houver espaço de rolagem
-        prevBtn.style.display = "flex";
-        nextBtn.style.display = "flex";
-      }
-
-      // Controla a opacidade da seta esquerda (Voltar)
-      if (scrollLeft <= 5) {
-        prevBtn.style.opacity = "0.3";
-        prevBtn.style.pointerEvents = "none"; // Desativa cliques desnecessários
       } else {
-        prevBtn.style.opacity = "1";
-        prevBtn.style.pointerEvents = "auto";
-      }
-
-      // Controla a opacidade da seta direita (Avançar)
-      if (scrollLeft >= maxScrollLeft - 5) {
-        nextBtn.style.opacity = "0.3";
-        nextBtn.style.pointerEvents = "none";
-      } else {
-        nextBtn.style.opacity = "1";
-        nextBtn.style.pointerEvents = "auto";
+        prevBtn.style.display = "";
+        nextBtn.style.display = "";
       }
     };
 
-    // Monitora os eventos de rolagem por toque (mobile) ou redimensionamento de janela
-    track.addEventListener("scroll", toggleButtons);
+    // Executa e monitora redimensionamento da tela
+    toggleButtons();
     window.addEventListener("resize", toggleButtons);
-    
-    // Executa uma checagem inicial logo após o carregamento da página
-    setTimeout(toggleButtons, 300);
   });
-});
 
-// ==========================================================================
-// BLOQUEIO ANTI-DOWNLOAD DE IMAGENS (Botão Direito e Toque Prolongado)
-// ==========================================================================
-document.addEventListener("contextmenu", (e) => {
-  // Se o usuário clicar com o botão direito em uma tag de imagem (IMG), o menu é bloqueado
-  if (e.target.tagName === "IMG") {
-    e.preventDefault();
-  }
-}, false);
+});
