@@ -348,7 +348,7 @@ body {
   box-shadow: 0 16px 35px rgba(207, 128, 150, 0.08);
 }
 
-/* --- PROPORÇÃO QUADRADA 1:1 E CONFIGURAÇÕES DO ÍCONE --- */
+/* --- PROPORÇÃO QUADRADA 1:1 MANTIDA --- */
 .card-image {
   width: 100%;
   height: 270px; /* Mantido em 270px para o formato quadrado 1:1 perfeito */
@@ -399,6 +399,30 @@ body {
   object-fit: cover !important;
 }
 
+/* NOVO: Aviso flutuante "Exceto Mega Hair" (Selo no canto superior direito) */
+.except-hair-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 45px; /* Tamanho bem pequeno e sutil */
+  height: 45px;
+  z-index: 10;
+  overflow: hidden;
+  
+  /* Limpeza mantida */
+  background: transparent !important;
+  border: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.except-hair-badge img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important; /* contain para centralizar o selo na ponta */
+}
+
 /* Detalhes de Informação dos Cards */
 .card-details {
   padding: 22px;
@@ -423,6 +447,12 @@ body {
   letter-spacing: 0.3px;
 }
 
+/* NOVO: Ajuste de fonte reduzida para listar preços P, M, G na mesma linha */
+.sizes-meta {
+  font-size: 11.5px; /* Ligeiramente menor para caber elegantemente */
+  color: var(--pink);
+}
+
 .card-details p:not(.service-meta) {
   font-size: 13px;
   color: var(--text-sub);
@@ -431,39 +461,7 @@ body {
   flex-grow: 1;
 }
 
-/* --- NOVOS ADAPTES EXTRA (Mega Hair, Lista de Preços e Botão) --- */
-.badge-except {
-  display: inline-block;
-  align-self: flex-start;
-  background-color: #fce8ec;
-  color: #c05874;
-  font-size: 10.5px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 4px 10px;
-  border-radius: 4px;
-  margin-top: 12px;
-  border: 1px solid rgba(207, 128, 150, 0.15);
-}
-
-.card-prices-list {
-  display: block;
-  font-size: 12.5px;
-  color: var(--text-main);
-  background: var(--bg-light);
-  padding: 8px 12px;
-  border-radius: 6px;
-  margin-top: 12px;
-  text-align: center;
-  border: 1px solid rgba(28, 25, 23, 0.03);
-  letter-spacing: 0.3px;
-}
-
-.card-prices-list b {
-  color: var(--pink);
-}
-
+/* Botão de Guia de Medidas (P, M, G) */
 .btn-trigger-modal {
   background: none;
   border: 1px solid var(--pink);
@@ -523,7 +521,7 @@ body {
 .carousel-btn.next { right: -22px; }
 
 /* ==========================================================================
-   SISTEMA DE POPUP POP-UP DE TAMANHO (MODAL)
+   SISTEMA DE POPUP (MODAL) PARA GUIA DE MEDIDAS
    ========================================================================== */
 .custom-modal-overlay {
   position: fixed;
