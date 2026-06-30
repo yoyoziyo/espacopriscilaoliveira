@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Espaço Priscila Oliveira | Estética de Alto Padrão</title>
   
-  <!-- Favicon Oficial -->
   <link rel="icon" type="image/png" href="favicon.png" />
   
-  <!-- Fontes Premium -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
-  <!-- Estilo Principal -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- MENU DE NAVEGAÇÃO SUPERIOR -->
   <header class="main-nav">
     <div class="nav-container">
       <div class="brand-logo">
@@ -36,7 +32,6 @@
     </div>
   </header>
 
-  <!-- SEÇÃO BANNER / INÍCIO -->
   <section id="inicio" class="hero-section">
     <div class="hero-container">
       <div class="hero-content">
@@ -48,7 +43,6 @@
     </div>
   </section>
 
-  <!-- SEÇÃO DE SERVIÇOS BOUTIQUE -->
   <section id="servicos" class="services-section">
     <div class="services-container">
       
@@ -110,7 +104,7 @@
               <div class="card-details">
                 <h4>Mechas Topo ou Contorno</h4>
                 <p class="service-meta">A partir de R$ 350 • 4h</p>
-                <p>Técnica de iluminação estratégica que valoriza o rosto e proporciona um efeito moderno e sofisticado.</p>
+                <p>Técnica de iluminação estratégica que valoriza o rosto e proporciona um effect moderno e sofisticado.</p>
                 <span class="badge-except">Exceto Mega Hair</span>
                 <span class="card-notice">Valor pode variar conforme comprimento, volume e técnica necessária.</span>
               </div>
@@ -171,6 +165,7 @@
               </div>
             </div>
 
+            <!-- NOVO ITEM: TRATAMENTO CAPILAR -->
             <div class="service-card">
               <div class="card-image">
                 <img src="imagens/tratamento-capilar.png" alt="Tratamento Capilar">
@@ -179,27 +174,29 @@
               <div class="card-details">
                 <h4>Tratamento Capilar</h4>
                 <p class="service-meta">R$ 130 • 1h 30min</p>
-                <p>Cronograma completo com etapas exclusivas de Hidratação, Nutrição e Reconstrução profunda, finalizado com escova profissional.</p>
+                <p>Cronograma completo composto por Hidratação, Nutrição e Reconstrução profunda, finalizado com escova profissional de alto padrão.</p>
                 <span class="badge-except">Exceto Mega Hair</span>
               </div>
             </div>
 
+            <!-- NOVO ITEM: BOTOX -->
             <div class="service-card">
               <div class="card-image">
-                <img src="imagens/botox.png" alt="Botox Capilar">
+                <img src="imagens/botox.png" alt="Botox">
                 <div class="special-icon-badge"><img src="imagens/icone_especial.png" alt="Selo Especial"></div>
               </div>
               <div class="card-details">
                 <h4>Botox Capilar</h4>
                 <p class="service-meta">A partir de R$ 150</p>
-                <p>Alinhamento inteligente com reposição de massa, redução drástica do frizz e brilho espelhado de alta performance.</p>
+                <p>Alinhamento inteligente com reposição de massa, blindagem antifrizz extrema e brilho selado espelhado.</p>
                 <span class="badge-except">Exceto Mega Hair</span>
                 <span class="card-prices-list"><b>P:</b> R$ 150 | <b>M:</b> R$ 200 | <b>G:</b> R$ 250</span>
-                <button class="btn-trigger-modal">📏 Ver Guia de Tamanhos</button>
-                <span class="card-notice">Consultar valores para cabelos extra longos.</span>
+                <button class="btn-trigger-modal">📏 Ver Guia de Medidas</button>
+                <span class="card-notice">Consultar cabelos extra longos.</span>
               </div>
             </div>
 
+            <!-- NOVO ITEM: ALINHAMENTO TÉRMICO -->
             <div class="service-card">
               <div class="card-image">
                 <img src="imagens/alinhamento-termico.png" alt="Alinhamento Térmico">
@@ -208,11 +205,11 @@
               <div class="card-details">
                 <h4>Alinhamento Térmico</h4>
                 <p class="service-meta">A partir de R$ 180</p>
-                <p>Tecnologia térmica redutora de volume que sela as cutículas, promovendo fios perfeitamente disciplinados, macios e sedosos.</p>
+                <p>Tecnologia redutora avançada ativada pelo calor que sela as cutículas, garantindo fios controlados, macios e ultra sedosos.</p>
                 <span class="badge-except">Exceto Mega Hair</span>
                 <span class="card-prices-list"><b>P:</b> R$ 180 | <b>M:</b> R$ 230 | <b>G:</b> R$ 280</span>
-                <button class="btn-trigger-modal">📏 Ver Guia de Tamanhos</button>
-                <span class="card-notice">Consultar valores para cabelos extra longos.</span>
+                <button class="btn-trigger-modal">📏 Ver Guia de Medidas</button>
+                <span class="card-notice">Consultar cabelos extra longos.</span>
               </div>
             </div>
 
@@ -521,19 +518,18 @@
     </div>
   </section>
 
-  <!-- WINDOW POPUP MODAL (Guia de Medidas Oculto) -->
+  <!-- POPUP GUIA DE MEDIDAS (MODAL) -->
   <div id="modalMedidas" class="custom-modal-overlay">
     <div class="modal-card-box">
-      <button class="btn-close-modal" aria-label="Fechar Janela">✕</button>
-      <h3>Guia Oficial de Medidas</h3>
-      <p>Confira a tabela referencial de comprimento para as classificações P, M e G.</p>
+      <button class="btn-close-modal">✕</button>
+      <h3>Guia de Medidas (P, M, G)</h3>
+      <p>Consulte nossa referência oficial para a classificação do comprimento do seu cabelo.</p>
       <div class="modal-img-container">
-        <img src="imagens/medidas_cabelo.png" alt="Guia de Medidas do Cabelo">
+        <img src="imagens/medidas_cabelo.png" alt="Medidas Cabelo">
       </div>
     </div>
   </div>
 
-  <!-- SEÇÃO: INFORMAÇÕES DE ATENDIMENTO E HORÁRIO -->
   <footer id="horario" class="main-footer">
     <div class="footer-container">
       <div class="footer-info-block">
