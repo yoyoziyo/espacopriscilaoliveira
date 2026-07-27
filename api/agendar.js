@@ -4,8 +4,6 @@ const TIME_ZONE = "America/Sao_Paulo";
 const DEFAULT_DURATION_MINUTES = 60;
 const MAX_DURATION_MINUTES = 12 * 60;
 
-const jsonResponse = (body, status = 200) => Response.json(body, { status });
-
 const isValidDate = (value) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
   const [year, month, day] = value.split("-").map(Number);
@@ -36,22 +34,29 @@ const parseCredentials = () => {
   return credentials;
 };
 
-export default {
-  async fetch(request) {
-    if (request.method !== "POST") {
-      return jsonResponse({ success: false, error: "Método não permitido." }, 405);
-    }
+export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ success: false, error: "Método não permitido." });
+  }
 
     if (!process.env.GOOGLE_CALENDAR_ID) {
       console.error("GOOGLE_CALENDAR_ID não configurada.");
-      return jsonResponse({ success: false, error: "Serviço de calendário não configurado." }, 500);
+      return res.status(500).json({ success: false, error: "Serviço de calendário não configurado." });
     }
 
     let payload;
     try {
-      payload = await request.json();
+      payload = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     } catch {
-      return jsonResponse({ success: false, error: "JSON inválido." }, 400);
+      return res.status(400).json({ success: false, error: "JSON inválido." });
     }
 
     const nome = typeof payload.nome === "string" ? payload.nome.trim() : "";
@@ -64,15 +69,15 @@ export default {
       : DEFAULT_DURATION_MINUTES;
 
     if (!nome || nome.length > 120 || !servico || servico.length > 500) {
-      return jsonResponse({ success: false, error: "Nome ou serviço inválido." }, 400);
+      return res.status(400).json({ success: false, error: "Nome ou serviço inválido." });
     }
 
     if (!isValidDate(data) || !/^([01]\d|2[0-3]):[0-5]\d$/.test(horario)) {
-      return jsonResponse({ success: false, error: "Data ou horário inválido." }, 400);
+      return res.status(400).json({ success: false, error: "Data ou horário inválido." });
     }
 
     if (duracaoTotal > MAX_DURATION_MINUTES) {
-      return jsonResponse({ success: false, error: "Duração inválida." }, 400);
+      return res.status(400).json({ success: false, error: "Duração inválida." });
     }
 
     const startDateTime = `${data}T${horario}:00`;
@@ -107,10 +112,9 @@ export default {
         }
       });
 
-      return jsonResponse({ success: true });
+      return res.status(200).json({ success: true });
     } catch (error) {
       console.error("Falha ao criar evento no Google Calendar:", error?.message || error);
-      return jsonResponse({ success: false, error: "Não foi possível criar o evento." }, 500);
+      return res.status(500).json({ success: false, error: "Não foi possível criar o evento." });
     }
-  }
-};
+}
