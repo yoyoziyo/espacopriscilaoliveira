@@ -503,7 +503,7 @@ async function handleBookingSubmit(event) {
     });
 
     try {
-      const calendarResponse = await fetch("/api/agendar", {
+      const calendarResponse = await fetch("https://espacopriscilaoliveira.vercel.app/api/agendar", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
