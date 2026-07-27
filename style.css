@@ -674,3 +674,169 @@ body {
   .main-footer { padding: 60px 16px 20px; }
   .footer-container { gap: 35px; }
 }
+
+
+/* ==========================================================================
+   FORMULÁRIO DE AGENDAMENTO
+   ========================================================================== */
+.booking-section {
+  padding: 90px 20px;
+  background: var(--pink-light);
+}
+
+.booking-container {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.booking-intro {
+  max-width: 560px;
+  margin: 14px auto 0;
+  color: var(--text-sub);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.booking-form {
+  margin-top: 36px;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  background: var(--white);
+  border: 1px solid var(--border-sutil);
+  border-radius: 18px;
+  box-shadow: var(--shadow-premium);
+}
+
+.booking-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.booking-field-full {
+  grid-column: 1 / -1;
+}
+
+.booking-field label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.booking-field input,
+.booking-field select {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid rgba(28, 25, 23, 0.12);
+  border-radius: 10px;
+  background: var(--white);
+  color: var(--text-main);
+  font: inherit;
+  font-size: 14px;
+}
+
+.booking-field input:focus,
+.booking-field select:focus {
+  outline: 2px solid rgba(207, 128, 150, 0.25);
+  border-color: var(--pink);
+}
+
+.btn-booking-submit {
+  grid-column: 1 / -1;
+  min-height: 50px;
+  border: 0;
+  border-radius: 30px;
+  background: var(--text-main);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.btn-booking-submit:hover {
+  background: var(--pink);
+  transform: translateY(-2px);
+}
+
+.btn-booking-submit:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+
+.booking-status,
+.booking-confirmation {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.booking-status {
+  color: #9f1239;
+  font-size: 13px;
+}
+
+.booking-confirmation {
+  padding: 20px;
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  border-radius: 14px;
+  background: rgba(37, 211, 102, 0.06);
+}
+
+.booking-confirmation p {
+  margin-bottom: 16px;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.btn-google-calendar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 13px 22px;
+  border-radius: 28px;
+  background: #1a73e8;
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.btn-google-calendar:hover {
+  background: #1557b0;
+  transform: translateY(-2px);
+}
+
+.booking-whatsapp-fallback {
+  display: block;
+  margin-top: 14px;
+  color: #128c4b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .booking-section {
+    padding: 60px 16px;
+  }
+
+  .booking-form {
+    grid-template-columns: 1fr;
+    padding: 24px 18px;
+  }
+
+  .booking-field,
+  .booking-field-full {
+    grid-column: 1;
+  }
+
+  .btn-google-calendar {
+    width: 100%;
+  }
+}
