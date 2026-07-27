@@ -521,36 +521,95 @@
         <span class="subtitle">Agendamento</span>
         <h2>Reserve sua <span>experiência</span></h2>
         <div class="diamond-divider">♦</div>
-        <p class="booking-intro">Preencha seus dados para solicitar um horário. A confirmação será feita pelo WhatsApp.</p>
+        <p class="booking-intro">Monte seu atendimento, escolha um horário disponível e envie a solicitação.</p>
       </header>
 
+      <ol class="booking-progress" aria-label="Etapas do agendamento">
+        <li class="booking-progress-item is-active" data-progress-step="1"><span>1</span> Serviços</li>
+        <li class="booking-progress-item" data-progress-step="2"><span>2</span> Dia e horário</li>
+        <li class="booking-progress-item" data-progress-step="3"><span>3</span> Seus dados</li>
+      </ol>
+
       <form id="bookingForm" class="booking-form">
-        <div class="booking-field booking-field-full">
-          <label for="bookingName">Nome</label>
-          <input type="text" id="bookingName" name="nome" autocomplete="name" required>
-        </div>
+        <section class="booking-step is-active" data-booking-step="1" aria-labelledby="bookingStepTitle1">
+          <div class="booking-step-heading">
+            <span class="booking-step-number">01</span>
+            <div>
+              <h3 id="bookingStepTitle1">Escolha os serviços</h3>
+              <p>Selecione um ou mais serviços para calcular o tempo estimado.</p>
+            </div>
+          </div>
 
-        <div class="booking-field booking-field-full">
-          <label for="bookingService">Serviço</label>
-          <select id="bookingService" name="servico" required>
-            <option value="">Selecione um serviço</option>
-          </select>
-        </div>
+          <div id="bookingServicesGrid" class="booking-services-grid"></div>
 
-        <div class="booking-field">
-          <label for="bookingDate">Data</label>
-          <input type="date" id="bookingDate" name="data" required>
-        </div>
+          <div class="booking-selection-summary">
+            <span id="bookingServiceCount">Nenhum serviço selecionado</span>
+            <strong id="bookingTotalDuration">Duração estimada: 0 min</strong>
+          </div>
 
-        <div class="booking-field">
-          <label for="bookingTime">Horário</label>
-          <input type="time" id="bookingTime" name="horario" min="10:00" max="19:00" required>
-        </div>
+          <div class="booking-step-actions booking-step-actions-end">
+            <button type="button" class="btn-booking-next" data-next-step="2" disabled>Continuar</button>
+          </div>
+        </section>
 
-        <button type="submit" class="btn-booking-submit">Solicitar agendamento</button>
-        <p id="bookingStatus" class="booking-status" role="status" aria-live="polite"></p>
-        <div id="bookingConfirmation" class="booking-confirmation" hidden></div>
+        <section class="booking-step" data-booking-step="2" aria-labelledby="bookingStepTitle2" hidden>
+          <div class="booking-step-heading">
+            <span class="booking-step-number">02</span>
+            <div>
+              <h3 id="bookingStepTitle2">Escolha o dia e horário</h3>
+              <p>Os horários ocupados ou incompatíveis com a duração escolhida ficam indisponíveis.</p>
+            </div>
+          </div>
+
+          <div class="booking-date-field">
+            <label for="bookingDate">Data do atendimento</label>
+            <input type="date" id="bookingDate" name="data" required>
+          </div>
+
+          <div class="booking-availability-header">
+            <strong>Horários disponíveis</strong>
+            <span id="bookingAvailabilityStatus">Escolha uma data para consultar.</span>
+          </div>
+          <div id="bookingTimeGrid" class="booking-time-grid" role="group" aria-label="Horários disponíveis"></div>
+          <input type="hidden" id="bookingTime" name="horario" required>
+
+          <div class="booking-step-actions">
+            <button type="button" class="btn-booking-back" data-back-step="1">Voltar</button>
+            <button type="button" class="btn-booking-next" data-next-step="3" disabled>Continuar</button>
+          </div>
+        </section>
+
+        <section class="booking-step" data-booking-step="3" aria-labelledby="bookingStepTitle3" hidden>
+          <div class="booking-step-heading">
+            <span class="booking-step-number">03</span>
+            <div>
+              <h3 id="bookingStepTitle3">Seus dados</h3>
+              <p>Informe seu nome para concluir a solicitação pelo WhatsApp.</p>
+            </div>
+          </div>
+
+          <div id="bookingReview" class="booking-review"></div>
+
+          <div class="booking-field">
+            <label for="bookingName">Nome</label>
+            <input type="text" id="bookingName" name="nome" autocomplete="name" required>
+          </div>
+
+          <div class="booking-step-actions">
+            <button type="button" class="btn-booking-back" data-back-step="2">Voltar</button>
+            <button type="submit" class="btn-booking-submit">Solicitar agendamento</button>
+          </div>
+
+          <p id="bookingStatus" class="booking-status" role="status" aria-live="polite"></p>
+          <div id="bookingConfirmation" class="booking-confirmation" hidden></div>
+        </section>
       </form>
+
+      <div class="booking-info-footer">
+        <div><span aria-hidden="true">⏱</span><strong>Duração estimada</strong><p>O tempo total é calculado pelos serviços selecionados.</p></div>
+        <div><span aria-hidden="true">✓</span><strong>Disponibilidade atualizada</strong><p>Os horários ocupados são consultados antes do envio.</p></div>
+        <div><span aria-hidden="true">💬</span><strong>Confirmação pelo WhatsApp</strong><p>A solicitação só é confirmada após o retorno da Priscila.</p></div>
+      </div>
     </div>
   </section>
 
