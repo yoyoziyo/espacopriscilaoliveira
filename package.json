@@ -1,0 +1,9 @@
+{
+  "name": "espaco-priscila-oliveira",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "googleapis": "^173.0.0"
+  }
+}
