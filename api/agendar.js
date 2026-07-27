@@ -107,9 +107,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, error: "Método não permitido." });
   }
 
-  if (!process.env.GOOGLE_CALENDAR_ID || !process.env.RESEND_API_KEY) {
-    console.error("GOOGLE_CALENDAR_ID ou RESEND_API_KEY não configurada.");
-    return res.status(500).json({ success: false, error: "Serviço de confirmação não configurado." });
+  if (!process.env.GOOGLE_CALENDAR_ID) {
+    console.error("GOOGLE_CALENDAR_ID não configurada.");
+    return res.status(500).json({ success: false, error: "Serviço de calendário não configurado." });
   }
 
   let payload;
@@ -178,21 +178,29 @@ export default async function handler(req, res) {
       }
     });
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
-    const { error: emailError } = await resend.emails.send({
-      from: "Espaço Priscila Oliveira <agendamento@send.espacopriscilaoliveira.com>",
-      to: [email],
-      subject: "Recebemos sua solicitação de agendamento",
-      html: buildConfirmationEmail({ nome, servico, data, horario, valor, calendarUrl })
-    });
+    try {
+      if (!process.env.RESEND_API_KEY) {
+        throw new Error("RESEND_API_KEY não configurada.");
+      }
 
-    if (emailError) {
-      throw new Error(`Resend: ${emailError.message || "falha ao enviar e-mail"}`);
+      const resend = new Resend(process.env.RESEND_API_KEY);
+      const { error: emailError } = await resend.emails.send({
+        from: "Espaço Priscila Oliveira <agendamento@espacopriscilaoliveira.com>",
+        to: [email],
+        subject: "Recebemos sua solicitação de agendamento",
+        html: buildConfirmationEmail({ nome, servico, data, horario, valor, calendarUrl })
+      });
+
+      if (emailError) {
+        throw new Error(`Resend: ${emailError.message || "falha ao enviar e-mail"}`);
+      }
+    } catch (emailError) {
+      console.error("Evento criado, mas o e-mail de confirmação falhou:", emailError?.message || emailError);
     }
 
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.error("Falha ao criar evento ou enviar confirmação:", error?.message || error);
-    return res.status(500).json({ success: false, error: "Não foi possível concluir a confirmação." });
+    console.error("Falha ao criar evento no Google Calendar:", error?.message || error);
+    return res.status(500).json({ success: false, error: "Não foi possível criar o evento na agenda." });
   }
 }
