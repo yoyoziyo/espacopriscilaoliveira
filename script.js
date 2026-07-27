@@ -214,6 +214,13 @@ const getSelectedDuration = () => [...bookingState.selectedServices.values()]
 const getSelectedServiceNames = () => [...bookingState.selectedServices.values()]
   .map((service) => service.name);
 
+const getSelectedServiceValues = () => [...bookingState.selectedServices.values()]
+  .map((service) => {
+    const displayedPrice = service.meta.split("•")[0].trim() || "Valor sob consulta";
+    return `${service.name}: ${displayedPrice}`;
+  })
+  .join(" | ");
+
 const isSlotUnavailable = (slotMinutes) => {
   const selectedDuration = getSelectedDuration();
   if (!selectedDuration || !bookingState.availabilityLoaded) return true;
@@ -478,12 +485,15 @@ async function handleBookingSubmit(event) {
   const statusElement = document.getElementById("bookingStatus");
   const confirmation = document.getElementById("bookingConfirmation");
   const nome = document.getElementById("bookingName").value.trim();
+  const email = document.getElementById("bookingEmail").value.trim();
+  const telefone = document.getElementById("bookingPhone").value.trim();
   const servicos = getSelectedServiceNames();
+  const valor = getSelectedServiceValues();
   const data = bookingState.selectedDate;
   const horario = bookingState.selectedTime;
   const duracaoTotal = getSelectedDuration();
 
-  if (!nome || !servicos.length || !data || !horario || !isBookingDayAllowed(data)) {
+  if (!nome || !email || !telefone || !servicos.length || !data || !horario || !isBookingDayAllowed(data)) {
     statusElement.textContent = "Revise as etapas e preencha todos os dados.";
     return;
   }
@@ -506,8 +516,11 @@ async function handleBookingSubmit(event) {
 
     await db.collection("agendamentos").add({
       nome,
+      email,
+      telefone,
       servicos,
       servico: servicos.join(", "),
+      valor,
       data,
       horario,
       duracaoTotal,
@@ -523,7 +536,10 @@ async function handleBookingSubmit(event) {
         },
         body: JSON.stringify({
           nome,
+          email,
+          telefone,
           servico: servicos.join(", "),
+          valor,
           data,
           horario,
           duracaoTotal
@@ -545,6 +561,8 @@ async function handleBookingSubmit(event) {
       "Olá, Priscila! Gostaria de confirmar uma solicitação de agendamento:",
       "",
       `Nome: ${nome}`,
+      `E-mail: ${email}`,
+      `Telefone/WhatsApp: ${telefone}`,
       `Serviços: ${servicos.join(", ")}`,
       `Duração estimada: ${formatDuration(duracaoTotal)}`,
       `Data: ${formattedDate}`,
