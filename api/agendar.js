@@ -180,7 +180,7 @@ export default async function handler(req, res) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error: emailError } = await resend.emails.send({
-      from: "Espaço Priscila Oliveira <onboarding@resend.dev>",
+      from: "Espaço Priscila Oliveira <agendamento@send.espacopriscilaoliveira.com>",
       to: [email],
       subject: "Recebemos sua solicitação de agendamento",
       html: buildConfirmationEmail({ nome, servico, data, horario, valor, calendarUrl })
