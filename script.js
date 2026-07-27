@@ -502,6 +502,30 @@ async function handleBookingSubmit(event) {
       criadoEm: firebase.firestore.FieldValue.serverTimestamp()
     });
 
+    try {
+      const calendarResponse = await fetch("/api/agendar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome,
+          servico: servicos.join(", "),
+          data,
+          horario,
+          duracaoTotal
+        })
+      });
+
+      const calendarResult = await calendarResponse.json().catch(() => ({}));
+      if (!calendarResponse.ok || !calendarResult.success) {
+        throw new Error(calendarResult.error || "Falha ao sincronizar com o Google Calendar.");
+      }
+    } catch (calendarError) {
+      console.error("Agendamento salvo, mas o calendário não foi sincronizado:", calendarError);
+      statusElement.textContent = "Agendamento salvo, mas não foi possível sincronizar automaticamente com a agenda. Avise a Priscila pelo WhatsApp.";
+    }
+
     const calendarUrl = buildGoogleCalendarUrl({ nome, servicos, data, horario, duracaoTotal });
     const formattedDate = data.split("-").reverse().join("/");
     const whatsappMessage = [
