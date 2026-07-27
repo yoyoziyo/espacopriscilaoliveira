@@ -139,7 +139,7 @@ document.addEventListener("contextmenu", (e) => {
 
 
 // ==========================================================================
-// FIREBASE E FORMULÁRIO DE AGENDAMENTO
+// FIREBASE E FLUXO DE AGENDAMENTO EM ETAPAS
 // ==========================================================================
 const firebaseConfig = {
   apiKey: "AIzaSyCfyg461i7D_L6eqk3EL-GHyf5L3tu5Dlw",
@@ -155,6 +155,255 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
+const BOOKING_OPEN_MINUTES = 8 * 60;
+const BOOKING_LAST_SLOT_MINUTES = 18 * 60;
+const BOOKING_CLOSE_MINUTES = 19 * 60;
+const BOOKING_SLOT_INTERVAL = 30;
+const DEFAULT_SERVICE_DURATION = 60;
+
+const bookingState = {
+  currentStep: 1,
+  selectedServices: new Map(),
+  selectedDate: "",
+  selectedTime: "",
+  bookingsForDate: [],
+  availabilityLoaded: false
+};
+
+const parseServiceDuration = (metaText) => {
+  const normalized = metaText.toLowerCase();
+  const hourMatch = normalized.match(/(\d+)h(?:\s*(\d+)\s*(?:min)?)?/);
+  if (hourMatch) {
+    return Number(hourMatch[1]) * 60 + Number(hourMatch[2] || 0);
+  }
+
+  const minuteMatch = normalized.match(/(\d+)\s*min/);
+  return minuteMatch ? Number(minuteMatch[1]) : DEFAULT_SERVICE_DURATION;
+};
+
+const formatDuration = (minutes) => {
+  const hours = Math.floor(minutes / 60);
+  const remainingMinutes = minutes % 60;
+  if (!hours) return `${remainingMinutes} min`;
+  if (!remainingMinutes) return `${hours}h`;
+  return `${hours}h ${remainingMinutes}min`;
+};
+
+const timeToMinutes = (time) => {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+};
+
+const minutesToTime = (minutes) => {
+  const hours = String(Math.floor(minutes / 60)).padStart(2, "0");
+  const mins = String(minutes % 60).padStart(2, "0");
+  return `${hours}:${mins}`;
+};
+
+const getSelectedDuration = () => [...bookingState.selectedServices.values()]
+  .reduce((total, service) => total + service.duration, 0);
+
+const getSelectedServiceNames = () => [...bookingState.selectedServices.values()]
+  .map((service) => service.name);
+
+const isSlotUnavailable = (slotMinutes) => {
+  const selectedDuration = getSelectedDuration();
+  if (!selectedDuration || !bookingState.availabilityLoaded) return true;
+  if (slotMinutes + selectedDuration > BOOKING_CLOSE_MINUTES) return true;
+
+  return bookingState.bookingsForDate.some((booking) => {
+    if (booking.status === "cancelado") return false;
+    const bookingStart = timeToMinutes(booking.horario || "00:00");
+    const bookingDuration = Number(booking.duracaoTotal) || DEFAULT_SERVICE_DURATION;
+    const bookingEnd = bookingStart + bookingDuration;
+    const candidateEnd = slotMinutes + selectedDuration;
+    return slotMinutes < bookingEnd && candidateEnd > bookingStart;
+  });
+};
+
+const updateStepButtons = () => {
+  const stepOneNext = document.querySelector('[data-booking-step="1"] [data-next-step="2"]');
+  const stepTwoNext = document.querySelector('[data-booking-step="2"] [data-next-step="3"]');
+  if (stepOneNext) stepOneNext.disabled = bookingState.selectedServices.size === 0;
+  if (stepTwoNext) stepTwoNext.disabled = !bookingState.selectedDate || !bookingState.selectedTime;
+};
+
+const updateServiceSummary = () => {
+  const countElement = document.getElementById("bookingServiceCount");
+  const durationElement = document.getElementById("bookingTotalDuration");
+  const count = bookingState.selectedServices.size;
+  const duration = getSelectedDuration();
+
+  if (countElement) {
+    countElement.textContent = count
+      ? `${count} ${count === 1 ? "serviço selecionado" : "serviços selecionados"}`
+      : "Nenhum serviço selecionado";
+  }
+  if (durationElement) {
+    durationElement.textContent = `Duração estimada: ${formatDuration(duration)}`;
+  }
+
+  if (bookingState.selectedTime && isSlotUnavailable(timeToMinutes(bookingState.selectedTime))) {
+    bookingState.selectedTime = "";
+    const hiddenTime = document.getElementById("bookingTime");
+    if (hiddenTime) hiddenTime.value = "";
+  }
+
+  renderTimeSlots();
+  updateStepButtons();
+};
+
+const renderServiceOptions = () => {
+  const grid = document.getElementById("bookingServicesGrid");
+  if (!grid) return;
+
+  const services = [...document.querySelectorAll(".service-card")].map((card, index) => {
+    const name = card.querySelector("h4")?.textContent.trim();
+    const meta = card.querySelector(".service-meta")?.textContent.trim() || "";
+    return {
+      id: `service-${index}`,
+      name,
+      meta,
+      duration: parseServiceDuration(meta)
+    };
+  }).filter((service) => service.name);
+
+  services.forEach((service) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "booking-service-card";
+    button.dataset.serviceId = service.id;
+    button.setAttribute("aria-pressed", "false");
+
+    const title = document.createElement("strong");
+    title.textContent = service.name;
+    const meta = document.createElement("span");
+    meta.textContent = service.meta || "Valor sob consulta";
+    const duration = document.createElement("small");
+    duration.textContent = `Duração estimada: ${formatDuration(service.duration)}`;
+    const check = document.createElement("span");
+    check.className = "booking-service-check";
+    check.textContent = "✓";
+    check.setAttribute("aria-hidden", "true");
+
+    button.append(title, meta, duration, check);
+    button.addEventListener("click", () => {
+      if (bookingState.selectedServices.has(service.id)) {
+        bookingState.selectedServices.delete(service.id);
+        button.classList.remove("is-selected");
+        button.setAttribute("aria-pressed", "false");
+      } else {
+        bookingState.selectedServices.set(service.id, service);
+        button.classList.add("is-selected");
+        button.setAttribute("aria-pressed", "true");
+      }
+      updateServiceSummary();
+    });
+    grid.appendChild(button);
+  });
+};
+
+const renderTimeSlots = () => {
+  const grid = document.getElementById("bookingTimeGrid");
+  if (!grid) return;
+  grid.replaceChildren();
+
+  for (let minutes = BOOKING_OPEN_MINUTES; minutes <= BOOKING_LAST_SLOT_MINUTES; minutes += BOOKING_SLOT_INTERVAL) {
+    const time = minutesToTime(minutes);
+    const button = document.createElement("button");
+    const unavailable = !bookingState.selectedDate || isSlotUnavailable(minutes);
+
+    button.type = "button";
+    button.className = "booking-time-button";
+    button.textContent = time;
+    button.dataset.time = time;
+    button.disabled = unavailable;
+    button.setAttribute("aria-pressed", String(bookingState.selectedTime === time));
+
+    if (bookingState.selectedTime === time) button.classList.add("is-selected");
+    if (unavailable) button.classList.add("is-unavailable");
+
+    button.addEventListener("click", () => {
+      if (button.disabled) return;
+      bookingState.selectedTime = time;
+      document.getElementById("bookingTime").value = time;
+      grid.querySelectorAll(".booking-time-button").forEach((slot) => {
+        const isSelected = slot.dataset.time === time;
+        slot.classList.toggle("is-selected", isSelected);
+        slot.setAttribute("aria-pressed", String(isSelected));
+      });
+      updateStepButtons();
+    });
+
+    grid.appendChild(button);
+  }
+};
+
+const loadBookingsForDate = async (date) => {
+  const status = document.getElementById("bookingAvailabilityStatus");
+  bookingState.selectedDate = date;
+  bookingState.selectedTime = "";
+  bookingState.bookingsForDate = [];
+  bookingState.availabilityLoaded = false;
+  document.getElementById("bookingTime").value = "";
+  updateStepButtons();
+  renderTimeSlots();
+
+  if (!date) {
+    if (status) status.textContent = "Escolha uma data para consultar.";
+    return;
+  }
+
+  if (status) status.textContent = "Consultando disponibilidade...";
+
+  try {
+    const snapshot = await db.collection("agendamentos").where("data", "==", date).get();
+    bookingState.bookingsForDate = snapshot.docs.map((documentSnapshot) => documentSnapshot.data());
+    bookingState.availabilityLoaded = true;
+    if (status) status.textContent = "Disponibilidade atualizada.";
+  } catch (error) {
+    console.error("Erro ao consultar horários:", error);
+    if (status) status.textContent = "Não foi possível consultar os horários. Tente novamente.";
+  }
+
+  renderTimeSlots();
+};
+
+const goToBookingStep = (step) => {
+  bookingState.currentStep = step;
+
+  document.querySelectorAll("[data-booking-step]").forEach((panel) => {
+    const active = Number(panel.dataset.bookingStep) === step;
+    panel.classList.toggle("is-active", active);
+    panel.hidden = !active;
+  });
+
+  document.querySelectorAll("[data-progress-step]").forEach((item) => {
+    const itemStep = Number(item.dataset.progressStep);
+    item.classList.toggle("is-active", itemStep === step);
+    item.classList.toggle("is-complete", itemStep < step);
+  });
+
+  if (step === 3) renderBookingReview();
+  document.getElementById("agendamento")?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+const renderBookingReview = () => {
+  const review = document.getElementById("bookingReview");
+  if (!review) return;
+
+  const services = getSelectedServiceNames();
+  const formattedDate = bookingState.selectedDate.split("-").reverse().join("/");
+  review.replaceChildren();
+
+  const title = document.createElement("strong");
+  title.textContent = "Resumo da solicitação";
+  const serviceText = document.createElement("p");
+  serviceText.textContent = services.join(", ");
+  const scheduleText = document.createElement("p");
+  scheduleText.textContent = `${formattedDate} às ${bookingState.selectedTime} • ${formatDuration(getSelectedDuration())}`;
+  review.append(title, serviceText, scheduleText);
+};
 
 const formatGoogleCalendarDate = (date) => {
   const pad = (value) => String(value).padStart(2, "0");
@@ -169,18 +418,17 @@ const formatGoogleCalendarDate = (date) => {
   ].join("");
 };
 
-const buildGoogleCalendarUrl = ({ nome, servico, data, horario }) => {
+const buildGoogleCalendarUrl = ({ nome, servicos, data, horario, duracaoTotal }) => {
   const startDate = new Date(`${data}T${horario}:00`);
-  const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
+  const endDate = new Date(startDate.getTime() + duracaoTotal * 60 * 1000);
   const params = new URLSearchParams({
     action: "TEMPLATE",
-    text: `Agendamento - ${servico}`,
+    text: `Agendamento - ${servicos.join(", ")}`,
     dates: `${formatGoogleCalendarDate(startDate)}/${formatGoogleCalendarDate(endDate)}`,
-    details: `Solicitação de agendamento de ${nome} para ${servico}. Aguarde a confirmação pelo WhatsApp.`,
+    details: `Solicitação de agendamento de ${nome}. Serviços: ${servicos.join(", ")}. Aguarde a confirmação pelo WhatsApp.`,
     location: "Pç. Heitor Bastos Tigre, 16355 - Recreio dos Bandeirantes, Rio de Janeiro - RJ, 22790-550",
     ctz: "America/Sao_Paulo"
   });
-
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
@@ -216,39 +464,52 @@ async function handleBookingSubmit(event) {
   const submitButton = form.querySelector(".btn-booking-submit");
   const statusElement = document.getElementById("bookingStatus");
   const confirmation = document.getElementById("bookingConfirmation");
-
   const nome = document.getElementById("bookingName").value.trim();
-  const servico = document.getElementById("bookingService").value;
-  const data = document.getElementById("bookingDate").value;
-  const horario = document.getElementById("bookingTime").value;
+  const servicos = getSelectedServiceNames();
+  const data = bookingState.selectedDate;
+  const horario = bookingState.selectedTime;
+  const duracaoTotal = getSelectedDuration();
 
-  if (!nome || !servico || !data || !horario) {
-    statusElement.textContent = "Preencha todos os campos para continuar.";
+  if (!nome || !servicos.length || !data || !horario) {
+    statusElement.textContent = "Revise as etapas e preencha todos os dados.";
     return;
   }
 
   submitButton.disabled = true;
-  submitButton.textContent = "Salvando...";
+  submitButton.textContent = "Verificando...";
   statusElement.textContent = "";
   confirmation.hidden = true;
 
   try {
+    await loadBookingsForDate(data);
+    const requestedMinutes = timeToMinutes(horario);
+    if (isSlotUnavailable(requestedMinutes)) {
+      throw new Error("O horário selecionado acabou de ficar indisponível.");
+    }
+
+    bookingState.selectedTime = horario;
+    document.getElementById("bookingTime").value = horario;
+    submitButton.textContent = "Salvando...";
+
     await db.collection("agendamentos").add({
       nome,
-      servico,
+      servicos,
+      servico: servicos.join(", "),
       data,
       horario,
+      duracaoTotal,
       status: "pendente",
       criadoEm: firebase.firestore.FieldValue.serverTimestamp()
     });
 
-    const calendarUrl = buildGoogleCalendarUrl({ nome, servico, data, horario });
+    const calendarUrl = buildGoogleCalendarUrl({ nome, servicos, data, horario, duracaoTotal });
     const formattedDate = data.split("-").reverse().join("/");
     const whatsappMessage = [
       "Olá, Priscila! Gostaria de confirmar uma solicitação de agendamento:",
       "",
       `Nome: ${nome}`,
-      `Serviço: ${servico}`,
+      `Serviços: ${servicos.join(", ")}`,
+      `Duração estimada: ${formatDuration(duracaoTotal)}`,
       `Data: ${formattedDate}`,
       `Horário: ${horario}`,
       "",
@@ -257,15 +518,17 @@ async function handleBookingSubmit(event) {
     const whatsappUrl = `https://wa.me/5521982490919?text=${encodeURIComponent(whatsappMessage)}`;
 
     showBookingConfirmation({ calendarUrl, whatsappUrl });
-    form.reset();
+    const whatsappWindow = window.open(whatsappUrl, "_blank");
+    if (whatsappWindow) whatsappWindow.opener = null;
+    else statusElement.textContent = "O navegador bloqueou a nova aba. Use o link de WhatsApp abaixo.";
 
-    const whatsappWindow = window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-    if (!whatsappWindow) {
-      statusElement.textContent = "O navegador bloqueou a nova aba. Use o link de WhatsApp exibido abaixo.";
-    }
+    bookingState.bookingsForDate.push({ data, horario, duracaoTotal, status: "pendente" });
+    renderTimeSlots();
   } catch (error) {
-    console.error("Erro ao salvar agendamento:", error);
-    statusElement.textContent = "Não foi possível salvar o agendamento. Tente novamente em instantes.";
+    console.error("Erro ao concluir agendamento:", error);
+    statusElement.textContent = error.message.includes("indisponível")
+      ? error.message
+      : "Não foi possível concluir o agendamento. Tente novamente em instantes.";
   } finally {
     submitButton.disabled = false;
     submitButton.textContent = "Solicitar agendamento";
@@ -274,29 +537,28 @@ async function handleBookingSubmit(event) {
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("bookingForm");
-  const serviceSelect = document.getElementById("bookingService");
   const dateInput = document.getElementById("bookingDate");
 
-  if (serviceSelect) {
-    const serviceNames = [...document.querySelectorAll(".service-card h4")]
-      .map((heading) => heading.textContent.trim())
-      .filter((name, index, names) => name && names.indexOf(name) === index);
-
-    serviceNames.forEach((serviceName) => {
-      const option = document.createElement("option");
-      option.value = serviceName;
-      option.textContent = serviceName;
-      serviceSelect.appendChild(option);
-    });
-  }
+  renderServiceOptions();
+  renderTimeSlots();
+  updateServiceSummary();
 
   if (dateInput) {
     const today = new Date();
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     dateInput.min = new Date(today.getTime() - timezoneOffset).toISOString().split("T")[0];
+    dateInput.addEventListener("change", () => loadBookingsForDate(dateInput.value));
   }
 
-  if (form) {
-    form.addEventListener("submit", handleBookingSubmit);
-  }
+  document.querySelectorAll("[data-next-step]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (!button.disabled) goToBookingStep(Number(button.dataset.nextStep));
+    });
+  });
+
+  document.querySelectorAll("[data-back-step]").forEach((button) => {
+    button.addEventListener("click", () => goToBookingStep(Number(button.dataset.backStep)));
+  });
+
+  if (form) form.addEventListener("submit", handleBookingSubmit);
 });
