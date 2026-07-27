@@ -155,7 +155,7 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
-const BOOKING_OPEN_MINUTES = 8 * 60;
+const BOOKING_OPEN_MINUTES = 11 * 60;
 const BOOKING_LAST_SLOT_MINUTES = 18 * 60;
 const BOOKING_CLOSE_MINUTES = 19 * 60;
 const BOOKING_SLOT_INTERVAL = 30;
@@ -198,6 +198,14 @@ const minutesToTime = (minutes) => {
   const hours = String(Math.floor(minutes / 60)).padStart(2, "0");
   const mins = String(minutes % 60).padStart(2, "0");
   return `${hours}:${mins}`;
+};
+
+const isBookingDayAllowed = (dateValue) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return false;
+  const [year, month, day] = dateValue.split("-").map(Number);
+  const selectedDate = new Date(year, month - 1, day);
+  const dayOfWeek = selectedDate.getDay();
+  return dayOfWeek >= 2 && dayOfWeek <= 6;
 };
 
 const getSelectedDuration = () => [...bookingState.selectedServices.values()]
@@ -341,7 +349,7 @@ const renderTimeSlots = () => {
 
 const loadBookingsForDate = async (date) => {
   const status = document.getElementById("bookingAvailabilityStatus");
-  bookingState.selectedDate = date;
+  bookingState.selectedDate = isBookingDayAllowed(date) ? date : "";
   bookingState.selectedTime = "";
   bookingState.bookingsForDate = [];
   bookingState.availabilityLoaded = false;
@@ -351,6 +359,11 @@ const loadBookingsForDate = async (date) => {
 
   if (!date) {
     if (status) status.textContent = "Escolha uma data para consultar.";
+    return;
+  }
+
+  if (!isBookingDayAllowed(date)) {
+    if (status) status.textContent = "O salão atende de terça-feira a sábado. Escolha outra data.";
     return;
   }
 
@@ -470,7 +483,7 @@ async function handleBookingSubmit(event) {
   const horario = bookingState.selectedTime;
   const duracaoTotal = getSelectedDuration();
 
-  if (!nome || !servicos.length || !data || !horario) {
+  if (!nome || !servicos.length || !data || !horario || !isBookingDayAllowed(data)) {
     statusElement.textContent = "Revise as etapas e preencha todos os dados.";
     return;
   }
@@ -571,7 +584,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const today = new Date();
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     dateInput.min = new Date(today.getTime() - timezoneOffset).toISOString().split("T")[0];
-    dateInput.addEventListener("change", () => loadBookingsForDate(dateInput.value));
+    dateInput.addEventListener("change", () => {
+      dateInput.setCustomValidity("");
+      if (dateInput.value && !isBookingDayAllowed(dateInput.value)) {
+        dateInput.setCustomValidity("O salão atende de terça-feira a sábado.");
+        dateInput.reportValidity();
+        dateInput.value = "";
+      }
+      loadBookingsForDate(dateInput.value);
+    });
   }
 
   document.querySelectorAll("[data-next-step]").forEach((button) => {
