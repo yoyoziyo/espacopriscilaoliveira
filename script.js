@@ -155,11 +155,14 @@ if (!firebase.apps.length) {
 }
 
 const db = firebase.firestore();
-const BOOKING_OPEN_MINUTES = 11 * 60;
-const BOOKING_LAST_SLOT_MINUTES = 18 * 60;
-const BOOKING_CLOSE_MINUTES = 19 * 60;
 const BOOKING_SLOT_INTERVAL = 30;
 const DEFAULT_SERVICE_DURATION = 60;
+const SERVICE_SCHEDULES = {
+  hair: { label: "Cabelo", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
+  nails: { label: "Unhas", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
+  aesthetics: { label: "Sobrancelha/Estética", days: [1, 4], openMinutes: 13 * 60 + 30, closeMinutes: 19 * 60 },
+  massage: { label: "Massagens", days: [], openMinutes: 0, closeMinutes: 0, comingSoon: true }
+};
 
 const bookingState = {
   currentStep: 1,
@@ -168,6 +171,52 @@ const bookingState = {
   selectedTime: "",
   bookingsForDate: [],
   availabilityLoaded: false
+};
+
+const getCategoryKey = (categoryName) => {
+  const normalized = categoryName.toLowerCase();
+  if (normalized.includes("capilar")) return "hair";
+  if (normalized.includes("unha")) return "nails";
+  if (normalized.includes("massoterapia") || normalized.includes("massagem")) return "massage";
+  if (normalized.includes("olhar") || normalized.includes("sobrancelha") || normalized.includes("estética")) return "aesthetics";
+  return "hair";
+};
+
+const getSelectedSchedule = () => {
+  const categoryKeys = [...new Set(
+    [...bookingState.selectedServices.values()].map((service) => service.category)
+  )];
+  const activeRules = categoryKeys
+    .map((category) => SERVICE_SCHEDULES[category])
+    .filter((rule) => rule && !rule.comingSoon);
+
+  if (!activeRules.length) return SERVICE_SCHEDULES.hair;
+
+  return {
+    days: activeRules.reduce(
+      (allowedDays, rule) => allowedDays.filter((day) => rule.days.includes(day)),
+      [...activeRules[0].days]
+    ),
+    openMinutes: Math.max(...activeRules.map((rule) => rule.openMinutes)),
+    closeMinutes: Math.min(...activeRules.map((rule) => rule.closeMinutes)),
+    categoryKeys
+  };
+};
+
+const getScheduleMessage = () => {
+  const categories = [...new Set(
+    [...bookingState.selectedServices.values()].map((service) => service.category)
+  )];
+  const hasAesthetics = categories.includes("aesthetics");
+  const hasHairOrNails = categories.some((category) => category === "hair" || category === "nails");
+
+  if (hasAesthetics && hasHairOrNails) {
+    return "Para combinar estes serviços, escolha uma quinta-feira entre 13:30 e 19:00.";
+  }
+  if (hasAesthetics) {
+    return "Sobrancelha/Estética atende somente às segundas e quintas, das 13:30 às 19:00.";
+  }
+  return "Cabelo e Unhas atendem de terça-feira a sábado, das 10:00 às 19:00.";
 };
 
 const parseServiceDuration = (metaText) => {
@@ -204,8 +253,14 @@ const isBookingDayAllowed = (dateValue) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return false;
   const [year, month, day] = dateValue.split("-").map(Number);
   const selectedDate = new Date(year, month - 1, day);
-  const dayOfWeek = selectedDate.getDay();
-  return dayOfWeek >= 2 && dayOfWeek <= 6;
+  return getSelectedSchedule().days.includes(selectedDate.getDay());
+};
+
+const isBookingTimeAllowed = (time) => {
+  if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(time)) return false;
+  const schedule = getSelectedSchedule();
+  const minutes = timeToMinutes(time);
+  return minutes >= schedule.openMinutes && minutes <= schedule.closeMinutes;
 };
 
 const getSelectedDuration = () => [...bookingState.selectedServices.values()]
@@ -224,7 +279,7 @@ const getSelectedServiceValues = () => [...bookingState.selectedServices.values(
 const isSlotUnavailable = (slotMinutes) => {
   const selectedDuration = getSelectedDuration();
   if (!selectedDuration || !bookingState.availabilityLoaded) return true;
-  if (slotMinutes + selectedDuration > BOOKING_CLOSE_MINUTES) return true;
+  if (slotMinutes + selectedDuration > getSelectedSchedule().closeMinutes) return true;
 
   return bookingState.bookingsForDate.some((booking) => {
     if (booking.status === "cancelado") return false;
@@ -258,7 +313,21 @@ const updateServiceSummary = () => {
     durationElement.textContent = `Duração estimada: ${formatDuration(duration)}`;
   }
 
-  if (bookingState.selectedTime && isSlotUnavailable(timeToMinutes(bookingState.selectedTime))) {
+  if (bookingState.selectedDate && !isBookingDayAllowed(bookingState.selectedDate)) {
+    bookingState.selectedDate = "";
+    bookingState.selectedTime = "";
+    bookingState.bookingsForDate = [];
+    bookingState.availabilityLoaded = false;
+    const dateInput = document.getElementById("bookingDate");
+    const status = document.getElementById("bookingAvailabilityStatus");
+    if (dateInput) dateInput.value = "";
+    if (status) status.textContent = getScheduleMessage();
+  }
+
+  if (bookingState.selectedTime && (
+    !isBookingTimeAllowed(bookingState.selectedTime)
+    || isSlotUnavailable(timeToMinutes(bookingState.selectedTime))
+  )) {
     bookingState.selectedTime = "";
     const hiddenTime = document.getElementById("bookingTime");
     if (hiddenTime) hiddenTime.value = "";
@@ -273,12 +342,16 @@ const renderServiceOptions = () => {
   if (!grid) return;
 
   const services = [...document.querySelectorAll(".service-card")].map((card, index) => {
+    const categoryName = card.closest(".category-block")?.querySelector(".category-text h3")?.childNodes[0]?.textContent.trim() || "";
+    const category = getCategoryKey(categoryName);
     const name = card.querySelector("h4")?.textContent.trim();
     const meta = card.querySelector(".service-meta")?.textContent.trim() || "";
     return {
       id: `service-${index}`,
       name,
       meta,
+      category,
+      comingSoon: SERVICE_SCHEDULES[category]?.comingSoon === true,
       duration: parseServiceDuration(meta)
     };
   }).filter((service) => service.name);
@@ -295,7 +368,15 @@ const renderServiceOptions = () => {
     const meta = document.createElement("span");
     meta.textContent = service.meta || "Valor sob consulta";
     const duration = document.createElement("small");
-    duration.textContent = `Duração estimada: ${formatDuration(service.duration)}`;
+    duration.textContent = service.comingSoon
+      ? "Em breve"
+      : `Duração estimada: ${formatDuration(service.duration)}`;
+    if (service.comingSoon) {
+      button.disabled = true;
+      button.classList.add("is-coming-soon");
+      button.setAttribute("aria-disabled", "true");
+      button.title = "Massagens estarão disponíveis em breve.";
+    }
     const check = document.createElement("span");
     check.className = "booking-service-check";
     check.textContent = "✓";
@@ -303,6 +384,7 @@ const renderServiceOptions = () => {
 
     button.append(title, meta, duration, check);
     button.addEventListener("click", () => {
+      if (service.comingSoon) return;
       if (bookingState.selectedServices.has(service.id)) {
         bookingState.selectedServices.delete(service.id);
         button.classList.remove("is-selected");
@@ -323,7 +405,8 @@ const renderTimeSlots = () => {
   if (!grid) return;
   grid.replaceChildren();
 
-  for (let minutes = BOOKING_OPEN_MINUTES; minutes <= BOOKING_LAST_SLOT_MINUTES; minutes += BOOKING_SLOT_INTERVAL) {
+  const schedule = getSelectedSchedule();
+  for (let minutes = schedule.openMinutes; minutes <= schedule.closeMinutes; minutes += BOOKING_SLOT_INTERVAL) {
     const time = minutesToTime(minutes);
     const button = document.createElement("button");
     const unavailable = !bookingState.selectedDate || isSlotUnavailable(minutes);
@@ -370,7 +453,7 @@ const loadBookingsForDate = async (date) => {
   }
 
   if (!isBookingDayAllowed(date)) {
-    if (status) status.textContent = "O salão atende de terça-feira a sábado. Escolha outra data.";
+    if (status) status.textContent = getScheduleMessage();
     return;
   }
 
@@ -493,8 +576,13 @@ async function handleBookingSubmit(event) {
   const horario = bookingState.selectedTime;
   const duracaoTotal = getSelectedDuration();
 
-  if (!nome || !email || !telefone || !servicos.length || !data || !horario || !isBookingDayAllowed(data)) {
+  if (!nome || !email || !telefone || !servicos.length || !data || !horario) {
     statusElement.textContent = "Revise as etapas e preencha todos os dados.";
+    return;
+  }
+
+  if (!isBookingDayAllowed(data) || !isBookingTimeAllowed(horario)) {
+    statusElement.textContent = getScheduleMessage();
     return;
   }
 
@@ -605,7 +693,7 @@ document.addEventListener("DOMContentLoaded", () => {
     dateInput.addEventListener("change", () => {
       dateInput.setCustomValidity("");
       if (dateInput.value && !isBookingDayAllowed(dateInput.value)) {
-        dateInput.setCustomValidity("O salão atende de terça-feira a sábado.");
+        dateInput.setCustomValidity(getScheduleMessage());
         dateInput.reportValidity();
         dateInput.value = "";
       }
