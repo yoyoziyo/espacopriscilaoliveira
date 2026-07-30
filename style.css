@@ -1374,3 +1374,43 @@ body {
     padding: 0 18px 20px;
   }
 }
+
+
+/* Disponibilidade por categoria no agendamento */
+.category-status-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #cf8096;
+  color: #ffffff;
+  font-family: Inter, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.category-block.is-coming-soon .carousel-wrapper {
+  opacity: 0.58;
+}
+
+.category-block.is-coming-soon .carousel-track,
+.category-block.is-coming-soon .carousel-btn {
+  pointer-events: none;
+}
+
+.booking-service-card.is-coming-soon {
+  cursor: not-allowed;
+  opacity: 0.58;
+  border-style: dashed;
+}
+
+.booking-service-card.is-coming-soon small {
+  color: #b5637b;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
