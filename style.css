@@ -1414,3 +1414,43 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.06em;
 }
+
+
+/* Aviso de regras acima do calendário de agendamento */
+.booking-schedule-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 4px 0 24px;
+  padding: 15px 18px;
+  border: 1px solid rgba(207, 128, 150, 0.32);
+  border-radius: 14px;
+  background: #fff6f8;
+  color: #6a4651;
+  line-height: 1.55;
+}
+
+.booking-schedule-notice-icon {
+  display: inline-grid;
+  flex: 0 0 26px;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border-radius: 50%;
+  background: #cf8096;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.booking-schedule-notice p {
+  margin: 1px 0 0;
+  font-size: 0.92rem;
+}
+
+@media (max-width: 600px) {
+  .booking-schedule-notice {
+    margin-bottom: 20px;
+    padding: 13px 14px;
+  }
+}
