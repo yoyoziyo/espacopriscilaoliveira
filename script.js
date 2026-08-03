@@ -662,9 +662,7 @@ async function handleBookingSubmit(event) {
       `Serviços: ${servicos.join(", ")}`,
       `Duração estimada: ${formatDuration(duracaoTotal)}`,
       `Data: ${formattedDate}`,
-      `Horário: ${horario}`,
-      "",
-      "Aguardo a confirmação. Obrigada!"
+      `Horário: ${horario}`
     ].join("\n");
     const whatsappUrl = `https://wa.me/5521982490919?text=${encodeURIComponent(whatsappMessage)}`;
 
