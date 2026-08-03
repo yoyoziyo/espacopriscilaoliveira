@@ -219,6 +219,11 @@ const getScheduleMessage = () => {
   return "Cabelo e Unhas atendem de terça-feira a sábado, das 10:00 às 19:00.";
 };
 
+const updateScheduleNotice = () => {
+  const notice = document.getElementById("bookingScheduleNotice");
+  if (notice) notice.textContent = getScheduleMessage();
+};
+
 const parseServiceDuration = (metaText) => {
   const normalized = metaText.toLowerCase();
   const hourMatch = normalized.match(/(\d+)h(?:\s*(\d+)\s*(?:min)?)?/);
@@ -299,6 +304,7 @@ const updateStepButtons = () => {
 };
 
 const updateServiceSummary = () => {
+  updateScheduleNotice();
   const countElement = document.getElementById("bookingServiceCount");
   const durationElement = document.getElementById("bookingTotalDuration");
   const count = bookingState.selectedServices.size;
@@ -453,7 +459,8 @@ const loadBookingsForDate = async (date) => {
   }
 
   if (!isBookingDayAllowed(date)) {
-    if (status) status.textContent = getScheduleMessage();
+    updateScheduleNotice();
+    if (status) status.textContent = "Essa data não está disponível para os serviços escolhidos.";
     return;
   }
 
@@ -487,6 +494,7 @@ const goToBookingStep = (step) => {
     item.classList.toggle("is-complete", itemStep < step);
   });
 
+  if (step === 2) updateScheduleNotice();
   if (step === 3) renderBookingReview();
   document.getElementById("agendamento")?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
@@ -691,11 +699,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const timezoneOffset = today.getTimezoneOffset() * 60000;
     dateInput.min = new Date(today.getTime() - timezoneOffset).toISOString().split("T")[0];
     dateInput.addEventListener("change", () => {
-      dateInput.setCustomValidity("");
       if (dateInput.value && !isBookingDayAllowed(dateInput.value)) {
-        dateInput.setCustomValidity(getScheduleMessage());
-        dateInput.reportValidity();
+        const invalidDate = dateInput.value;
         dateInput.value = "";
+        loadBookingsForDate(invalidDate);
+        return;
       }
       loadBookingsForDate(dateInput.value);
     });
