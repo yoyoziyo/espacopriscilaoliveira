@@ -358,7 +358,7 @@ const renderServiceOptions = () => {
       meta,
       category,
       comingSoon: SERVICE_SCHEDULES[category]?.comingSoon === true,
-      duration: parseServiceDuration(meta)
+        if (slotMinutes > getSelectedSchedule().closeMinutes) return true;
     };
   }).filter((service) => service.name);
 
