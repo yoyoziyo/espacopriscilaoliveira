@@ -284,7 +284,7 @@ const getSelectedServiceValues = () => [...bookingState.selectedServices.values(
 const isSlotUnavailable = (slotMinutes) => {
   const selectedDuration = getSelectedDuration();
   if (!selectedDuration || !bookingState.availabilityLoaded) return true;
-  if (slotMinutes + selectedDuration > getSelectedSchedule().closeMinutes) return true;
+  if (slotMinutes > getSelectedSchedule().closeMinutes) return true;
 
   return bookingState.bookingsForDate.some((booking) => {
     if (booking.status === "cancelado") return false;
@@ -358,7 +358,7 @@ const renderServiceOptions = () => {
       meta,
       category,
       comingSoon: SERVICE_SCHEDULES[category]?.comingSoon === true,
-        if (slotMinutes > getSelectedSchedule().closeMinutes) return true;
+      duration: parseServiceDuration(meta)
     };
   }).filter((service) => service.name);
 
