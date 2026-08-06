@@ -70,12 +70,12 @@ const buildConfirmationEmail = ({ nome, servico, data, horario, valor, calendarU
             <td align="center" style="background:#cf8096;padding:28px 24px;">
               <img src="https://espacopriscilaoliveira.com/imagens/logo.webp" width="92" alt="Espaço Priscila Oliveira" style="display:block;max-width:92px;height:auto;margin-bottom:14px;">
               <h1 style="margin:0;color:#ffffff;font-size:25px;line-height:1.3;">Espaço Priscila Oliveira</h1>
-              <p style="margin:8px 0 0;color:#fff4f7;font-size:15px;">Recebemos sua solicitação de agendamento</p>
+              <p style="margin:8px 0 0;color:#fff4f7;font-size:15px;">Seu agendamento está confirmado</p>
             </td>
           </tr>
           <tr>
             <td style="padding:30px 28px;">
-              <p style="margin:0 0 20px;font-size:16px;line-height:1.6;">Olá, <strong>${escapeHtml(nome)}</strong>! Confira abaixo os detalhes da sua solicitação.</p>
+              <p style="margin:0 0 20px;font-size:16px;line-height:1.6;">Olá, <strong>${escapeHtml(nome)}</strong>! Seu horário já está reservado. Confira abaixo os detalhes do seu agendamento.</p>
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#fff7f9;border:1px solid #efd7de;border-radius:12px;">
                 <tr><td style="padding:14px 18px;border-bottom:1px solid #efd7de;"><strong>Cliente</strong><br>${escapeHtml(nome)}</td></tr>
                 <tr><td style="padding:14px 18px;border-bottom:1px solid #efd7de;"><strong>Serviço(s)</strong><br>${escapeHtml(servico)}</td></tr>
@@ -85,7 +85,7 @@ const buildConfirmationEmail = ({ nome, servico, data, horario, valor, calendarU
               <div style="text-align:center;margin:28px 0 18px;">
                 <a href="${escapeHtml(calendarUrl)}" style="display:inline-block;background:#cf8096;color:#ffffff;text-decoration:none;font-weight:bold;padding:15px 22px;border-radius:10px;">📅 Adicionar ao meu Google Agenda</a>
               </div>
-              <p style="margin:0;color:#725b63;font-size:13px;line-height:1.6;text-align:center;">A solicitação será confirmada pela Priscila via WhatsApp.</p>
+              <p style="margin:0;color:#725b63;font-size:13px;line-height:1.6;text-align:center;">Seu agendamento está confirmado. Se precisar remarcar ou cancelar, fale conosco pelo WhatsApp.</p>
             </td>
           </tr>
         </table>
@@ -187,7 +187,7 @@ export default async function handler(req, res) {
       const { error: emailError } = await resend.emails.send({
         from: "Espaço Priscila Oliveira <agendamento@espacopriscilaoliveira.com>",
         to: [email],
-        subject: "Recebemos sua solicitação de agendamento",
+        subject: "Agendamento confirmado — Espaço Priscila Oliveira",
         html: buildConfirmationEmail({ nome, servico, data, horario, valor, calendarUrl })
       });
 
