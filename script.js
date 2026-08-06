@@ -271,6 +271,59 @@ const isBookingTimeAllowed = (time) => {
 const getSelectedDuration = () => [...bookingState.selectedServices.values()]
   .reduce((total, service) => total + service.duration, 0);
 
+const getSelectedCategoryKeys = () => [...new Set(
+  [...bookingState.selectedServices.values()].map((service) => service.category)
+)];
+
+const normalizeServiceName = (value) => String(value || "")
+  .trim()
+  .toLocaleLowerCase("pt-BR");
+
+const getBookingCategoryKeys = (booking) => {
+  const validCategories = new Set(Object.keys(SERVICE_SCHEDULES));
+  const storedCategories = Array.isArray(booking.categorias)
+    ? booking.categorias
+    : (typeof booking.categoria === "string" ? [booking.categoria] : []);
+  const normalizedStoredCategories = [...new Set(
+    storedCategories.filter((category) => validCategories.has(category))
+  )];
+
+  if (normalizedStoredCategories.length) return normalizedStoredCategories;
+
+  const serviceNames = Array.isArray(booking.servicos)
+    ? booking.servicos
+    : (typeof booking.servico === "string" ? booking.servico.split(",") : []);
+  const catalog = new Map();
+
+  document.querySelectorAll(".service-card").forEach((card) => {
+    const name = card.querySelector("h4")?.textContent;
+    const categoryName = card.closest(".category-block")
+      ?.querySelector(".category-text h3")
+      ?.childNodes[0]
+      ?.textContent
+      ?.trim();
+
+    if (name && categoryName) {
+      catalog.set(normalizeServiceName(name), getCategoryKey(categoryName));
+    }
+  });
+
+  const inferredCategories = serviceNames
+    .map((serviceName) => catalog.get(normalizeServiceName(serviceName)))
+    .filter(Boolean);
+
+  return inferredCategories.length ? [...new Set(inferredCategories)] : null;
+};
+
+const bookingUsesSelectedCategory = (booking) => {
+  const selectedCategories = getSelectedCategoryKeys();
+  const bookingCategories = getBookingCategoryKeys(booking);
+
+  // Registros antigos não identificados bloqueiam todas as categorias por segurança.
+  if (!bookingCategories) return true;
+  return selectedCategories.some((category) => bookingCategories.includes(category));
+};
+
 const getSelectedServiceNames = () => [...bookingState.selectedServices.values()]
   .map((service) => service.name);
 
@@ -288,6 +341,7 @@ const isSlotUnavailable = (slotMinutes) => {
 
   return bookingState.bookingsForDate.some((booking) => {
     if (booking.status === "cancelado") return false;
+    if (!bookingUsesSelectedCategory(booking)) return false;
     const bookingStart = timeToMinutes(booking.horario || "00:00");
     const bookingDuration = Number(booking.duracaoTotal) || DEFAULT_SERVICE_DURATION;
     const bookingEnd = bookingStart + bookingDuration;
@@ -616,6 +670,7 @@ async function handleBookingSubmit(event) {
       telefone,
       servicos,
       servico: servicos.join(", "),
+      categorias: getSelectedCategoryKeys(),
       valor,
       data,
       horario,
@@ -671,7 +726,13 @@ async function handleBookingSubmit(event) {
     if (whatsappWindow) whatsappWindow.opener = null;
     else statusElement.textContent = "O navegador bloqueou a nova aba. Use o link de WhatsApp abaixo.";
 
-    bookingState.bookingsForDate.push({ data, horario, duracaoTotal, status: "pendente" });
+    bookingState.bookingsForDate.push({
+      data,
+      horario,
+      duracaoTotal,
+      categorias: getSelectedCategoryKeys(),
+      status: "pendente"
+    });
     renderTimeSlots();
   } catch (error) {
     console.error("Erro ao concluir agendamento:", error);
