@@ -40,9 +40,9 @@ export const SERVICE_CATALOG = {
   "Designer com Tintura": { category: "aesthetics", duration: 40, price: "R$ 65" }
 };
 
-export const parseCredentials = () => {
-  if (!process.env.GOOGLE_CREDENTIALS) throw new Error("GOOGLE_CREDENTIALS não configurada.");
-  const raw = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+const parseCredentialJson = (value, variableName) => {
+  if (!value) throw new Error(`${variableName} não configurada.`);
+  const raw = JSON.parse(value);
   return {
     ...raw,
     project_id: raw.project_id || "espaco-priscila-oliveira",
@@ -50,11 +50,20 @@ export const parseCredentials = () => {
   };
 };
 
+export const parseGoogleCredentials = () =>
+  parseCredentialJson(process.env.GOOGLE_CREDENTIALS, "GOOGLE_CREDENTIALS");
+
+export const parseFirebaseCredentials = () =>
+  parseCredentialJson(
+    process.env.FIREBASE_CREDENTIALS || process.env.GOOGLE_CREDENTIALS,
+    "FIREBASE_CREDENTIALS"
+  );
+
 export const getAdminDb = () => {
   const appName = "booking-server";
   let app = getApps().find((candidate) => candidate.name === appName);
   if (!app) {
-    const credentials = parseCredentials();
+    const credentials = parseFirebaseCredentials();
     app = initializeApp({
       credential: cert({
         projectId: credentials.project_id,

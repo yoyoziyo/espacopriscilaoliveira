@@ -141,8 +141,20 @@ document.addEventListener("contextmenu", (e) => {
 // ==========================================================================
 // FIREBASE E FLUXO DE AGENDAMENTO EM ETAPAS
 // ==========================================================================
-const BOOKING_API_URL = "https://espacopriscilaoliveira.vercel.app/api/agendar";
-const AVAILABILITY_API_URL = "https://espacopriscilaoliveira.vercel.app/api/disponibilidade";
+const firebaseConfig = {
+  apiKey: "AIzaSyCfyg461i7D_L6eqk3EL-GHyf5L3tu5Dlw",
+  authDomain: "espaco-priscila-oliveira.firebaseapp.com",
+  projectId: "espaco-priscila-oliveira",
+  storageBucket: "espaco-priscila-oliveira.firebasestorage.app",
+  messagingSenderId: "59754778801",
+  appId: "1:59754778801:web:53f6e2ded8cb0e6c051290"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const db = firebase.firestore();
 const BOOKING_SLOT_INTERVAL = 30;
 const DEFAULT_SERVICE_DURATION = 60;
 const SERVICE_SCHEDULES = {
@@ -158,8 +170,7 @@ const bookingState = {
   selectedDate: "",
   selectedTime: "",
   bookingsForDate: [],
-  availabilityLoaded: false,
-  idempotencyKey: ""
+  availabilityLoaded: false
 };
 
 const getCategoryKey = (categoryName) => {
@@ -315,11 +326,6 @@ const bookingUsesSelectedCategory = (booking) => {
 
 const getSelectedServiceNames = () => [...bookingState.selectedServices.values()]
   .map((service) => service.name);
-
-const createIdempotencyKey = () => {
-  if (globalThis.crypto?.randomUUID) return globalThis.crypto.randomUUID();
-  return `booking-${Date.now()}-${Math.random().toString(36).slice(2)}`;
-};
 
 const getSelectedServiceValues = () => [...bookingState.selectedServices.values()]
   .map((service) => {
@@ -497,7 +503,6 @@ const loadBookingsForDate = async (date) => {
   bookingState.selectedTime = "";
   bookingState.bookingsForDate = [];
   bookingState.availabilityLoaded = false;
-  bookingState.idempotencyKey = "";
   document.getElementById("bookingTime").value = "";
   updateStepButtons();
   renderTimeSlots();
@@ -516,15 +521,8 @@ const loadBookingsForDate = async (date) => {
   if (status) status.textContent = "Consultando disponibilidade...";
 
   try {
-    const response = await fetch(`${AVAILABILITY_API_URL}?data=${encodeURIComponent(date)}`, {
-      headers: { "Accept": "application/json" },
-      cache: "no-store"
-    });
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.success) {
-      throw new Error(result.error || "Falha ao consultar disponibilidade.");
-    }
-    bookingState.bookingsForDate = Array.isArray(result.agendamentos) ? result.agendamentos : [];
+    const snapshot = await db.collection("agendamentos").where("data", "==", date).get();
+    bookingState.bookingsForDate = snapshot.docs.map((documentSnapshot) => documentSnapshot.data());
     bookingState.availabilityLoaded = true;
     if (status) status.textContent = "Disponibilidade atualizada.";
   } catch (error) {
@@ -564,7 +562,7 @@ const renderBookingReview = () => {
   review.replaceChildren();
 
   const title = document.createElement("strong");
-  title.textContent = "Resumo do agendamento";
+  title.textContent = "Resumo da solicitação";
   const serviceText = document.createElement("p");
   serviceText.textContent = services.join(", ");
   const scheduleText = document.createElement("p");
@@ -599,12 +597,12 @@ const buildGoogleCalendarUrl = ({ nome, servicos, data, horario, duracaoTotal })
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 };
 
-const showBookingConfirmation = ({ calendarUrl, whatsappUrl, codigoAgendamento, warnings = [] }) => {
+const showBookingConfirmation = ({ calendarUrl, whatsappUrl }) => {
   const confirmation = document.getElementById("bookingConfirmation");
   if (!confirmation) return;
 
   const message = document.createElement("p");
-  message.textContent = `Agendamento confirmado! Código: ${codigoAgendamento}. Seu horário está reservado.`;
+  message.textContent = "Solicitação salva! Confirme os detalhes com a Priscila pelo WhatsApp.";
 
   const calendarButton = document.createElement("a");
   calendarButton.className = "btn-google-calendar";
@@ -618,15 +616,9 @@ const showBookingConfirmation = ({ calendarUrl, whatsappUrl, codigoAgendamento, 
   whatsappFallback.href = whatsappUrl;
   whatsappFallback.target = "_blank";
   whatsappFallback.rel = "noopener noreferrer";
-  whatsappFallback.textContent = "Avisar a Priscila pelo WhatsApp";
+  whatsappFallback.textContent = "Abrir conversa no WhatsApp";
 
-  const nodes = [message, calendarButton, whatsappFallback];
-  if (warnings.length) {
-    const warning = document.createElement("small");
-    warning.textContent = "O horário está confirmado, mas alguma notificação pode não ter sido enviada. Informe o código pelo WhatsApp.";
-    nodes.push(warning);
-  }
-  confirmation.replaceChildren(...nodes);
+  confirmation.replaceChildren(message, calendarButton, whatsappFallback);
   confirmation.hidden = false;
 };
 
@@ -641,8 +633,10 @@ async function handleBookingSubmit(event) {
   const email = document.getElementById("bookingEmail").value.trim();
   const telefone = document.getElementById("bookingPhone").value.trim();
   const servicos = getSelectedServiceNames();
+  const valor = getSelectedServiceValues();
   const data = bookingState.selectedDate;
   const horario = bookingState.selectedTime;
+  const duracaoTotal = getSelectedDuration();
 
   if (!nome || !email || !telefone || !servicos.length || !data || !horario) {
     statusElement.textContent = "Revise as etapas e preencha todos os dados.";
@@ -654,80 +648,100 @@ async function handleBookingSubmit(event) {
     return;
   }
 
-  bookingState.idempotencyKey ||= createIdempotencyKey();
   submitButton.disabled = true;
-  submitButton.textContent = "Confirmando...";
+  submitButton.textContent = "Verificando...";
   statusElement.textContent = "";
   confirmation.hidden = true;
 
   try {
-    const response = await fetch(BOOKING_API_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        idempotencyKey: bookingState.idempotencyKey,
-        nome,
-        email,
-        telefone,
-        servicos,
-        data,
-        horario
-      })
-    });
-    const result = await response.json().catch(() => ({}));
-
-    if (!response.ok || !result.success) {
-      if (response.status === 409) {
-        bookingState.idempotencyKey = "";
-        await loadBookingsForDate(data);
-      }
-      throw new Error(result.error || "Não foi possível confirmar o agendamento.");
+    await loadBookingsForDate(data);
+    const requestedMinutes = timeToMinutes(horario);
+    if (isSlotUnavailable(requestedMinutes)) {
+      throw new Error("O horário selecionado acabou de ficar indisponível.");
     }
 
-    const codigoAgendamento = result.codigoAgendamento;
-    const profissionais = Array.isArray(result.profissionais) ? result.profissionais : [];
-    const duracaoTotal = Number(result.duracaoTotal) || getSelectedDuration();
+    bookingState.selectedTime = horario;
+    document.getElementById("bookingTime").value = horario;
+    submitButton.textContent = "Salvando...";
+
+    await db.collection("agendamentos").add({
+      nome,
+      email,
+      telefone,
+      servicos,
+      servico: servicos.join(", "),
+      categorias: getSelectedCategoryKeys(),
+      valor,
+      data,
+      horario,
+      duracaoTotal,
+      status: "pendente",
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    try {
+      const calendarResponse = await fetch("https://espacopriscilaoliveira.vercel.app/api/agendar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome,
+          email,
+          telefone,
+          servico: servicos.join(", "),
+          valor,
+          data,
+          horario,
+          duracaoTotal
+        })
+      });
+
+      const calendarResult = await calendarResponse.json().catch(() => ({}));
+      if (!calendarResponse.ok || !calendarResult.success) {
+        throw new Error(calendarResult.error || "Falha ao sincronizar com o Google Calendar.");
+      }
+    } catch (calendarError) {
+      console.error("Agendamento salvo, mas o calendário não foi sincronizado:", calendarError);
+      statusElement.textContent = "Agendamento salvo, mas não foi possível sincronizar automaticamente com a agenda. Avise a Priscila pelo WhatsApp.";
+    }
+
+    const calendarUrl = buildGoogleCalendarUrl({ nome, servicos, data, horario, duracaoTotal });
     const formattedDate = data.split("-").reverse().join("/");
     const whatsappMessage = [
-      "Olá, Priscila! Acabei de realizar meu agendamento pelo site:",
+      "Olá, Priscila! Gostaria de confirmar uma solicitação de agendamento:",
       "",
-      `Código: ${codigoAgendamento}`,
-      `Cliente: ${nome}`,
-      `Profissionais: ${profissionais.join(" e ")}`,
+      `Nome: ${nome}`,
+      `E-mail: ${email}`,
+      `Telefone/WhatsApp: ${telefone}`,
       `Serviços: ${servicos.join(", ")}`,
-      `Data: ${formattedDate}`,
-      `Horário: ${horario}`,
       `Duração estimada: ${formatDuration(duracaoTotal)}`,
-      "",
-      "Meu horário já foi confirmado pelo site."
+      `Data: ${formattedDate}`,
+      `Horário: ${horario}`
     ].join("\n");
     const whatsappUrl = `https://wa.me/5521982490919?text=${encodeURIComponent(whatsappMessage)}`;
 
-    showBookingConfirmation({
-      calendarUrl: result.calendarUrl,
-      whatsappUrl,
-      codigoAgendamento,
-      warnings: result.warnings || []
-    });
-
+    showBookingConfirmation({ calendarUrl, whatsappUrl });
     const whatsappWindow = window.open(whatsappUrl, "_blank");
     if (whatsappWindow) whatsappWindow.opener = null;
-    else statusElement.textContent = "O agendamento está confirmado. O navegador bloqueou o WhatsApp; use o link abaixo.";
+    else statusElement.textContent = "O navegador bloqueou a nova aba. Use o link de WhatsApp abaixo.";
 
     bookingState.bookingsForDate.push({
       data,
       horario,
       duracaoTotal,
       categorias: getSelectedCategoryKeys(),
-      status: "confirmado"
+      status: "pendente"
     });
     renderTimeSlots();
   } catch (error) {
     console.error("Erro ao concluir agendamento:", error);
-    statusElement.textContent = error.message;
+    statusElement.textContent = error.message.includes("indisponível")
+      ? error.message
+      : "Não foi possível concluir o agendamento. Tente novamente em instantes.";
   } finally {
     submitButton.disabled = false;
-    submitButton.textContent = "Confirmar agendamento";
+    submitButton.textContent = "Solicitar agendamento";
   }
 }
 

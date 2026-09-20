@@ -7,7 +7,7 @@ import {
   calendarEventIdFor,
   getBookingPlan,
   normalizeServiceNames,
-  parseCredentials,
+  parseGoogleCredentials,
   reserveBooking
 } from "./_booking.js";
 
@@ -69,7 +69,7 @@ const buildConfirmationEmail = ({ booking, calendarUrl }) => `
 
 const createCalendarEvent = async ({ booking, idempotencyKey, endDateTime }) => {
   if (!process.env.GOOGLE_CALENDAR_ID) throw new Error("GOOGLE_CALENDAR_ID não configurada.");
-  const credentials = parseCredentials();
+  const credentials = parseGoogleCredentials();
   const auth = new google.auth.GoogleAuth({ credentials, scopes: ["https://www.googleapis.com/auth/calendar"] });
   const calendar = google.calendar({ version: "v3", auth });
   const eventId = calendarEventIdFor(idempotencyKey);
