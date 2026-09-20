@@ -5,6 +5,7 @@
   "type": "module",
   "dependencies": {
     "googleapis": "^173.0.0",
-    "resend": "^6.0.0"
+    "resend": "^6.0.0",
+    "firebase-admin": "^13.5.0"
   }
 }
