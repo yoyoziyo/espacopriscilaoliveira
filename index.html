@@ -25,8 +25,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css?v=20260803-1">
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
@@ -522,7 +520,7 @@
         <span class="subtitle">Agendamento</span>
         <h2>Reserve sua <span>experiência</span></h2>
         <div class="diamond-divider">♦</div>
-        <p class="booking-intro">Monte seu atendimento, escolha um horário disponível e envie a solicitação.</p>
+        <p class="booking-intro">Monte seu atendimento, escolha um horário disponível e confirme seu agendamento.</p>
       </header>
 
       <ol class="booking-progress" aria-label="Etapas do agendamento">
@@ -590,7 +588,7 @@
             <span class="booking-step-number">03</span>
             <div>
               <h3 id="bookingStepTitle3">Seus dados</h3>
-              <p>Informe seus dados para receber a confirmação por e-mail e concluir pelo WhatsApp.</p>
+              <p>Informe seus dados para confirmar o horário e receber os detalhes por e-mail.</p>
             </div>
           </div>
 
@@ -613,7 +611,7 @@
 
           <div class="booking-step-actions">
             <button type="button" class="btn-booking-back" data-back-step="2">Voltar</button>
-            <button type="submit" class="btn-booking-submit">Solicitar agendamento</button>
+            <button type="submit" class="btn-booking-submit">Confirmar agendamento</button>
           </div>
 
           <p id="bookingStatus" class="booking-status" role="status" aria-live="polite"></p>
@@ -624,7 +622,7 @@
       <div class="booking-info-footer">
         <div><span aria-hidden="true">⏱</span><strong>Duração estimada</strong><p>O tempo total é calculado pelos serviços selecionados.</p></div>
         <div><span aria-hidden="true">✓</span><strong>Disponibilidade atualizada</strong><p>Os horários ocupados são consultados antes do envio.</p></div>
-        <div><span aria-hidden="true">💬</span><strong>Confirmação pelo WhatsApp</strong><p>A solicitação só é confirmada após o retorno da Priscila.</p></div>
+        <div><span aria-hidden="true">💬</span><strong>Aviso pelo WhatsApp</strong><p>Seu horário é confirmado automaticamente; o WhatsApp funciona como aviso adicional.</p></div>
       </div>
     </div>
   </section>
@@ -662,6 +660,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=20260920-2"></script>
+  <script src="script.js?v=20260920-3"></script>
 </body>
 </html>
