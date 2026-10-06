@@ -8,8 +8,8 @@ export const SALON_LOCATION = "Pç. Heitor Bastos Tigre, 16355 - Recreio dos Ban
 
 export const SCHEDULES = {
   hair: { label: "Cuidados Capilares", professional: "Lilian", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
-  nails: { label: "Unhas e Alongamentos", professional: "Cintia", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
-  aesthetics: { label: "Olhar e Simetria", professional: "Priscila", days: [1, 4], openMinutes: 13 * 60 + 30, closeMinutes: 19 * 60 }
+  nails: { label: "Unhas e Alongamentos", professional: "Priscila", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
+  aesthetics: { label: "Olhar e Simetria", professional: "Lilian", days: [1, 4], openMinutes: 13 * 60 + 30, closeMinutes: 19 * 60 }
 };
 
 export const SERVICE_CATALOG = {
@@ -152,9 +152,16 @@ export const categoriesForStoredBooking = (booking) => {
   return inferred.length ? [...new Set(inferred)] : Object.keys(SCHEDULES);
 };
 
+export const professionalsForStoredBooking = (booking) => {
+  if (Array.isArray(booking.profissionais) && booking.profissionais.length) {
+    return [...new Set(booking.profissionais.map((name) => String(name).trim()).filter(Boolean))];
+  }
+  return [...new Set(categoriesForStoredBooking(booking).map((category) => SCHEDULES[category]?.professional).filter(Boolean))];
+};
+
 export const bookingOverlaps = (booking, plan) => {
   if (booking.status === "cancelado") return false;
-  if (!categoriesForStoredBooking(booking).some((category) => plan.categories.includes(category))) return false;
+  if (!professionalsForStoredBooking(booking).some((professional) => plan.professionals.includes(professional))) return false;
   const bookingStart = timeToMinutes(booking.horario || "00:00");
   const bookingDuration = Number(booking.duracaoTotal) || 60;
   return plan.startMinutes < bookingStart + bookingDuration && plan.startMinutes + plan.duration > bookingStart;
@@ -168,10 +175,10 @@ export const reserveBooking = async ({ idempotencyKey, nome, email, telefone, da
   const db = getAdminDb();
   const bookingRef = db.collection("agendamentos").doc(idempotencyKey);
   const code = bookingCodeFor(idempotencyKey);
-  const lockRefs = plan.categories.flatMap((category) => plan.slots.map((slot) => ({
-    category,
+  const lockRefs = plan.professionals.flatMap((professional) => plan.slots.map((slot) => ({
+    professional,
     slot,
-    ref: db.collection("reservas").doc(`${data}_${category}_${slot.replace(":", "-")}`)
+    ref: db.collection("reservas").doc(`${data}_${professional.toLocaleLowerCase("pt-BR")}_${slot.replace(":", "-")}`)
   })));
 
   return db.runTransaction(async (transaction) => {
@@ -215,7 +222,7 @@ export const reserveBooking = async ({ idempotencyKey, nome, email, telefone, da
       agendamentoId: bookingRef.id,
       codigoAgendamento: code,
       data,
-      categoria: lock.category,
+      profissional: lock.professional,
       horario: lock.slot,
       status: "confirmado",
       criadoEm: FieldValue.serverTimestamp()
@@ -235,6 +242,7 @@ export const listAvailabilityForDate = async (date) => {
       horario: booking.horario,
       duracaoTotal: Number(booking.duracaoTotal) || 60,
       categorias: categoriesForStoredBooking(booking),
+      profissionais: professionalsForStoredBooking(booking),
       status: booking.status || "confirmado"
     }));
 };

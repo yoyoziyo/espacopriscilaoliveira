@@ -146,9 +146,9 @@ const AVAILABILITY_API_URL = "https://espacopriscilaoliveira.vercel.app/api/disp
 const BOOKING_SLOT_INTERVAL = 30;
 const DEFAULT_SERVICE_DURATION = 60;
 const SERVICE_SCHEDULES = {
-  hair: { label: "Cabelo", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
-  nails: { label: "Unhas", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
-  aesthetics: { label: "Sobrancelha/Estética", days: [1, 4], openMinutes: 13 * 60 + 30, closeMinutes: 19 * 60 },
+  hair: { label: "Cabelo", professional: "Lilian", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
+  nails: { label: "Unhas", professional: "Priscila", days: [2, 3, 4, 5, 6], openMinutes: 10 * 60, closeMinutes: 19 * 60 },
+  aesthetics: { label: "Sobrancelha/Estética", professional: "Lilian", days: [1, 4], openMinutes: 13 * 60 + 30, closeMinutes: 19 * 60 },
   massage: { label: "Massagens", days: [], openMinutes: 0, closeMinutes: 0, comingSoon: true }
 };
 
@@ -264,6 +264,10 @@ const getSelectedCategoryKeys = () => [...new Set(
   [...bookingState.selectedServices.values()].map((service) => service.category)
 )];
 
+const getSelectedProfessionals = () => [...new Set(
+  getSelectedCategoryKeys().map((category) => SERVICE_SCHEDULES[category]?.professional).filter(Boolean)
+)];
+
 const normalizeServiceName = (value) => String(value || "")
   .trim()
   .toLocaleLowerCase("pt-BR");
@@ -304,13 +308,27 @@ const getBookingCategoryKeys = (booking) => {
   return inferredCategories.length ? [...new Set(inferredCategories)] : null;
 };
 
-const bookingUsesSelectedCategory = (booking) => {
-  const selectedCategories = getSelectedCategoryKeys();
-  const bookingCategories = getBookingCategoryKeys(booking);
+const getBookingProfessionals = (booking) => {
+  const storedProfessionals = Array.isArray(booking.profissionais)
+    ? booking.profissionais.map((name) => String(name).trim()).filter(Boolean)
+    : [];
 
-  // Registros antigos não identificados bloqueiam todas as categorias por segurança.
-  if (!bookingCategories) return true;
-  return selectedCategories.some((category) => bookingCategories.includes(category));
+  if (storedProfessionals.length) return [...new Set(storedProfessionals)];
+
+  const bookingCategories = getBookingCategoryKeys(booking);
+  if (!bookingCategories) return null;
+  return [...new Set(
+    bookingCategories.map((category) => SERVICE_SCHEDULES[category]?.professional).filter(Boolean)
+  )];
+};
+
+const bookingUsesSelectedProfessional = (booking) => {
+  const selectedProfessionals = getSelectedProfessionals();
+  const bookingProfessionals = getBookingProfessionals(booking);
+
+  // Registros sem identificação suficiente bloqueiam todas as profissionais por segurança.
+  if (!bookingProfessionals) return true;
+  return selectedProfessionals.some((professional) => bookingProfessionals.includes(professional));
 };
 
 const getSelectedServiceNames = () => [...bookingState.selectedServices.values()]
@@ -335,7 +353,7 @@ const isSlotUnavailable = (slotMinutes) => {
 
   return bookingState.bookingsForDate.some((booking) => {
     if (booking.status === "cancelado") return false;
-    if (!bookingUsesSelectedCategory(booking)) return false;
+    if (!bookingUsesSelectedProfessional(booking)) return false;
     const bookingStart = timeToMinutes(booking.horario || "00:00");
     const bookingDuration = Number(booking.duracaoTotal) || DEFAULT_SERVICE_DURATION;
     const bookingEnd = bookingStart + bookingDuration;
